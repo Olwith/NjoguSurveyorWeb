@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Complete Process of Creating Sectional Properties in Kenya | Njogu Surveyor</title>
+  <meta name="description" content="Step-by-step guide to creating sectional properties in Kenya. Learn about the Sectional Properties Act, surveying requirements, and title issuance for apartments and mixed-use buildings.">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&family=merriweather:400,700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
+
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --secondary: #dc2626;
+      --secondary-light: #ef4444;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --header-h: 72px;
+      --max-width: 1400px;
+      --container-pad: 5%;
+      --radius-lg: 16px;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+      --font-main: 'Inter', system-ui, sans-serif;
+      --font-body: 'Merriweather', Georgia, serif;
+    }
+
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #1e3a8a;
+      --secondary: #ef4444;
+      --light: #1e293b;
+      --dark: #f1f5f9;
+      --muted: #94a3b8;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      line-height: 1.6;
+      color: var(--dark);
+      background: #fff;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+    [data-theme="dark"] body { background: #0f172a; color: #f1f5f9; }
+    
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    a:hover { color: var(--secondary); }
+    button { font-family: inherit; cursor: pointer; }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--container-pad); }
+
+    /* Header */
+    header {
+      background: var(--primary-dark); padding: 0;
+      position: sticky; top: 0; z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      height: var(--header-h); max-width: var(--max-width);
+      margin: 0 auto; padding: 0 var(--container-pad);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; color: #fff; }
+    .logo img { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--secondary); }
+    .logo-text { font-size: 1.25rem; font-weight: 700; }
+    .logo-text span { color: var(--secondary); }
+    
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { color: #fff; font-weight: 500; font-size: 0.95rem; position: relative; }
+    .nav-links a:hover { color: var(--secondary-light); }
+    .nav-links .btn { background: var(--secondary); color: #fff; padding: 8px 20px; border-radius: 50px; }
+    .nav-links .btn:hover { background: var(--secondary-light); }
+
+    .mobile-toggle { display: none; color: #fff; font-size: 1.5rem; background: none; border: none; }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      background: rgba(255,255,255,0.15); border: none;
+      width: 40px; height: 40px; border-radius: 50%;
+      color: #fff; font-size: 1rem; display: flex;
+      align-items: center; justify-content: center;
+      transition: var(--transition); cursor: pointer;
+    }
+    .theme-toggle:hover { background: var(--secondary); }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      padding: 20px 0;
+      background: var(--light);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    [data-theme="dark"] .breadcrumb { background: #0f172a; border-color: #334155; }
+    .breadcrumb-list {
+      list-style: none; display: flex;
+      align-items: center; gap: 8px;
+      flex-wrap: wrap; font-size: 0.9rem;
+    }
+    .breadcrumb-list a { color: var(--muted); }
+    .breadcrumb-list a:hover { color: var(--secondary); }
+    .breadcrumb-list li:last-child { color: var(--dark); font-weight: 600; }
+    [data-theme="dark"] .breadcrumb-list li:last-child { color: #f1f5f9; }
+    .breadcrumb-sep { color: var(--muted); }
+
+    /* Article Hero */
+    .article-hero {
+      background: linear-gradient(rgba(30,58,138,0.88), rgba(30,58,138,0.82)),
+                  url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&auto=format&fit=crop') center/cover;
+      padding: 60px 0 80px; color: #fff;
+    }
+    .article-hero .container { max-width: 860px; }
+    .article-hero .badge {
+      display: inline-block; padding: 6px 16px;
+      background: var(--secondary); border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .article-hero h1 {
+      font-family: var(--font-main);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .article-meta {
+      display: flex; align-items: center; gap: 20px;
+      flex-wrap: wrap; font-size: 0.9rem; opacity: 0.9;
+    }
+    .article-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* Article Content */
+    .article-wrapper {
+      max-width: 820px;
+      margin: -40px auto 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .article-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 48px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .article-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .article-body {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #333;
+    }
+    [data-theme="dark"] .article-body { color: #cbd5e1; }
+
+    .article-body h2 {
+      font-family: var(--font-main);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 2rem 0 1rem;
+      padding-bottom: 8px;
+      border-bottom: 3px solid var(--secondary);
+      display: inline-block;
+    }
+    [data-theme="dark"] .article-body h2 { color: #f1f5f9; }
+
+    .article-body h3 {
+      font-family: var(--font-main);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 1.5rem 0 0.8rem;
+    }
+    [data-theme="dark"] .article-body h3 { color: #f1f5f9; }
+
+    .article-body p { margin-bottom: 1.2rem; }
+
+    .article-body ul, .article-body ol {
+      margin: 1rem 0 1.5rem 1.5rem;
+    }
+    .article-body li {
+      margin-bottom: 0.6rem;
+      line-height: 1.7;
+    }
+
+    .article-body blockquote {
+      border-left: 4px solid var(--secondary);
+      background: rgba(220,38,38,0.05);
+      padding: 20px 24px;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+    }
+    [data-theme="dark"] .article-body blockquote { background: rgba(220,38,38,0.1); }
+
+    .article-body .info-box {
+      background: rgba(30,64,175,0.06);
+      border-left: 4px solid var(--primary);
+      padding: 20px 24px;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    [data-theme="dark"] .article-body .info-box { background: rgba(59,130,246,0.1); }
+    .article-body .info-box .info-title {
+      font-family: var(--font-main);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .article-body img {
+      border-radius: 12px;
+      margin: 2rem 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .article-body a {
+      color: var(--primary);
+      font-weight: 600;
+      border-bottom: 1px solid transparent;
+    }
+    .article-body a:hover {
+      border-bottom-color: var(--primary);
+      color: var(--secondary);
+    }
+
+    /* Diagram Box */
+    .diagram-box {
+      background: var(--light);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    [data-theme="dark"] .diagram-box { background: #334155; border-color: #475569; }
+    .diagram-box .diagram-title {
+      font-family: var(--font-main);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+    [data-theme="dark"] .diagram-box .diagram-title { color: #f1f5f9; }
+    .diagram-flow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+    }
+    .diagram-step {
+      background: #fff;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: center;
+      min-width: 120px;
+    }
+    [data-theme="dark"] .diagram-step { background: #1e293b; border-color: var(--primary); color: var(--primary); }
+    .diagram-arrow {
+      font-size: 1.2rem;
+      color: var(--secondary);
+    }
+
+    /* Sectional Card Visual */
+    .sectional-visual {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 2rem 0;
+    }
+    .sectional-unit {
+      background: var(--light);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .sectional-unit { background: #334155; border-color: #475569; }
+    .sectional-unit .unit-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .sectional-unit .unit-name {
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 0.9rem;
+    }
+    [data-theme="dark"] .sectional-unit .unit-name { color: #f1f5f9; }
+    .sectional-unit .unit-type {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* CTA Box */
+    .cta-box {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      padding: 32px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2.5rem 0;
+    }
+    .cta-box h3 {
+      font-family: var(--font-main);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .cta-box p { opacity: 0.9; margin-bottom: 20px; }
+    .cta-box .btn-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; background: var(--secondary);
+      color: #fff; border-radius: 50px; font-weight: 700;
+      font-size: 1rem; transition: var(--transition);
+    }
+    .cta-box .btn-cta:hover { background: var(--secondary-light); transform: translateY(-2px); }
+
+    /* Share & Tags */
+    .article-footer {
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    [data-theme="dark"] .article-footer { border-color: #334155; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .tag {
+      padding: 6px 14px; background: var(--light);
+      border-radius: 50px; font-size: 0.85rem;
+      color: var(--muted); font-weight: 500;
+    }
+    [data-theme="dark"] .tag { background: #334155; color: #94a3b8; }
+    .share-section { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .share-label { font-weight: 600; font-size: 0.95rem; }
+    .share-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem; transition: var(--transition);
+    }
+    .share-btn:hover { transform: scale(1.1); color: #fff; }
+    .share-btn.facebook { background: #1877f2; }
+    .share-btn.twitter { background: #1da1f2; }
+    .share-btn.whatsapp { background: #25D366; }
+    .share-btn.linkedin { background: #0a66c2; }
+
+    /* Related Posts */
+    .related-posts { max-width: 820px; margin: 0 auto 60px; }
+    .related-posts h2 { font-size: 1.5rem; margin-bottom: 24px; color: var(--dark); }
+    [data-theme="dark"] .related-posts h2 { color: #f1f5f9; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .related-card {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: var(--shadow-lg); transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .related-card { background: #1e293b; border-color: #334155; }
+    .related-card:hover { transform: translateY(-5px); }
+    .related-card img { width: 100%; height: 150px; object-fit: cover; }
+    .related-card .related-body { padding: 16px; }
+    .related-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--dark); line-height: 1.4; }
+    [data-theme="dark"] .related-card h3 { color: #f1f5f9; }
+    .related-card .read-more { font-size: 0.85rem; color: var(--primary); font-weight: 600; }
+
+    /* Back Button */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted); font-weight: 500; margin-bottom: 16px;
+    }
+    .back-btn:hover { color: var(--secondary); }
+
+    /* Footer */
+    footer { background: #0b0f1a; color: #9ca3af; padding: 40px 0; text-align: center; }
+    footer a { color: #d1d5db; }
+    footer a:hover { color: var(--secondary); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .mobile-toggle { display: block; }
+      .nav-links {
+        position: fixed; top: var(--header-h); left: 0; width: 100%;
+        background: var(--primary-dark); flex-direction: column;
+        padding: 24px; gap: 16px; transform: translateY(-150%);
+        transition: transform 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      }
+      .nav-links.open { transform: translateY(0); }
+      .article-card { padding: 28px 20px; }
+      .article-body { font-size: 1rem; }
+      .article-hero { padding: 40px 0 60px; }
+      .diagram-flow { flex-direction: column; }
+      .diagram-arrow { transform: rotate(90deg); }
+    }
+
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      position: fixed; right: 20px; bottom: 20px;
+      width: 60px; height: 60px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: #25D366; color: #fff; font-size: 1.5rem;
+      box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+      z-index: 1400; transition: var(--transition);
+    }
+    .whatsapp-float:hover { transform: scale(1.12); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar container">
+      <a href="../index.html" class="logo">
+        <img src="https://image.qwenlm.ai/public_source/eb2b3530-0c8d-431f-9a13-2f1265fd23e3/15837c7f9-b07f-4cb3-b7cb-c68c2e377713.png" alt="Njogu Surveyor Logo">
+        <div class="logo-text">Njogu<span>Surveyor</span></div>
+      </a>
+      
+      <button class="mobile-toggle" id="menuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#contact" class="btn">Contact Us</a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb-list">
+        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></li>
+        <li>Sectional Properties</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Article Hero -->
+  <section class="article-hero">
+    <div class="container">
+      <span class="badge"><i class="fas fa-building"></i> Property Development</span>
+      <h1>What is the Complete Process of Creating Sectional Properties in Kenya?</h1>
+      <div class="article-meta">
+        <span><i class="far fa-calendar-alt"></i> May 2, 2026</span>
+        <span><i class="far fa-clock"></i> 10 min read</span>
+        <span><i class="far fa-user"></i> Njogu Surveyor Team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <main>
+    <div class="article-wrapper container">
+      <a href="../blog.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+      
+      <article class="article-card">
+        <div class="article-body">
+          
+          <p>In Kenya's rapidly urbanizing landscape, sectional properties have become the standard for apartment living, office complexes, and mixed-use developments. Whether it's a high-rise in Westlands, a townhouse complex in Kiambu, or a commercial plaza in Mombasa, the legal framework that makes individual ownership of units possible is the <strong>Sectional Properties Act, 2020</strong>.</p>
+
+          <p>But what exactly is a sectional property, and how does a developer or landowner create one? This comprehensive guide walks you through the entire process — from planning to the issuance of individual title deeds for each unit.</p>
+
+          <h2>What is a Sectional Property?</h2>
+          <p>A sectional property is a type of real estate where a building or buildings are divided into separate units (sections) that can be owned individually, along with a share of the common areas. Common areas include corridors, staircases, parking spaces, gardens, and recreational facilities.</p>
+
+          <div class="sectional-visual">
+            <div class="sectional-unit">
+              <div class="unit-icon">🏠</div>
+              <div class="unit-name">Unit A</div>
+              <div class="unit-type">2-Bedroom Apartment</div>
+            </div>
+            <div class="sectional-unit">
+              <div class="unit-icon">🏢</div>
+              <div class="unit-name">Unit B</div>
+              <div class="unit-type">3-Bedroom Apartment</div>
+            </div>
+            <div class="sectional-unit">
+              <div class="unit-icon">️</div>
+              <div class="unit-name">Common Areas</div>
+              <div class="unit-type">Parking, Garden, Gym</div>
+            </div>
+          </div>
+
+          <p>Key characteristics of a sectional property:</p>
+          <ul>
+            <li><strong>Individual Ownership:</strong> Each unit has its own title deed that can be bought, sold, or mortgaged independently.</li>
+            <li><strong>Undivided Share:</strong> Each owner holds an undivided share in the common property, proportional to the unit's value.</li>
+            <li><strong>Body Corporate:</strong> A management corporation (Body Corporate) is formed to manage and maintain the common areas.</li>
+            <li><strong>By-Laws:</strong> Rules governing the use of units and common areas are registered alongside the sectional plan.</li>
+          </ul>
+
+          <div class="info-box">
+            <div class="info-title"><i class="fas fa-gavel"></i> Legal Framework</div>
+            <p>The <strong>Sectional Properties Act, 2020</strong> replaced the old Sectional Properties Act of 1987. The new Act aligned sectional properties with the Constitution of Kenya 2010, the Land Act, and the Land Registration Act. It simplified the process and introduced electronic registration through Ardhisasa.</p>
+          </div>
+
+          <h2>The Complete Process: Step by Step</h2>
+
+          <div class="diagram-box">
+            <div class="diagram-title">Sectional Property Creation Flow</div>
+            <div class="diagram-flow">
+              <div class="diagram-step">1. Land Acquisition & Due Diligence</div>
+              <span class="diagram-arrow">→</span>
+              <div class="diagram-step">2. Planning & Design</div>
+              <span class="diagram-arrow">→</span>
+              <div class="diagram-step">3. Construction</div>
+              <span class="diagram-arrow">→</span>
+              <div class="diagram-step">4. Sectional Plan Survey</div>
+              <span class="diagram-arrow">→</span>
+              <div class="diagram-step">5. Registration & Titling</div>
+            </div>
+          </div>
+
+          <h3>Step 1: Land Acquisition and Due Diligence</h3>
+          <p>Before anything else, the developer must acquire a suitable parcel of land. This involves:</p>
+          <ul>
+            <li>Conducting an official search to confirm ownership and check for encumbrances</li>
+            <li>Verifying the land use zoning with the County Government</li>
+            <li>Ensuring the land is suitable for high-density development (check soil conditions, access roads, water and sewer capacity)</li>
+            <li>Engaging a physical planner to assess the development potential</li>
+          </ul>
+
+          <h3>Step 2: Planning and Design</h3>
+          <p>The architect and physical planner work together to create the building design and development plan. Key considerations include:</p>
+          <ul>
+            <li>Building density and height restrictions per county regulations</li>
+            <li>Minimum unit sizes (e.g., many counties require a minimum of 35-50 sqm for studio apartments)</li>
+            <li>Parking ratios (typically 1 space per unit for studios/1-bed, 2 spaces for larger units)</li>
+            <li>Common areas and amenities</li>
+            <li>Fire safety and building code compliance</li>
+          </ul>
+          <p>The development plan is submitted to the County Planning Department for approval. This can take <strong>2 to 4 months</strong>.</p>
+
+          <h3>Step 3: Construction</h3>
+          <p>Once planning approval is granted, construction begins. The developer must:</p>
+          <ul>
+            <li>Obtain a building permit from the County Government</li>
+            <li>Hire licensed contractors and engineers</li>
+            <li>Conduct inspections at key stages (foundation, structure, roofing, finishing)</li>
+            <li>Obtain a <strong>Certificate of Completion</strong> and <strong>Occupancy Permit</strong> from the County upon completion</li>
+          </ul>
+
+          <h3>Step 4: Sectional Plan Survey (The Critical Step)</h3>
+          <p>This is where the registered surveyor plays the most crucial role. The surveyor must:</p>
+          <ul>
+            <li><strong>Conduct a detailed survey of the building:</strong> Measure the exact dimensions of each unit, including internal and external walls.</li>
+            <li><strong>Identify common property:</strong> Map out all shared areas (lobbies, corridors, parking, gardens, utility rooms).</li>
+            <li><strong>Prepare the Sectional Plan:</strong> This plan shows the boundaries of each unit, the unit factor (share of common property), and the common areas.</li>
+            <li><strong>Geo-reference the plan:</strong> The sectional plan must be linked to the official coordinate system.</li>
+            <li><strong>Submit to the Survey of Kenya:</strong> The plan is authenticated and approved by the Director of Surveys.</li>
+          </ul>
+
+          <blockquote>
+            <strong>Important:</strong> The sectional plan must be prepared by a <strong>licensed surveyor</strong> registered with the Land Surveyors Board of Kenya. Njogu Surveyor has extensive experience in preparing sectional plans for apartment complexes, office buildings, and mixed-use developments.
+          </blockquote>
+
+          <h3>Step 5: Registration and Issuance of Titles</h3>
+          <p>Once the sectional plan is approved, the developer submits it to the Lands Registry along with:</p>
+          <ul>
+            <li>The original title deed of the parent parcel</li>
+            <li>Building plans and completion certificates</li>
+            <li>The approved sectional plan</li>
+            <li>By-laws for the Body Corporate</li>
+            <li>Unit factor calculations</li>
+          </ul>
+
+          <p>The Registrar then:</p>
+          <ol>
+            <li>Cancels the original title deed for the parent parcel</li>
+            <li>Registers the sectional plan</li>
+            <li>Issues individual title deeds for each unit (sectional titles)</li>
+            <li>Registers the Body Corporate as the owner of the common property</li>
+          </ol>
+
+          <p>Each unit owner receives a <strong>Sectional Title Deed</strong> that specifies:</p>
+          <ul>
+            <li>The unit number and description</li>
+            <li>The unit factor (share of common property)</li>
+            <li>The rights and obligations of the owner</li>
+            <li>Reference to the registered by-laws</li>
+          </ul>
+
+          <h2>Understanding the Unit Factor</h2>
+          <p>The <strong>unit factor</strong> determines each owner's share of the common property and their contribution to maintenance costs. It is typically calculated based on:</p>
+          <ul>
+            <li><strong>Floor area:</strong> Larger units get a higher unit factor</li>
+            <li><strong>Location within the building:</strong> Higher floors or premium locations may have adjusted factors</li>
+            <li><strong>Agreed value:</strong> Developers may assign factors based on market value</li>
+          </ul>
+
+          <div class="info-box">
+            <div class="info-title"><i class="fas fa-calculator"></i> Example Calculation</div>
+            <p>If a building has 4 units with floor areas of 80sqm, 100sqm, 120sqm, and 100sqm (total 400sqm), the unit factors would be:<br>
+            Unit 1: 80/400 = 0.20 (20%)<br>
+            Unit 2: 100/400 = 0.25 (25%)<br>
+            Unit 3: 120/400 = 0.30 (30%)<br>
+            Unit 4: 100/400 = 0.25 (25%)<br><br>
+            If the annual maintenance budget is KSh 1,000,000, Unit 3 pays KSh 300,000 while Unit 1 pays KSh 200,000.</p>
+          </div>
+
+          <h2>The Role of the Body Corporate</h2>
+          <p>Once the sectional titles are issued, a <strong>Body Corporate</strong> is automatically formed. All unit owners are members. The Body Corporate is responsible for:</p>
+          <ul>
+            <li>Maintaining and repairing common areas</li>
+            <li>Collecting service charges from unit owners</li>
+            <li>Enforcing the by-laws</li>
+            <li>Insuring the building structure</li>
+            <li>Managing disputes between owners</li>
+          </ul>
+
+          <h2>Timeline and Costs</h2>
+          <p>The entire process from land acquisition to title issuance typically takes <strong>12 to 24 months</strong>, depending on the size and complexity of the development. Key costs include:</p>
+          <ul>
+            <li><strong>Land cost</strong></li>
+            <li><strong>Architectural and engineering fees</strong></li>
+            <li><strong>County planning and building permit fees</strong></li>
+            <li><strong>Surveyor fees for sectional plan preparation</strong></li>
+            <li><strong>Registration fees and stamp duty</strong></li>
+            <li><strong>Construction costs</strong></li>
+          </ul>
+
+          <h2>Common Challenges</h2>
+          <ul>
+            <li><strong>Non-compliance with approved plans:</strong> Deviating from approved plans can lead to demolition orders or refusal to issue sectional titles.</li>
+            <li><strong>Disputes over unit factors:</strong> Owners may disagree on how unit factors are calculated, leading to legal challenges.</li>
+            <li><strong>Delayed registration:</strong> Backlogs at the Lands Registry can delay the issuance of individual titles.</li>
+            <li><strong>Unregistered by-laws:</strong> Without registered by-laws, the Body Corporate may struggle to enforce rules.</li>
+          </ul>
+
+          <div class="cta-box">
+            <h3>Planning a Sectional Development?</h3>
+            <p>Njogu Surveyor provides expert surveying services for sectional properties, including boundary surveys, sectional plan preparation, geo-referencing, and coordination with the Survey of Kenya. We ensure your sectional titles are issued smoothly and without delays.</p>
+            <a href="https://wa.me/254724737528?text=Hello%20Njogu%20Surveyor%2C%20I%20need%20help%20with%20sectional%20property%20surveying%20and%20titling..." class="btn-cta" target="_blank" rel="noopener">
+              <i class="fab fa-whatsapp"></i> Get a Free Consultation
+            </a>
+          </div>
+
+          <h2>Conclusion</h2>
+          <p>Creating sectional properties in Kenya is a multi-step process that requires careful planning, compliance with regulations, and the expertise of licensed professionals. From the initial land acquisition to the final issuance of sectional titles, each step must be executed with precision. At Njogu Surveyor, we guide developers and landowners through the surveying and registration process, ensuring that every unit is accurately defined and legally registered. Whether you're building a small apartment block or a large mixed-use complex, we're here to guide your vision with precision.</p>
+
+        </div>
+
+        <!-- Article Footer: Tags & Share -->
+        <div class="article-footer">
+          <div class="tags">
+            <span class="tag">Sectional Properties</span>
+            <span class="tag">Apartment Titles</span>
+            <span class="tag">Body Corporate</span>
+            <span class="tag">Unit Factor</span>
+            <span class="tag">Land Surveying</span>
+            <span class="tag">Property Development</span>
+            <span class="tag">Ardhisasa</span>
+          </div>
+
+          <div class="share-section">
+            <span class="share-label">Share this article:</span>
+            <a href="#" class="share-btn facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn twitter" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href)+'&text=Complete%20Process%20of%20Creating%20Sectional%20Properties%20in%20Kenya','_blank')" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn whatsapp" onclick="window.open('https://wa.me/?text='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="share-btn linkedin" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Related Posts -->
+    <section class="related-posts container">
+      <h2><i class="fas fa-newspaper" style="color:var(--secondary);margin-right:8px;"></i>Related Articles</h2>
+      <div class="related-grid">
+        <a href="subdivisions-approvals.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=400&auto=format&fit=crop" alt="Subdivision Approvals" loading="lazy">
+          <div class="related-body">
+            <h3>How to Get Approvals for Subdivisions & Amalgamations in Kenya</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+        <a href="change-of-land-use.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&auto=format&fit=crop" alt="Change of Land Use" loading="lazy">
+          <div class="related-body">
+            <h3>What is the Process of Change of Land Use in Kenya?</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+        <a href="title-deed-processing-time.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&auto=format&fit=crop" alt="Title Deed Processing" loading="lazy">
+          <div class="related-body">
+            <h3>How Long Does It Take to Get a Title Deed After Survey?</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Njogu Surveyor Real Estate Consultancy. All Rights Reserved.</p>
+      <p style="margin-top:8px;font-size:0.85rem;">Guiding Your Vision with Precision</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a class="whatsapp-float" href="https://wa.me/254724737528?text=Hello%20Njogu%20Surveyor%2C%20I%20read%20your%20blog%20about%20sectional%20properties%20and%20have%20a%20question..."
+     target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+  </a>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      const icon = menuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.querySelector('i').className = 'fas fa-sun';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeToggle.querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    });
+
+    // Dynamic Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Close mobile menu when clicking nav links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      });
+    });
+  </script>
+</body>
+</html>
+
