@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog - Njogu Surveyor Real Estate Consultancy</title>
+  <meta name="description" content="Insights, tips, and news on land surveying, property buying, and real estate in Kenya.">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" />
+  
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --secondary: #dc2626;
+      --secondary-light: #ef4444;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --header-h: 72px;
+      --max-width: 1400px;
+      --container-pad: 5%;
+      --radius-lg: 16px;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+      --font-main: 'Inter', system-ui, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #1e3a8a;
+      --secondary: #ef4444;
+      --light: #1e293b;
+      --dark: #f1f5f9;
+      --muted: #94a3b8;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      line-height: 1.6;
+      color: var(--dark);
+      background: #fff;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+    [data-theme="dark"] body { background: #0f172a; color: #f1f5f9; }
+    
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    a:hover { color: var(--secondary); }
+    button { font-family: inherit; cursor: pointer; }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--container-pad); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; background: var(--secondary); color: #fff;
+      border-radius: 50px; font-weight: 600; border: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(220,38,38,0.3); color: #fff; }
+    .btn-outline { background: transparent; border: 2px solid #fff; color: #fff; box-shadow: none; }
+    .btn-outline:hover { background: #fff; color: var(--primary-dark); }
+    
+    /* Header */
+    header {
+      background: var(--primary-dark); padding: 0;
+      position: sticky; top: 0; z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      height: var(--header-h); max-width: var(--max-width);
+      margin: 0 auto; padding: 0 var(--container-pad);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; color: #fff; }
+    .logo img { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--secondary); }
+    .logo-text { font-size: 1.25rem; font-weight: 700; }
+    .logo-text span { color: var(--secondary); }
+    
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { color: #fff; font-weight: 500; font-size: 0.95rem; position: relative; }
+    .nav-links a:hover, .nav-links a.active { color: var(--secondary-light); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: -6px; left: 0;
+      width: 100%; height: 2px; background: var(--secondary);
+    }
+    
+    .mobile-toggle { display: none; color: #fff; font-size: 1.5rem; background: none; border: none; }
+    .theme-toggle {
+      background: rgba(255,255,255,0.15); border: none;
+      width: 40px; height: 40px; border-radius: 50%;
+      color: #fff; font-size: 1rem; display: flex;
+      align-items: center; justify-content: center;
+      transition: var(--transition); cursor: pointer;
+    }
+    .theme-toggle:hover { background: var(--secondary); }
+    
+    /* Blog Hero */
+    .blog-hero {
+      background: linear-gradient(rgba(30,58,138,0.9), rgba(30,58,138,0.8)),
+                  url('https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=1600&auto=format&fit=crop') center/cover;
+      padding: 80px 0; color: #fff; text-align: center;
+    }
+    .blog-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 16px; }
+    .blog-hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+    /* Search */
+    .search-section {
+      padding: 40px 0 20px; background: #fff;
+      position: sticky; top: var(--header-h); z-index: 90;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] .search-section { background: #0f172a; border-color: #334155; }
+    
+    .search-box {
+      max-width: 600px; margin: 0 auto; position: relative;
+    }
+    .search-box input {
+      width: 100%; padding: 16px 50px 16px 24px;
+      border-radius: 50px; border: 2px solid #e2e8f0;
+      font-size: 1rem; background: #fff; color: var(--dark);
+      transition: var(--transition);
+    }
+    [data-theme="dark"] .search-box input { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+    .search-box input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(30,64,175,0.1); }
+    .search-icon {
+      position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: 1.1rem;
+    }
+
+    /* Category Filter */
+    .category-filter {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 0 10px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .category-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      border: 2px solid #e2e8f0;
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    [data-theme="dark"] .category-btn { background: #1e293b; border-color: #334155; color: #94a3b8; }
+    .category-btn:hover, .category-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    [data-theme="dark"] .category-btn:hover, [data-theme="dark"] .category-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* Blog Count */
+    .blog-count {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    /* Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 32px; padding: 40px 0 80px;
+    }
+    .blog-card {
+      background: #fff; border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-lg);
+      transition: var(--transition); display: flex; flex-direction: column;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .blog-card { background: #1e293b; border-color: #334155; }
+    .blog-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+    .blog-card.hidden { display: none; }
+    
+    .card-img { width: 100%; height: 220px; object-fit: cover; }
+    .card-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-category {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+    .cat-land { background: rgba(30,64,175,0.1); color: var(--primary); }
+    .cat-titles { background: rgba(220,38,38,0.1); color: var(--secondary); }
+    .cat-buying { background: rgba(34,197,94,0.1); color: #16a34a; }
+    .cat-legal { background: rgba(168,85,247,0.1); color: #9333ea; }
+    .cat-planning { background: rgba(245,158,11,0.1); color: #d97706; }
+    .cat-development { background: rgba(6,182,212,0.1); color: #0891b2; }
+    [data-theme="dark"] .cat-land { background: rgba(59,130,246,0.2); color: #60a5fa; }
+    [data-theme="dark"] .cat-titles { background: rgba(239,68,68,0.2); color: #f87171; }
+    [data-theme="dark"] .cat-buying { background: rgba(34,197,94,0.2); color: #4ade80; }
+    [data-theme="dark"] .cat-legal { background: rgba(168,85,247,0.2); color: #c084fc; }
+    [data-theme="dark"] .cat-planning { background: rgba(245,158,11,0.2); color: #fbbf24; }
+    [data-theme="dark"] .cat-development { background: rgba(6,182,212,0.2); color: #22d3ee; }
+    .card-date { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; }
+    .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--dark); line-height: 1.3; }
+    [data-theme="dark"] .card-title { color: #f1f5f9; }
+    .card-excerpt { font-size: 0.95rem; color: var(--muted); margin-bottom: 20px; line-height: 1.6; flex-grow: 1; }
+    .read-more { color: var(--primary); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    [data-theme="dark"] .read-more { color: var(--primary); }
+    .read-more:hover { gap: 10px; color: var(--secondary); }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center; padding: 60px 0; grid-column: 1 / -1;
+      color: var(--muted);
+    }
+    .empty-state i { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+
+    /* Footer */
+    footer { background: #0b0f1a; color: #9ca3af; padding: 40px 0; text-align: center; margin-top: auto; }
+    footer a { color: #d1d5db; }
+    footer a:hover { color: var(--secondary); }
+
+    /* Mobile Nav */
+    @media (max-width: 768px) {
+      .mobile-toggle { display: block; }
+      .nav-links {
+        position: fixed; top: var(--header-h); left: 0; width: 100%;
+        background: var(--primary-dark); flex-direction: column;
+        padding: 24px; gap: 16px; transform: translateY(-150%);
+        transition: transform 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      }
+      .nav-links.open { transform: translateY(0); }
+      .blog-grid { grid-template-columns: 1fr; padding: 20px 0 60px; }
+      .category-filter { gap: 8px; }
+      .category-btn { padding: 6px 14px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="https://image.qwenlm.ai/public_source/eb2b3530-0c8d-431f-9a13-2f1265fd23e3/15837c7f9-b07f-4cb3-b7cb-c68c2e377713.png" alt="Logo">
+        <div class="logo-text">Njogu<span>Surveyor</span></div>
+      </a>
+      
+      <button class="mobile-toggle" id="menuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact" class="btn" style="padding: 8px 20px;">Contact</a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Blog Hero -->
+  <section class="blog-hero">
+    <div class="container">
+      <h1>Knowledge Hub & Insights</h1>
+      <p>Expert advice on land surveying, property investments, and real estate laws in Kenya.</p>
+    </div>
+  </section>
+
+  <!-- Search & Filter -->
+  <div class="search-section">
+    <div class="container">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search articles (e.g., 'Title Deed', 'Subdivision')..." aria-label="Search blog posts">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+      <div class="category-filter" id="categoryFilter">
+        <button class="category-btn active" data-category="all">All Articles</button>
+        <button class="category-btn" data-category="land">Land & Subdivision</button>
+        <button class="category-btn" data-category="titles">Title Deeds</button>
+        <button class="category-btn" data-category="buying">Buying & Selling</button>
+        <button class="category-btn" data-category="legal">Legal & Succession</button>
+        <button class="category-btn" data-category="planning">Planning & Zoning</button>
+        <button class="category-btn" data-category="development">Development</button>
+      </div>
+      <div class="blog-count" id="blogCount"></div>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <main>
+    <div class="container">
+      <div id="blogGrid" class="blog-grid">
+
+        <!-- Blog Post 1: Subdivisions -->
+        <article class="blog-card" data-category="land" data-title="how to get approvals for subdivisions and amalgamations in kenya" data-excerpt="learn about the role of registered surveyors, physical planners, and county approvals.">
+          <a href="blog/subdivisions-approvals.html">
+            <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&auto=format&fit=crop" alt="Subdivisions and Amalgamations" class="card-img" loading="lazy">
+          </a>
+          <div class="card-body">
+            <span class="card-category cat-land">Land & Subdivision</span>
+            <span class="card-date"><i class="far fa-calendar-alt"></i> April 15, 2026</span>
+            <h2 class="card-title">How to Get Approvals for Subdivisions and Amalgamations in Kenya</h2>
+            <p class="card-excerpt">A comprehensive step-by-step guide to obtaining county approval for land subdivision and amalgamation. Learn about the role of registered surveyors, physical planners, and what documents you need to prepare.</p>
+            <a href="blog/subdivisions-approvals.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Blog Post 2: Title Deed Processing -->
+        <article class="blog-card" data-category="titles" data-title="how long does it take to get a title deed after survey" data-excerpt="understand the timeline for processing a title deed in kenya, the steps involved, and how to speed up the process.">
+          <a href="blog/title-deed-processing-time.html">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&auto=format&fit=crop" alt="Title Deed Processing" class="card-img" loading="lazy">
+          </a>
+          <div class="card-body">
+            <span class="card-category cat-titles">Title Deeds</span>
+            <span class="card-date"><i class="far fa-calendar-alt"></i> April 18, 2026</span>
+            <h2 class="card-title">How Long Does It Take to Get a Title Deed After Survey?</h2>
+            <p class="card-excerpt">From survey to title issuance — understand the real timeline for title deed processing in Kenya. Learn about the steps, costs, common delays, and how Ardhisasa is changing the game.</p>
+            <a href="blog/title-deed-processing-time.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Blog Post 3: Buying Plot Without Title -->
+        <article class="blog-card" data-category="buying" data-title="should you buy a plot that has no title deed yet" data-excerpt="learn the risks, red flags, and how to protect your investment when buying untitled land.">
+          <a href="blog/buying-plot-no-title.html">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop" alt="Buying Plot Without Title" class="card-img" loading="lazy">
+          </a>
+          <div class="card-body">
+            <span class="card-category cat-buying">Buying & Selling</span>
+            <span class="card-date"><i class="far fa-calendar-alt"></i> April 22, 2026</span>
+            <h2 class="card-title">Should You Buy a Plot That Has No Title Deed Yet?</h2>
+            <p class="card-excerpt">The risks, red flags, and how to protect your investment when buying land without a title deed. Includes verification steps, sale agreement tips, and a real case study from Kangemi.</p>
+            <a href="blog/buying-plot-no-title.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Blog Post 4: Land Succession -->
+        <article class="blog-card" data-category="legal" data-title="what is the process of land succession in kenya" data-excerpt="a step-by-step guide to land succession (inheritance) in kenya covering probate, administration, and title transfer.">
+          <a href="blog/land-succession-process.html">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&auto=format&fit=crop" alt="Land Succession" class="card-img" loading="lazy">
+          </a>
+          <div class="card-body">
+            <span class="card-category cat-legal">Legal & Succession</span>
+            <span class="card-date"><i class="far fa-calendar-alt"></i> April 25, 2026</span>
+            <h2 class="card-title">What is the Process of Land Succession in Kenya?</h2>
+            <p class="card-excerpt">A complete guide to land succession under the Law of Succession Act. Covers testate vs. intestate succession, Grant of Probate, Letters of Administration, and title transfer to beneficiaries.</p>
+            <a href="blog/land-succession-process.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Blog Post 5: Change of Land Use -->
+        <article class="blog-card" data-category="planning" data-title="what is the process of change of land use in kenya" data-excerpt="learn how to change the use of land from agricultural to residential or commercial.">
+          <a href="blog/change-of-land-use.html">
+            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop" alt="Change of Land Use" class="card-img" loading="lazy">
+          </a>
+          <div class="card-body">
+            <span class="card-category cat-planning">Planning & Zoning</span>
+            <span class="card-date"><i class="far fa-calendar-alt"></i> April 28, 2026</span>
+            <h2 class="card-title">What is the Process of Change of Land Use in Kenya?</h2>
+            <p class="card-excerpt">Step-by-step guide to changing the use of land — from agricultural to residential or commercial. Covers county planning approval, NEMA EIA requirements, surveys, and costs involved.</p>
+            <a href="blog/change-of-land-use.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Blog Post 6: Sectional Properties -->
+        <article class="blog-card" data-category="development" data-title="complete process of creating sectional properties in kenya" data-excerpt="learn about the sectional properties act, surveying requirements, and title issuance for apartments and mixed-use buildings.">
+          <a href="blog/sectional-properties.html">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&auto=format&fit=crop" alt="Sectional Properties" class="card-img" loading="lazy">
+          </a>
+          <div class="card-body">
+            <span class="card-category cat-development">Development</span>
+            <span class="card-date"><i class="far fa-calendar-alt"></i> May 2, 2026</span>
+            <h2 class="card-title">What is the Complete Process of Creating Sectional Properties in Kenya?</h2>
+            <p class="card-excerpt">Everything you need to know about the Sectional Properties Act, 2020. Covers sectional plan surveys, unit factors, Body Corporate, and the complete registration process for apartments and mixed-use buildings.</p>
+            <a href="blog/sectional-properties.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+       <!-- Blog Post 7: Verify Title Deed -->
+<article class="blog-card" data-category="titles" data-title="how to verify your land title deed is genuine in kenya" data-excerpt="step-by-step guide to verifying land title deeds in kenya learn how to conduct official searches spot fake documents avoid land fraud">
+  <a href="blog/verify-title-deed.html">
+    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&auto=format&fit=crop" alt="Verify Land Title Deed" class="card-img" loading="lazy">
+  </a>
+  <div class="card-body">
+    <span class="card-category cat-titles">Title Deeds</span>
+    <span class="card-date"><i class="far fa-calendar-alt"></i> May 6, 2026</span>
+    <h2 class="card-title">How to Verify Your Land Title Deed is Genuine in Kenya</h2>
+    <p class="card-excerpt">Step-by-step guide to verifying land title deeds. Learn how to conduct official searches, spot fake documents, avoid land fraud, and protect your investment.</p>
+    <a href="blog/verify-title.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+  </div>
+</article>
+
+
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Njogu Surveyor Real Estate Consultancy. All Rights Reserved.</p>
+      <p style="margin-top:8px;font-size:0.85rem;">Guiding Your Vision with Precision</p>
+    </div>
+  </footer>
+
+  <script>
+    // === Mobile Menu ===
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      const icon = menuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+
+    // === Theme Toggle ===
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.querySelector('i').className = 'fas fa-sun';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeToggle.querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      });
+    });
+
+    // === Blog Filtering ===
+    const blogGrid = document.getElementById('blogGrid');
+    const searchInput = document.getElementById('searchInput');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const blogCount = document.getElementById('blogCount');
+    let activeCategory = 'all';
+    let activeSearch = '';
+
+    function filterBlogs() {
+      const cards = blogGrid.querySelectorAll('.blog-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title') || '';
+        const excerpt = card.getAttribute('data-excerpt') || '';
+        const category = card.getAttribute('data-category') || '';
+
+        const matchesSearch = activeSearch === '' || 
+          title.includes(activeSearch) || 
+          excerpt.includes(activeSearch);
+
+        const matchesCategory = activeCategory === 'all' || 
+          category === activeCategory;
+
+        if (matchesSearch && matchesCategory) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Update count
+      const totalCards = cards.length;
+      if (activeSearch || activeCategory !== 'all') {
+        blogCount.textContent = `Showing ${visibleCount} of ${totalCards} articles`;
+      } else {
+        blogCount.textContent = `${totalCards} articles`;
+      }
+
+      // Show empty state if nothing visible
+      const existingEmpty = blogGrid.querySelector('.empty-state');
+      if (existingEmpty) existingEmpty.remove();
+
+      if (visibleCount === 0) {
+        const emptyDiv = document.createElement('div');
+        emptyDiv.className = 'empty-state';
+        emptyDiv.innerHTML = `
+          <i class="fas fa-search"></i>
+          <h3>No articles found</h3>
+          <p>Try adjusting your search or category filter.</p>
+        `;
+        blogGrid.appendChild(emptyDiv);
+      }
+    }
+
+    // Search input
+    searchInput.addEventListener('input', (e) => {
+      activeSearch = e.target.value.toLowerCase().trim();
+      filterBlogs();
+    });
+
+    // Category buttons
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.getAttribute('data-category');
+        filterBlogs();
+      });
+    });
+
+    // Initial count
+    filterBlogs();
+
+    // === Dynamic Year ===
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
