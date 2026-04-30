@@ -754,6 +754,83 @@
       to { transform: translateY(0); }
     }
 
+    /* ===== FLOATING SOCIAL MEDIA SIDEBAR ===== */
+    .social-sidebar {
+      position: fixed;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      z-index: 1400;
+      padding-left: calc(env(safe-area-inset-left, 0px));
+    }
+    .social-sidebar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      color: #fff;
+      font-size: 1.2rem;
+      transition: var(--transition);
+      text-decoration: none;
+      position: relative;
+    }
+    .social-sidebar a::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 52px;
+      background: #333;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .social-sidebar a:hover::after {
+      opacity: 1;
+    }
+    .social-sidebar a:hover {
+      width: 56px;
+    }
+    .social-sidebar .social-fb { background: #1877f2; }
+    .social-sidebar .social-fb:hover { background: #1565c0; }
+    .social-sidebar .social-yt { background: #ff0000; }
+    .social-sidebar .social-yt:hover { background: #cc0000; }
+    .social-sidebar .social-li { background: #0a66c2; }
+    .social-sidebar .social-li:hover { background: #094d94; }
+    .social-sidebar .social-ig {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+    .social-sidebar .social-ig:hover {
+      background: linear-gradient(45deg, #d4812e, #c45a33, #b8203a, #a51c58, #941470);
+    }
+    .social-sidebar .social-top {
+      border-radius: 0 8px 0 0;
+    }
+    .social-sidebar .social-bottom {
+      border-radius: 0 0 8px 0;
+    }
+
+    @media (max-width: 768px) {
+      .social-sidebar a {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      .social-sidebar a:hover {
+        width: 40px;
+      }
+      .social-sidebar a::after {
+        display: none;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -825,7 +902,7 @@
 
     @media print {
       header, .whatsapp-float, .cookie-banner, .theme-toggle,
-      .menu-toggle, .mobile-nav, .overlay, #contactMap { display: none !important; }
+      .menu-toggle, .mobile-nav, .overlay, #contactMap, .social-sidebar { display: none !important; }
       body { background: #fff; color: #000; }
       .btn { background: none; color: #000; border: 1px solid #000; box-shadow: none; }
     }
@@ -857,6 +934,22 @@
       <button class="cookie-btn decline" id="cookieDecline">Decline</button>
       <button class="cookie-btn accept" id="cookieAccept">Accept</button>
     </div>
+  </div>
+
+  <!-- Floating Social Media Sidebar -->
+  <div class="social-sidebar" aria-label="Social media links">
+    <a href="https://www.facebook.com/NjoguSurveyor" target="_blank" rel="noopener" class="social-fb social-top" data-label="Facebook" aria-label="Follow us on Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://www.youtube.com/@njogusurveyor" target="_blank" rel="noopener" class="social-yt" data-label="YouTube" aria-label="Subscribe on YouTube">
+      <i class="fab fa-youtube"></i>
+    </a>
+    <a href="www.linkedin.com/in/edward-karungu" target="_blank" rel="noopener" class="social-li" data-label="LinkedIn" aria-label="Connect on LinkedIn">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a href="https://www.instagram.com/njogusurveyor" target="_blank" rel="noopener" class="social-ig social-bottom" data-label="Instagram" aria-label="Follow us on Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
   </div>
 
   <header>
@@ -946,104 +1039,106 @@
     </div>
 
     <section class="services" id="services" aria-label="Services">
-      <h2 class="section-title">Our <span>Services</span></h2>
-      <p class="section-subtitle">Comprehensive surveying and real estate solutions tailored to your needs</p>
-      <div class="services-wrapper">
-        <div class="services-grid container" id="servicesGrid">
-          
-          <article class="service-card" aria-labelledby="s1">
-            <div class="service-icon-wrapper">
-              <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&auto=format&fit=crop"
-                   alt="Topographic Surveys"
-                   class="service-icon"
-                   width="300" height="180" loading="lazy">
-            </div>
-            <h3 id="s1">Topographic Surveys</h3>
-            <p>Detailed contour & elevation mapping for construction, planning and development projects.</p>
-            <a class="btn btn-sm" href="#contact">Get Quote</a>
-          </article>
-
-          <article class="service-card" aria-labelledby="s2">
-            <div class="service-icon-wrapper">
-              <img src="https://images.unsplash.com/photo-1628158088936-68ccaaa400dc?w=600&auto=format&fit=crop"
-                   alt="Cadastral & Subdivision"
-                   class="service-icon"
-                   width="300" height="180" loading="lazy">
-            </div>
-            <h3 id="s2">Cadastral & Subdivision</h3>
-            <p>Boundary demarcation, beacon placement, land subdivision and title processing.</p>
-            <a class="btn btn-sm" href="#contact">Get Quote</a>
-          </article>
-
-          <article class="service-card" aria-labelledby="s3">
-            <div class="service-icon-wrapper">
-              <img src="https://images.unsplash.com/photo-1524676347681-e677a364744f?w=600&auto=format&fit=crop"
-                   alt="Drone Aerial Survey"
-                   class="service-icon"
-                   width="300" height="180" loading="lazy">
-            </div>
-            <h3 id="s3">Drone Aerial Survey</h3>
-            <p>High-resolution orthophotos, 3D models & aerial mapping for large-scale projects.</p>
-            <a class="btn btn-sm" href="#contact">Get Quote</a>
-          </article>
-
-          <article class="service-card extra-services" aria-labelledby="s4">
-            <div class="service-icon-wrapper">
-              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop"
-                   alt="GIS & Digital Mapping"
-                   class="service-icon"
-                   width="300" height="180" loading="lazy">
-            </div>
-            <h3 id="s4">GIS & Digital Mapping</h3>
-            <p>Geospatial analysis, interactive mapping solutions and digital land records.</p>
-            <a class="btn btn-sm" href="#contact">Get Quote</a>
-          </article>
-
-          <article class="service-card extra-services" aria-labelledby="s5">
-            <div class="service-icon-wrapper">
-              <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&auto=format&fit=crop"
-                   alt="Real Estate Consultancy"
-                   class="service-icon"
-                   width="300" height="180" loading="lazy">
-            </div>
-            <h3 id="s5">Real Estate Consultancy</h3>
-            <p>Property valuation, investment advisory, market analysis and transaction support.</p>
-            <a class="btn btn-sm" href="#contact">Get Quote</a>
-          </article>
-
-          <article class="service-card extra-services" aria-labelledby="s6">
-            <div class="service-icon-wrapper">
-              <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop"
-                   alt="Engineering Surveys"
-                   class="service-icon"
-                   width="300" height="180" loading="lazy">
-            </div>
-            <h3 id="s6">Engineering Surveys</h3>
-            <p>Setting out for roads, buildings, dams, pipelines and infrastructure development.</p>
-            <a class="btn btn-sm" href="#contact">Get Quote</a>
-          </article>
-
+  <h2 class="section-title">Our <span>Services</span></h2>
+  <p class="section-subtitle">Comprehensive surveying and real estate solutions tailored to your needs</p>
+  <div class="services-wrapper">
+    <div class="services-grid container" id="servicesGrid">
+      
+      <article class="service-card" aria-labelledby="s1">
+        <div class="service-icon-wrapper">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&auto=format&fit=crop"
+               alt="Buying and Selling Land"
+               class="service-icon"
+               width="300" height="180" loading="lazy">
         </div>
+        <h3 id="s1">Buying &amp; Selling Land</h3>
+        <p>Plots, apartments, and lease properties. We connect buyers and sellers with verified listings.</p>
+        <a class="btn btn-sm" href="#contact">Get Quote</a>
+      </article>
 
-        <div class="view-more-wrapper" id="viewMoreWrapper">
-          <button class="btn btn-primary" id="viewMoreBtn" aria-label="View more services">
-            <i class="fas fa-th-large"></i> View More Services
-          </button>
+      <article class="service-card" aria-labelledby="s2">
+        <div class="service-icon-wrapper">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&auto=format&fit=crop"
+               alt="Land Property Scouting"
+               class="service-icon"
+               width="300" height="180" loading="lazy">
         </div>
-      </div>
-    </section>
+        <h3 id="s2">Land Property Scouting</h3>
+        <p>House, rental, and office space scouting. We find the perfect property for your needs.</p>
+        <a class="btn btn-sm" href="#contact">Get Quote</a>
+      </article>
+
+      <article class="service-card" aria-labelledby="s3">
+        <div class="service-icon-wrapper">
+          <img src="https://images.unsplash.com/photo-1628158088936-68ccaaa400dc?w=600&auto=format&fit=crop"
+               alt="Land Subdivision and Transfers"
+               class="service-icon"
+               width="300" height="180" loading="lazy">
+        </div>
+        <h3 id="s3">Land Subdivision &amp; Transfers</h3>
+        <p>Professional boundary demarcation, subdivision, and title transfer services.</p>
+        <a class="btn btn-sm" href="#contact">Get Quote</a>
+      </article>
+
+      <article class="service-card extra-services" aria-labelledby="s4">
+        <div class="service-icon-wrapper">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&auto=format&fit=crop"
+               alt="Land Due Diligence"
+               class="service-icon"
+               width="300" height="180" loading="lazy">
+        </div>
+        <h3 id="s4">Land Due Diligence</h3>
+        <p>Property pre-purchase inspection and verification to protect your investment.</p>
+        <a class="btn btn-sm" href="#contact">Get Quote</a>
+      </article>
+
+      <article class="service-card extra-services" aria-labelledby="s5">
+        <div class="service-icon-wrapper">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&auto=format&fit=crop"
+               alt="Land Titling"
+               class="service-icon"
+               width="300" height="180" loading="lazy">
+        </div>
+        <h3 id="s5">Land Titling &amp; Change of Use</h3>
+        <p>Title processing, change of use, and lease extension services.</p>
+        <a class="btn btn-sm" href="#contact">Get Quote</a>
+      </article>
+
+      <article class="service-card extra-services" aria-labelledby="s6">
+        <div class="service-icon-wrapper">
+          <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&auto=format&fit=crop"
+               alt="Topographic and Engineering Survey"
+               class="service-icon"
+               width="300" height="180" loading="lazy">
+        </div>
+        <h3 id="s6">Topographic &amp; Engineering Survey</h3>
+        <p>Precision surveys for construction, roads, buildings, and infrastructure projects.</p>
+        <a class="btn btn-sm" href="#contact">Get Quote</a>
+      </article>
+
+    </div>
+
+    <div class="view-more-wrapper" id="viewMoreWrapper">
+      <button class="btn btn-primary" id="viewMoreBtn" aria-label="View more services">
+        <i class="fas fa-th-large"></i> View More Services
+      </button>
+    </div>
+  </div>
+</section>
+
+
 
     <section class="about" id="about" aria-label="About">
       <h2 class="section-title">Why Choose <span>Njogu Surveyor</span>?</h2>
       <div class="about-content">
         <div class="about-text">
           <h3>Registered & Trusted Surveyors in Kenya</h3>
-          <p>With over a decade of experience, we are fully licensed by the Land Surveyors Board of Kenya and use the latest GNSS, Total Stations, drone technology and GIS solutions.</p>
+          <p>With a vast  experience, we are fully registered by the Land Surveyors Board of Kenya and use the latest GNSS, Total Stations, drone technology and GIS solutions.</p>
           <p>We combine traditional surveying expertise with modern technology to deliver precise, reliable results for every project — from small residential plots to large infrastructure developments.</p>
 
           <ul class="about-list">
             <li><i class="fas fa-check-circle"></i> Registered with Institution of Surveyors of Kenya (ISK)</li>
-            <li><i class="fas fa-check-circle"></i> Nationwide coverage — from Nairobi to all 47 counties</li>
+            <li><i class="fas fa-check-circle"></i> Nationwide coverage;from Nairobi to all 47 counties</li>
             <li><i class="fas fa-check-circle"></i> Fast turnaround & competitive pricing</li>
             <li><i class="fas fa-check-circle"></i> 100% compliance with Kenyan survey regulations</li>
             <li><i class="fas fa-check-circle"></i> Licensed drone operators for aerial surveys</li>
@@ -1378,7 +1473,6 @@
       if (e.key === 'Escape' && mobileMenu?.classList.contains('show')) closeMobileMenu();
     });
 
-    // ===== Map - Esri Imagery Only =====
     let map;
     
     function initMap() {
@@ -1391,7 +1485,6 @@
         scrollWheelZoom: true
       });
       
-      // Esri World Imagery 
       L.tileLayer(
         'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         { 
@@ -1410,7 +1503,6 @@
       
       const popupContent = `
         <div style="width:260px;font-family:Inter,sans-serif;">
-          
           <h4 style="margin:0 0 4px;color:#1e40af;font-size:1rem;">Njogu Surveyor</h4>
           <p style="margin:0 0 6px;font-size:0.8rem;color:#64748b;font-weight:600;">Real Estate Consultancy</p>
           <p style="margin:0 0 6px;font-size:0.82rem;"><i class="fas fa-map-marker-alt" style="color:#dc2626;"></i> Ruiru Toll, Kenya</p>
@@ -1533,7 +1625,6 @@
       container.innerHTML = html;
     }
 
-    // ===== Animated Stats Counter =====
     function animateCounters() {
       const counters = document.querySelectorAll('.stat-number[data-target]');
       
@@ -1564,7 +1655,6 @@
       counters.forEach(counter => observer.observe(counter));
     }
 
-    // ===== View More Services Toggle =====
     const viewMoreBtn = document.getElementById('viewMoreBtn');
     const servicesGrid = document.getElementById('servicesGrid');
     const viewMoreWrapper = document.getElementById('viewMoreWrapper');
@@ -1574,7 +1664,6 @@
       viewMoreWrapper.classList.add('hidden');
     });
 
-    // ===== Active Navigation on Scroll =====
     const sections = document.querySelectorAll('main section[id]');
     const desktopNavLinks = document.querySelectorAll('#nav-desktop a');
     
@@ -1610,7 +1699,6 @@
     window.addEventListener('scroll', throttle(refreshActiveLink, 120));
     window.addEventListener('load', refreshActiveLink);
 
-    // ===== Smooth Scroll =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
@@ -1629,7 +1717,6 @@
       });
     });
 
-    // ===== Modal =====
     const modal = document.getElementById('photoModal');
     document.getElementById('closeModal')?.addEventListener('click', () => {
       modal.classList.remove('show');
@@ -1648,10 +1735,8 @@
       }
     });
 
-    // ===== Dynamic Year =====
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ===== Initialize =====
     initMap();
     loadBlogPosts();
     animateCounters();
