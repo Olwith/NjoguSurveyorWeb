@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to Do a Land Search in Kenya - Step by Step Guide | Njogu Surveyor</title>
+  <meta name="description" content="Complete guide on how to conduct a land search in Kenya. Learn about official searches, Ardhisasa, costs, and why land searches protect your investment.">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&family=merriweather:400,700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
+
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --secondary: #dc2626;
+      --secondary-light: #ef4444;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --header-h: 72px;
+      --max-width: 1400px;
+      --container-pad: 5%;
+      --radius-lg: 16px;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+      --font-main: 'Inter', system-ui, sans-serif;
+      --font-body: 'Merriweather', Georgia, serif;
+    }
+
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #1e3a8a;
+      --secondary: #ef4444;
+      --light: #1e293b;
+      --dark: #f1f5f9;
+      --muted: #94a3b8;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      line-height: 1.6;
+      color: var(--dark);
+      background: #fff;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+    [data-theme="dark"] body { background: #0f172a; color: #f1f5f9; }
+    
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    a:hover { color: var(--secondary); }
+    button { font-family: inherit; cursor: pointer; }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--container-pad); }
+
+    /* Header */
+    header {
+      background: var(--primary-dark); padding: 0;
+      position: sticky; top: 0; z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      height: var(--header-h); max-width: var(--max-width);
+      margin: 0 auto; padding: 0 var(--container-pad);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; color: #fff; }
+    .logo img { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--secondary); }
+    .logo-text { font-size: 1.25rem; font-weight: 700; }
+    .logo-text span { color: var(--secondary); }
+    
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { color: #fff; font-weight: 500; font-size: 0.95rem; position: relative; }
+    .nav-links a:hover { color: var(--secondary-light); }
+    .nav-links .btn { background: var(--secondary); color: #fff; padding: 8px 20px; border-radius: 50px; }
+    .nav-links .btn:hover { background: var(--secondary-light); }
+
+    .mobile-toggle { display: none; color: #fff; font-size: 1.5rem; background: none; border: none; }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      background: rgba(255,255,255,0.15); border: none;
+      width: 40px; height: 40px; border-radius: 50%;
+      color: #fff; font-size: 1rem; display: flex;
+      align-items: center; justify-content: center;
+      transition: var(--transition); cursor: pointer;
+    }
+    .theme-toggle:hover { background: var(--secondary); }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      padding: 20px 0;
+      background: var(--light);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    [data-theme="dark"] .breadcrumb { background: #0f172a; border-color: #334155; }
+    .breadcrumb-list {
+      list-style: none; display: flex;
+      align-items: center; gap: 8px;
+      flex-wrap: wrap; font-size: 0.9rem;
+    }
+    .breadcrumb-list a { color: var(--muted); }
+    .breadcrumb-list a:hover { color: var(--secondary); }
+    .breadcrumb-list li:last-child { color: var(--dark); font-weight: 600; }
+    [data-theme="dark"] .breadcrumb-list li:last-child { color: #f1f5f9; }
+    .breadcrumb-sep { color: var(--muted); }
+
+    /* Article Hero */
+    .article-hero {
+      background: linear-gradient(rgba(30,58,138,0.88), rgba(30,58,138,0.82)),
+                  url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&auto=format&fit=crop') center/cover;
+      padding: 60px 0 80px; color: #fff;
+    }
+    .article-hero .container { max-width: 860px; }
+    .article-hero .badge {
+      display: inline-block; padding: 6px 16px;
+      background: var(--secondary); border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .article-hero h1 {
+      font-family: var(--font-main);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .article-meta {
+      display: flex; align-items: center; gap: 20px;
+      flex-wrap: wrap; font-size: 0.9rem; opacity: 0.9;
+    }
+    .article-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* Article Content */
+    .article-wrapper {
+      max-width: 820px;
+      margin: -40px auto 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .article-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 48px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .article-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .article-body {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #333;
+    }
+    [data-theme="dark"] .article-body { color: #cbd5e1; }
+
+    .article-body h2 {
+      font-family: var(--font-main);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 2rem 0 1rem;
+      padding-bottom: 8px;
+      border-bottom: 3px solid var(--secondary);
+      display: inline-block;
+    }
+    [data-theme="dark"] .article-body h2 { color: #f1f5f9; }
+
+    .article-body h3 {
+      font-family: var(--font-main);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 1.5rem 0 0.8rem;
+    }
+    [data-theme="dark"] .article-body h3 { color: #f1f5f9; }
+
+    .article-body p { margin-bottom: 1.2rem; }
+
+    .article-body ul, .article-body ol {
+      margin: 1rem 0 1.5rem 1.5rem;
+    }
+    .article-body li {
+      margin-bottom: 0.6rem;
+      line-height: 1.7;
+    }
+
+    .article-body blockquote {
+      border-left: 4px solid var(--secondary);
+      background: rgba(220,38,38,0.05);
+      padding: 20px 24px;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+    }
+    [data-theme="dark"] .article-body blockquote { background: rgba(220,38,38,0.1); }
+
+    .article-body .info-box {
+      background: rgba(30,64,175,0.06);
+      border-left: 4px solid var(--primary);
+      padding: 20px 24px;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    [data-theme="dark"] .article-body .info-box { background: rgba(59,130,246,0.1); }
+    .article-body .info-box .info-title {
+      font-family: var(--font-main);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .article-body img {
+      border-radius: 12px;
+      margin: 2rem 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .article-body a {
+      color: var(--primary);
+      font-weight: 600;
+      border-bottom: 1px solid transparent;
+    }
+    .article-body a:hover {
+      border-bottom-color: var(--primary);
+      color: var(--secondary);
+    }
+
+    /* Step Process */
+    .step-process {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 1.5rem 0;
+    }
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .step-number {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-main);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .step-content h4 {
+      font-family: var(--font-main);
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    [data-theme="dark"] .step-content h4 { color: #f1f5f9; }
+    .step-content p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    [data-theme="dark"] .step-content p { color: #94a3b8; }
+
+    /* Comparison Table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    [data-theme="dark"] .comparison-table th, [data-theme="dark"] .comparison-table td { border-color: #334155; }
+    .comparison-table th {
+      background: var(--light);
+      color: var(--dark);
+      font-weight: 600;
+    }
+    [data-theme="dark"] .comparison-table th { background: #334155; color: #f1f5f9; }
+
+    /* CTA Box */
+    .cta-box {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      padding: 32px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2.5rem 0;
+    }
+    .cta-box h3 {
+      font-family: var(--font-main);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .cta-box p { opacity: 0.9; margin-bottom: 20px; }
+    .cta-box .btn-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; background: var(--secondary);
+      color: #fff; border-radius: 50px; font-weight: 700;
+      font-size: 1rem; transition: var(--transition);
+    }
+    .cta-box .btn-cta:hover { background: var(--secondary-light); transform: translateY(-2px); }
+
+    /* Share & Tags */
+    .article-footer {
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    [data-theme="dark"] .article-footer { border-color: #334155; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .tag {
+      padding: 6px 14px; background: var(--light);
+      border-radius: 50px; font-size: 0.85rem;
+      color: var(--muted); font-weight: 500;
+    }
+    [data-theme="dark"] .tag { background: #334155; color: #94a3b8; }
+    .share-section { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .share-label { font-weight: 600; font-size: 0.95rem; }
+    .share-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem; transition: var(--transition);
+    }
+    .share-btn:hover { transform: scale(1.1); color: #fff; }
+    .share-btn.facebook { background: #1877f2; }
+    .share-btn.twitter { background: #1da1f2; }
+    .share-btn.whatsapp { background: #25D366; }
+    .share-btn.linkedin { background: #0a66c2; }
+
+    /* Related Posts */
+    .related-posts { max-width: 820px; margin: 0 auto 60px; }
+    .related-posts h2 { font-size: 1.5rem; margin-bottom: 24px; color: var(--dark); }
+    [data-theme="dark"] .related-posts h2 { color: #f1f5f9; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .related-card {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: var(--shadow-lg); transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .related-card { background: #1e293b; border-color: #334155; }
+    .related-card:hover { transform: translateY(-5px); }
+    .related-card img { width: 100%; height: 150px; object-fit: cover; }
+    .related-card .related-body { padding: 16px; }
+    .related-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--dark); line-height: 1.4; }
+    [data-theme="dark"] .related-card h3 { color: #f1f5f9; }
+    .related-card .read-more { font-size: 0.85rem; color: var(--primary); font-weight: 600; }
+
+    /* Back Button */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted); font-weight: 500; margin-bottom: 16px;
+    }
+    .back-btn:hover { color: var(--secondary); }
+
+    /* Footer */
+    footer { background: #0b0f1a; color: #9ca3af; padding: 40px 0; text-align: center; }
+    footer a { color: #d1d5db; }
+    footer a:hover { color: var(--secondary); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .mobile-toggle { display: block; }
+      .nav-links {
+        position: fixed; top: var(--header-h); left: 0; width: 100%;
+        background: var(--primary-dark); flex-direction: column;
+        padding: 24px; gap: 16px; transform: translateY(-150%);
+        transition: transform 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      }
+      .nav-links.open { transform: translateY(0); }
+      .article-card { padding: 28px 20px; }
+      .article-body { font-size: 1rem; }
+      .article-hero { padding: 40px 0 60px; }
+      .comparison-table { display: block; overflow-x: auto; }
+    }
+
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      position: fixed; right: 20px; bottom: 20px;
+      width: 60px; height: 60px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: #25D366; color: #fff; font-size: 1.5rem;
+      box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+      z-index: 1400; transition: var(--transition);
+    }
+    .whatsapp-float:hover { transform: scale(1.12); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar container">
+      <a href="../index.html" class="logo">
+        <img src="https://image.qwenlm.ai/public_source/eb2b3530-0c8d-431f-9a13-2f1265fd23e3/15837c7f9-b07f-4cb3-b7cb-c68c2e377713.png" alt="Njogu Surveyor Logo">
+        <div class="logo-text">Njogu<span>Surveyor</span></div>
+      </a>
+      
+      <button class="mobile-toggle" id="menuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#contact" class="btn">Contact Us</a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb-list">
+        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></li>
+        <li>How to Do a Land Search</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Article Hero -->
+  <section class="article-hero">
+    <div class="container">
+      <span class="badge"><i class="fas fa-search"></i> Property Verification</span>
+      <h1>How to Do a Land Search in Kenya: Step-by-Step Guide</h1>
+      <div class="article-meta">
+        <span><i class="far fa-calendar-alt"></i> April 30, 2026</span>
+        <span><i class="far fa-clock"></i> 8 min read</span>
+        <span><i class="far fa-user"></i> Njogu Surveyor Team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <main>
+    <div class="article-wrapper container">
+      <a href="../blog.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+      
+      <article class="article-card">
+        <div class="article-body">
+          
+          <p>Before buying land in Kenya, conducting an official land search is the single most important step you can take to protect your investment. A land search reveals critical information about ownership, encumbrances, and restrictions that could affect your purchase. This comprehensive guide walks you through everything you need to know about doing a land search in Kenya.</p>
+
+          <h2>What is a Land Search?</h2>
+          <p>A land search is an official inquiry conducted at the Ministry of Lands or through the Ardhisasa digital platform to verify the ownership and status of a specific parcel of land. The search results provide you with a certified document showing:</p>
+          
+          <ul>
+            <li>Current registered owner(s) of the property</li>
+            <li>Title number and parcel details (size, location, boundaries)</li>
+            <li>Any charges, mortgages, or caveats against the property</li>
+            <li>Restrictions or conditions affecting the land</li>
+            <li>Status of the title (active, pending, or cancelled)</li>
+          </ul>
+
+          <div class="info-box">
+            <div class="info-title"><i class="fas fa-shield-alt"></i> Why It Matters</div>
+            <p>Land fraud is a serious issue in Kenya. According to the Ministry of Lands, thousands of Kenyans lose money annually to fraudulent land deals. A proper land search is your first line of defense against scams and double-selling.</p>
+          </div>
+
+          <h2>Types of Land Searches in Kenya</h2>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Official Search</strong></td>
+                <td>Comprehensive search conducted at the Lands Registry. Provides certified results.</td>
+                <td>Property purchases, legal proceedings</td>
+              </tr>
+              <tr>
+                <td><strong>Ardhisasa Online Search</strong></td>
+                <td>Digital search through the government's online platform (available in select counties).</td>
+                <td>Quick verification, Nairobi properties</td>
+              </tr>
+              <tr>
+                <td><strong>Informal Search</strong></td>
+                <td>Basic inquiry without certification. Not legally binding.</td>
+                <td>Initial screening only</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Step-by-Step: How to Conduct a Land Search</h2>
+
+          <div class="step-process">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Get the Title Number</h4>
+                <p>Obtain the title number from the seller or the property documents. This is essential for conducting the search. If you don't have it, you may need to visit the local lands office with a description of the property location.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Choose Your Search Method</h4>
+                <p>Decide whether to conduct the search physically at the Lands Registry or online through Ardhisasa. Physical searches are available nationwide, while Ardhisasa is currently limited to Nairobi and a few other counties.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Complete the Application Form</h4>
+                <p>Fill out the official search application form (Form RL 15). You'll need to provide the title number, your details, and the purpose of the search. Forms are available at the Lands Registry or can be downloaded online.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>Pay the Search Fee</h4>
+                <p>Pay the required search fee at the designated bank or through mobile money. Fees vary by county but typically range from KSh 500 to KSh 2,000 for a standard search. Keep your receipt as proof of payment.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">5</div>
+              <div class="step-content">
+                <h4>Submit Your Application</h4>
+                <p>Submit the completed form, payment receipt, and a copy of your ID to the Lands Registry. For online searches, upload these documents through the Ardhisasa portal.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">6</div>
+              <div class="step-content">
+                <h4>Wait for Processing</h4>
+                <p>Standard processing time is 3 to 7 working days. You may be contacted if additional information is needed. Expedited services may be available for an additional fee.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">7</div>
+              <div class="step-content">
+                <h4>Collect Your Search Results</h4>
+                <p>Once ready, collect your certified search results from the Lands Registry. For online searches, results are delivered to your Ardhisasa account. Review the document carefully for any discrepancies or encumbrances.</p>
+              </div>
+            </div>
+          </div>
+
+          <h2>How to Interpret Search Results</h2>
+          <p>When you receive your search results, pay close attention to these key sections:</p>
+          
+          <ul>
+            <li><strong>Proprietor Section:</strong> Confirms the current registered owner. This must match the person selling you the land.</li>
+            <li><strong>Encumbrances Section:</strong> Lists any charges, mortgages, or caveats. A charge means the property is mortgaged to a bank.</li>
+            <li><strong>Restrictions Section:</strong> Shows any limitations on use, such as agricultural zoning or development restrictions.</li>
+            <li><strong>Parcel Details:</strong> Verifies the size, location, and boundaries of the property.</li>
+          </ul>
+
+          <blockquote>
+            <strong>Red Flag Warning:</strong> If the search results show a different owner than the person selling to you, or if there are unexplained caveats or charges, do not proceed with the purchase until these issues are resolved.
+          </blockquote>
+
+          <h2>Common Issues and How to Resolve Them</h2>
+          
+          <h3>1. Discrepancies in Owner Name</h3>
+          <p>If the name on the search results doesn't match the seller's ID, this could indicate fraud or an unrecorded transfer. Request additional documentation or consult a lawyer before proceeding.</p>
+
+          <h3>2. Existing Charges or Mortgages</h3>
+          <p>If the property has a charge, the bank must provide a discharge letter before the sale can proceed. The seller should handle this, but verify with the bank directly.</p>
+
+          <h3>3. Caveats or Court Orders</h3>
+          <p>A caveat indicates someone has a legal claim on the property. Do not purchase until the caveat is removed or the court order is resolved.</p>
+
+          <h3>4. Missing or Incomplete Records</h3>
+          <p>In some areas, records may be incomplete or lost. In such cases, you may need to conduct additional verification through the local administration or engage a surveyor to confirm boundaries.</p>
+
+          <h2>Costs Involved</h2>
+          <ul>
+            <li><strong>Official Search Fee:</strong> KSh 500 – KSh 2,000 (varies by county)</li>
+            <li><strong>Expedited Processing:</strong> Additional KSh 1,000 – KSh 3,000</li>
+            <li><strong>Agent Fees (if using an agent):</strong> KSh 2,000 – KSh 5,000</li>
+            <li><strong>Surveyor Verification (optional but recommended):</strong> KSh 10,000 – KSh 30,000</li>
+          </ul>
+
+          <h2>When to Hire a Professional</h2>
+          <p>While you can conduct a basic land search yourself, consider hiring professionals in these situations:</p>
+          <ul>
+            <li>You're unfamiliar with the process or documentation</li>
+            <li>The property has complex encumbrances or disputes</li>
+            <li>You need boundary verification in addition to the search</li>
+            <li>The transaction involves large sums of money</li>
+            <li>You need expedited processing due to tight timelines</li>
+          </ul>
+
+          <div class="info-box">
+            <div class="info-title"><i class="fas fa-user-tie"></i> How Njogu Surveyor Can Help</div>
+            <p>We offer comprehensive land verification services that include official searches, boundary surveys, and due diligence reports. Our team handles the entire process so you can focus on your investment with confidence.</p>
+          </div>
+
+          <h2>Tips for a Smooth Land Search Process</h2>
+          <ol>
+            <li><strong>Start early:</strong> Begin the search process well before your intended purchase date to account for processing delays.</li>
+            <li><strong>Keep copies:</strong> Make photocopies of all documents you submit and receive.</li>
+            <li><strong>Verify the seller:</strong> Cross-check the seller's ID with the proprietor name on the search results.</li>
+            <li><strong>Visit the property:</strong> Always visit the land in person to verify boundaries and check for encroachments.</li>
+            <li><strong>Consult a lawyer:</strong> Have a legal professional review the search results before signing any agreements.</li>
+            <li><strong>Use Ardhisasa when available:</strong> The online platform is faster and provides digital records that are harder to tamper with.</li>
+          </ol>
+
+          <div class="cta-box">
+            <h3>Need Help with a Land Search?</h3>
+            <p>Njogu Surveyor provides professional land search and verification services across Kenya. We handle the entire process from application to certified results, ensuring you have accurate information before making any property decisions.</p>
+            <a href="https://wa.me/254724737528?text=Hello%20Njogu%20Surveyor%2C%20I%20need%20help%20with%20a%20land%20search..." class="btn-cta" target="_blank" rel="noopener">
+              <i class="fab fa-whatsapp"></i> Get Search Assistance
+            </a>
+          </div>
+
+          <h2>Conclusion</h2>
+          <p>Conducting a land search is a critical step in any property transaction in Kenya. It protects you from fraud, reveals important restrictions, and gives you peace of mind. Whether you choose to do it yourself or hire a professional, never skip this essential verification step. At Njogu Surveyor, we're committed to helping Kenyans make informed property decisions through accurate, reliable land search services.</p>
+
+        </div>
+
+        <!-- Article Footer: Tags & Share -->
+        <div class="article-footer">
+          <div class="tags">
+            <span class="tag">Land Search</span>
+            <span class="tag">Property Verification</span>
+            <span class="tag">Ardhisasa</span>
+            <span class="tag">Title Search</span>
+            <span class="tag">Land Fraud Prevention</span>
+            <span class="tag">Property Due Diligence</span>
+          </div>
+
+          <div class="share-section">
+            <span class="share-label">Share this article:</span>
+            <a href="#" class="share-btn facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn twitter" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href)+'&text=How%20to%20Do%20a%20Land%20Search%20in%20Kenya','_blank')" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn whatsapp" onclick="window.open('https://wa.me/?text='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="share-btn linkedin" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Related Posts -->
+    <section class="related-posts container">
+      <h2><i class="fas fa-newspaper" style="color:var(--secondary);margin-right:8px;"></i>Related Articles</h2>
+      <div class="related-grid">
+        <a href="verify-title-deed.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&auto=format&fit=crop" alt="Verify Title Deed" loading="lazy">
+          <div class="related-body">
+            <h3>How to Verify Your Land Title Deed is Genuine in Kenya</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+        <a href="buying-plot-no-title.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format&fit=crop" alt="Buying Plot Without Title" loading="lazy">
+          <div class="related-body">
+            <h3>Should You Buy a Plot That Has No Title Deed Yet?</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+        <a href="title-deed-processing-time.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&auto=format&fit=crop" alt="Title Deed Processing" loading="lazy">
+          <div class="related-body">
+            <h3>How Long Does It Take to Get a Title Deed After Survey?</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Njogu Surveyor Real Estate Consultancy. All Rights Reserved.</p>
+      <p style="margin-top:8px;font-size:0.85rem;">Guiding Your Vision with Precision</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a class="whatsapp-float" href="https://wa.me/254724737528?text=Hello%20Njogu%20Surveyor%2C%20I%20read%20your%20blog%20about%20land%20searches%20and%20have%20a%20question..."
+     target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+  </a>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      const icon = menuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.querySelector('i').className = 'fas fa-sun';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeToggle.querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    });
+
+    // Dynamic Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Close mobile menu when clicking nav links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      });
+    });
+  </script>
+</body>
+</html>
+
