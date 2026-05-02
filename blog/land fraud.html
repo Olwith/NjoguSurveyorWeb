@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Land Fraud in Kenya: How to Avoid It | Njogu Surveyor</title>
+  <meta name="description" content="Protect your investment against land fraud in Kenya. Learn the common scams, red flags, and essential due diligence steps to buy land safely with Njogu Surveyor.">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&family=merriweather:400,700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
+
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --secondary: #dc2626;
+      --secondary-light: #ef4444;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --header-h: 72px;
+      --max-width: 1400px;
+      --container-pad: 5%;
+      --radius-lg: 16px;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+      --font-main: 'Inter', system-ui, sans-serif;
+      --font-body: 'Merriweather', Georgia, serif;
+    }
+
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #1e3a8a;
+      --secondary: #ef4444;
+      --light: #1e293b;
+      --dark: #f1f5f9;
+      --muted: #94a3b8;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      line-height: 1.6;
+      color: var(--dark);
+      background: #fff;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+    [data-theme="dark"] body { background: #0f172a; color: #f1f5f9; }
+    
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    a:hover { color: var(--secondary); }
+    button { font-family: inherit; cursor: pointer; }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--container-pad); }
+
+    /* Header */
+    header {
+      background: var(--primary-dark); padding: 0;
+      position: sticky; top: 0; z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      height: var(--header-h); max-width: var(--max-width);
+      margin: 0 auto; padding: 0 var(--container-pad);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; color: #fff; }
+    .logo img { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--secondary); }
+    .logo-text { font-size: 1.25rem; font-weight: 700; }
+    .logo-text span { color: var(--secondary); }
+    
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { color: #fff; font-weight: 500; font-size: 0.95rem; position: relative; }
+    .nav-links a:hover { color: var(--secondary-light); }
+    .nav-links .btn { background: var(--secondary); color: #fff; padding: 8px 20px; border-radius: 50px; }
+    .nav-links .btn:hover { background: var(--secondary-light); }
+
+    .mobile-toggle { display: none; color: #fff; font-size: 1.5rem; background: none; border: none; }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      background: rgba(255,255,255,0.15); border: none;
+      width: 40px; height: 40px; border-radius: 50%;
+      color: #fff; font-size: 1rem; display: flex;
+      align-items: center; justify-content: center;
+      transition: var(--transition); cursor: pointer;
+    }
+    .theme-toggle:hover { background: var(--secondary); }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      padding: 20px 0;
+      background: var(--light);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    [data-theme="dark"] .breadcrumb { background: #0f172a; border-color: #334155; }
+    .breadcrumb-list {
+      list-style: none; display: flex;
+      align-items: center; gap: 8px;
+      flex-wrap: wrap; font-size: 0.9rem;
+    }
+    .breadcrumb-list a { color: var(--muted); }
+    .breadcrumb-list a:hover { color: var(--secondary); }
+    .breadcrumb-list li:last-child { color: var(--dark); font-weight: 600; }
+    [data-theme="dark"] .breadcrumb-list li:last-child { color: #f1f5f9; }
+    .breadcrumb-sep { color: var(--muted); }
+
+    /* Article Hero */
+    .article-hero {
+      background: linear-gradient(rgba(30,58,138,0.88), rgba(30,58,138,0.82)),
+                  url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&auto=format&fit=crop') center/cover;
+      padding: 60px 0 80px; color: #fff;
+    }
+    .article-hero .container { max-width: 860px; }
+    .article-hero .badge {
+      display: inline-block; padding: 6px 16px;
+      background: var(--secondary); border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .article-hero h1 {
+      font-family: var(--font-main);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .article-meta {
+      display: flex; align-items: center; gap: 20px;
+      flex-wrap: wrap; font-size: 0.9rem; opacity: 0.9;
+    }
+    .article-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* Article Content */
+    .article-wrapper {
+      max-width: 820px;
+      margin: -40px auto 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .article-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 48px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .article-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .article-body {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #333;
+    }
+    [data-theme="dark"] .article-body { color: #cbd5e1; }
+
+    .article-body h2 {
+      font-family: var(--font-main);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 2rem 0 1rem;
+      padding-bottom: 8px;
+      border-bottom: 3px solid var(--secondary);
+      display: inline-block;
+    }
+    [data-theme="dark"] .article-body h2 { color: #f1f5f9; }
+
+    .article-body h3 {
+      font-family: var(--font-main);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 1.5rem 0 0.8rem;
+    }
+    [data-theme="dark"] .article-body h3 { color: #f1f5f9; }
+
+    .article-body p { margin-bottom: 1.2rem; }
+
+    .article-body ul, .article-body ol {
+      margin: 1rem 0 1.5rem 1.5rem;
+    }
+    .article-body li {
+      margin-bottom: 0.6rem;
+      line-height: 1.7;
+    }
+
+    .article-body blockquote {
+      border-left: 4px solid var(--secondary);
+      background: rgba(220,38,38,0.05);
+      padding: 20px 24px;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+    }
+    [data-theme="dark"] .article-body blockquote { background: rgba(220,38,38,0.1); }
+
+    .article-body .info-box {
+      background: rgba(30,64,175,0.06);
+      border-left: 4px solid var(--primary);
+      padding: 20px 24px;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    [data-theme="dark"] .article-body .info-box { background: rgba(59,130,246,0.1); }
+    .article-body .info-box .info-title {
+      font-family: var(--font-main);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .article-body img {
+      border-radius: 12px;
+      margin: 2rem 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .article-body a {
+      color: var(--primary);
+      font-weight: 600;
+      border-bottom: 1px solid transparent;
+    }
+    .article-body a:hover {
+      border-bottom-color: var(--primary);
+      color: var(--secondary);
+    }
+
+    /* Warning Box */
+    .warning-box {
+      background: rgba(220,38,38,0.08);
+      border-left: 4px solid var(--secondary);
+      padding: 20px 24px;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    [data-theme="dark"] .warning-box { background: rgba(220,38,38,0.15); }
+    .warning-box .warning-title {
+      font-family: var(--font-main);
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Comparison Table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    [data-theme="dark"] .comparison-table th, [data-theme="dark"] .comparison-table td { border-color: #334155; }
+    .comparison-table th {
+      background: var(--light);
+      color: var(--dark);
+      font-weight: 600;
+    }
+    [data-theme="dark"] .comparison-table th { background: #334155; color: #f1f5f9; }
+
+    /* CTA Box */
+    .cta-box {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      padding: 32px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2.5rem 0;
+    }
+    .cta-box h3 {
+      font-family: var(--font-main);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .cta-box p { opacity: 0.9; margin-bottom: 20px; }
+    .cta-box .btn-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; background: var(--secondary);
+      color: #fff; border-radius: 50px; font-weight: 700;
+      font-size: 1rem; transition: var(--transition);
+    }
+    .cta-box .btn-cta:hover { background: var(--secondary-light); transform: translateY(-2px); }
+
+    /* Share & Tags */
+    .article-footer {
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    [data-theme="dark"] .article-footer { border-color: #334155; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .tag {
+      padding: 6px 14px; background: var(--light);
+      border-radius: 50px; font-size: 0.85rem;
+      color: var(--muted); font-weight: 500;
+    }
+    [data-theme="dark"] .tag { background: #334155; color: #94a3b8; }
+    .share-section { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .share-label { font-weight: 600; font-size: 0.95rem; }
+    .share-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem; transition: var(--transition);
+    }
+    .share-btn:hover { transform: scale(1.1); color: #fff; }
+    .share-btn.facebook { background: #1877f2; }
+    .share-btn.twitter { background: #1da1f2; }
+    .share-btn.whatsapp { background: #25D366; }
+    .share-btn.linkedin { background: #0a66c2; }
+
+    /* Related Posts */
+    .related-posts { max-width: 820px; margin: 0 auto 60px; }
+    .related-posts h2 { font-size: 1.5rem; margin-bottom: 24px; color: var(--dark); }
+    [data-theme="dark"] .related-posts h2 { color: #f1f5f9; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .related-card {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: var(--shadow-lg); transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .related-card { background: #1e293b; border-color: #334155; }
+    .related-card:hover { transform: translateY(-5px); }
+    .related-card img { width: 100%; height: 150px; object-fit: cover; }
+    .related-card .related-body { padding: 16px; }
+    .related-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--dark); line-height: 1.4; }
+    [data-theme="dark"] .related-card h3 { color: #f1f5f9; }
+    .related-card .read-more { font-size: 0.85rem; color: var(--primary); font-weight: 600; }
+
+    /* Back Button */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted); font-weight: 500; margin-bottom: 16px;
+    }
+    .back-btn:hover { color: var(--secondary); }
+
+    /* Footer */
+    footer { background: #0b0f1a; color: #9ca3af; padding: 40px 0; text-align: center; }
+    footer a { color: #d1d5db; }
+    footer a:hover { color: var(--secondary); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .mobile-toggle { display: block; }
+      .nav-links {
+        position: fixed; top: var(--header-h); left: 0; width: 100%;
+        background: var(--primary-dark); flex-direction: column;
+        padding: 24px; gap: 16px; transform: translateY(-150%);
+        transition: transform 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      }
+      .nav-links.open { transform: translateY(0); }
+      .article-card { padding: 28px 20px; }
+      .article-body { font-size: 1rem; }
+      .article-hero { padding: 40px 0 60px; }
+      .comparison-table { display: block; overflow-x: auto; }
+    }
+
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      position: fixed; right: 20px; bottom: 20px;
+      width: 60px; height: 60px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: #25D366; color: #fff; font-size: 1.5rem;
+      box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+      z-index: 1400; transition: var(--transition);
+    }
+    .whatsapp-float:hover { transform: scale(1.12); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar container">
+      <a href="../index.html" class="logo">
+        <img src="https://image.qwenlm.ai/public_source/eb2b3530-0c8d-431f-9a13-2f1265fd23e3/15837c7f9-b07f-4cb3-b7cb-c68c2e377713.png" alt="Njogu Surveyor Logo">
+        <div class="logo-text">Njogu<span>Surveyor</span></div>
+      </a>
+      
+      <button class="mobile-toggle" id="menuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#contact" class="btn">Contact Us</a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb-list">
+        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li class="breadcrumb-sep"><i class="fas fa-chevron-right"></i></li>
+        <li>Land Fraud Guide</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Article Hero -->
+  <section class="article-hero">
+    <div class="container">
+      <span class="badge"><i class="fas fa-shield-alt"></i> Property Safety</span>
+      <h1>Land Fraud in Kenya: How to Avoid Losing Your Money and Land</h1>
+      <div class="article-meta">
+        <span><i class="far fa-calendar-alt"></i> May 2, 2026</span>
+        <span><i class="far fa-clock"></i> 8 min read</span>
+        <span><i class="far fa-user"></i> Njogu Surveyor Team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <main>
+    <div class="article-wrapper container">
+      <a href="../blog.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+      
+      <article class="article-card">
+        <div class="article-body">
+          
+          <p>Land fraud is one of the most serious challenges facing property owners and investors in Kenya today. Scammers use sophisticated tactics to sell fake titles, grab public land, and trick buyers into purchasing property they don't own. Losing millions of shillings to land fraud is not just a financial blow; it can lead to years of legal battles and emotional distress.</p>
+
+          <p>In this comprehensive guide, we reveal the most common land fraud schemes in Kenya and provide actionable steps to protect yourself before you sign any document or make a payment.</p>
+
+          <h2>Common Types of Land Fraud in Kenya</h2>
+          
+          <h3>1. Fake Title Deeds</h3>
+          <p>Scammers create forged title deeds that look authentic. They may alter the name of the owner, the plot number, or the acreage. Without verification, these documents can be impossible to distinguish from the real thing.</p>
+
+          <h3>2. Multiple Sales (Double Dealing)</h3>
+          <p>This involves selling the same parcel of land to multiple buyers simultaneously. The fraudster collects deposits from several people and disappears, leaving the buyers fighting over who actually owns the land.</p>
+
+          <h3>3. Public Land Grabbing</h3>
+          <p>Fraudsters claim ownership of public land—such as road reserves, riparian reserves, or government land—and sell it to unsuspecting buyers. Even if you pay and get documents, the government can evict you at any time.</p>
+
+          <h3>4. Inheritance and Family Land Scams</h3>
+          <p>A common issue where one family member sells inherited land without the consent of others, or forges signatures of deceased relatives to transfer property into their own name.</p>
+
+          <div class="info-box">
+            <div class="info-title"><i class="fas fa-exclamation-circle"></i> Did You Know?</div>
+            <p>According to recent government reports, land fraud costs Kenyans billions of shillings annually. Many victims discover the fraud only after construction has begun or when a new buyer appears with better documentation.</p>
+          </div>
+
+          <h2>Red Flags: How to Spot a Land Scam</h2>
+          <p>If you encounter any of the following warning signs, proceed with extreme caution or walk away:</p>
+
+          <ul class="checklist">
+            <li><strong>Pressure to pay immediately:</strong> "If you don't pay today, someone else will buy it."</li>
+            <li><strong>Price is too good to be true:</strong> Land significantly below market value is often a trap.</li>
+            <li><strong>Refusal to allow a search:</strong> The seller won't let you conduct an official search at the Lands Registry.</li>
+            <li><strong>Missing or moved beacons:</strong> You visit the site and can't find boundary markers, or they look recently placed.</li>
+            <li><strong>Seller avoids meeting in person:</strong> Communication is only via text or through a middleman.</li>
+            <li><strong>No official receipts:</strong> The seller asks for cash and refuses to provide a receipt or invoice.</li>
+          </ul>
+
+          <h2>Step-by-Step: How to Avoid Land Fraud</h2>
+
+          <h3>Step 1: Conduct an Official Search</h3>
+          <p>This is non-negotiable. Visit the local Lands Registry or use the <strong>Ardhisasa</strong> platform to conduct an official search. This will confirm:</p>
+          <ul>
+            <li>Who the registered owner is</li>
+            <li>If the land has any caveats or charges</li>
+            <li>If the title is genuine and active</li>
+          </ul>
+
+          <h3>Step 2: Verify the Identity of the Seller</h3>
+          <p>Ask for the seller's original ID and cross-check it with the name on the title deed. If the land is owned by a company or estate, ensure the person selling has the legal authority (e.g., power of attorney or letter of administration).</p>
+
+          <h3>Step 3: Visit the Physical Location</h3>
+          <p>Never buy land sight unseen. Visit the property and look for:</p>
+          <ul>
+            <li>Beacons and boundary markers</li>
+            <li>Encroachments by neighbors</li>
+            <li>Existing structures or occupants</li>
+            <li>Signs of public use (e.g., paths, utilities)</li>
+          </ul>
+
+          <h3>Step 4: Engage a Registered Surveyor</h3>
+          <p>A registered surveyor can verify the exact size of the land and ensure the beacons match the survey plan. They can also identify if the land falls within a road reserve or riparian reserve.</p>
+
+          <h3>Step 5: Check with Local Administration</h3>
+          <p>Visit the local Chief's camp or County Planning office. They can confirm if there are any disputes, planned developments, or restrictions on the land.</p>
+
+          <h3>Step 6: Use a Lawyer for the Transaction</h3>
+          <p>Have a qualified conveyancing lawyer handle the transfer. They will ensure all documents are genuine, taxes are paid, and the title is transferred legally.</p>
+
+          <div class="warning-box">
+            <div class="warning-title"><i class="fas fa-ban"></i> Never Skip Due Diligence</div>
+            <p>The cost of a proper due diligence process (search + surveyor) is a fraction of the cost of buying land. Skipping it to save money is the biggest mistake you can make.</p>
+          </div>
+
+          <h2>What to Do If You Are a Victim of Land Fraud</h2>
+          <p>If you discover you've been scammed:</p>
+          <ol>
+            <li><strong>Report to the Police:</strong> File a report at the nearest police station or the DCI (Directorate of Criminal Investigations).</li>
+            <li><strong>Notify the Lands Registry:</strong> Alert the registrar immediately to place a caveat on the property.</li>
+            <li><strong>Hire a Lawyer:</strong> You need legal representation to recover your money or property.</li>
+            <li><strong>Contact Njogu Surveyor:</strong> We can provide expert testimony and survey evidence to support your case.</li>
+          </ol>
+
+          <h2>How Njogu Surveyor Can Protect You</h2>
+          <p>At Njogu Surveyor, we specialize in land verification and due diligence. Our services include:</p>
+          <ul>
+            <li><strong>Comprehensive Due Diligence:</strong> We conduct searches, verify titles, and check for encumbrances.</li>
+            <li><strong>Boundary Verification:</strong> We survey the land to ensure beacons match the documents.</li>
+            <li><strong>Riparian & Road Reserve Checks:</strong> We identify if the land is restricted.</li>
+            <li><strong>Expert Consultation:</strong> We guide you through the entire buying process to ensure safety.</li>
+          </ul>
+
+          <div class="cta-box">
+            <h3>Before You Buy, Let Us Verify</h3>
+            <p>Don't risk your life savings on fake land. Contact Njogu Surveyor for a professional due diligence report and peace of mind.</p>
+            <a href="https://wa.me/254724737528?text=Hello%20Njogu%20Surveyor%2C%20I%20need%20help%20verifying%20land%20to%20avoid%20fraud..." class="btn-cta" target="_blank" rel="noopener">
+              <i class="fab fa-whatsapp"></i> Get Verification Help
+            </a>
+          </div>
+
+          <h2>Conclusion</h2>
+          <p>Land fraud in Kenya is a serious threat, but with proper due diligence, it is entirely avoidable. By conducting official searches, verifying boundaries, and engaging professionals like Njogu Surveyor, you can protect your investment and secure your dream property. Stay vigilant, trust verified professionals, and never rush into a land purchase.</p>
+
+        </div>
+
+        <!-- Article Footer: Tags & Share -->
+        <div class="article-footer">
+          <div class="tags">
+            <span class="tag">Land Fraud</span>
+            <span class="tag">Property Scams</span>
+            <span class="tag">Fake Title Deeds</span>
+            <span class="tag">Due Diligence</span>
+            <span class="tag">Property Investment</span>
+            <span class="tag">Land Buying Tips</span>
+          </div>
+
+          <div class="share-section">
+            <span class="share-label">Share this article:</span>
+            <a href="#" class="share-btn facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn twitter" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href)+'&text=Land%20Fraud%20in%20Kenya%3A%20How%20to%20Avoid%20It','_blank')" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn whatsapp" onclick="window.open('https://wa.me/?text='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="share-btn linkedin" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank')" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Related Posts -->
+    <section class="related-posts container">
+      <h2><i class="fas fa-newspaper" style="color:var(--secondary);margin-right:8px;"></i>Related Articles</h2>
+      <div class="related-grid">
+        <a href="verify-title-deed.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&auto=format&fit=crop" alt="Verify Title Deed" loading="lazy">
+          <div class="related-body">
+            <h3>How to Verify Your Land Title Deed is Genuine in Kenya</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+        <a href="buying-plot-no-title.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format&fit=crop" alt="Buying Plot Without Title" loading="lazy">
+          <div class="related-body">
+            <h3>Should You Buy a Plot That Has No Title Deed Yet?</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+        <a href="how-to-read-survey-plan.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&auto=format&fit=crop" alt="Survey Plan" loading="lazy">
+          <div class="related-body">
+            <h3>How to Read a Survey Plan (Mutation Form) in Kenya</h3>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Njogu Surveyor Real Estate Consultancy. All Rights Reserved.</p>
+      <p style="margin-top:8px;font-size:0.85rem;">Guiding Your Vision with Precision</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a class="whatsapp-float" href="https://wa.me/254724737528?text=Hello%20Njogu%20Surveyor%2C%20I%20read%20your%20blog%20about%20land%20fraud%20and%20have%20a%20question..."
+     target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+  </a>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      const icon = menuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.querySelector('i').className = 'fas fa-sun';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeToggle.querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    });
+
+    // Dynamic Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Close mobile menu when clicking nav links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        const icon = menuBtn.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      });
+    });
+  </script>
+</body>
+</html>
+
