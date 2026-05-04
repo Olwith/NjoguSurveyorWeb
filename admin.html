@@ -37,57 +37,18 @@
     }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     
-    /* Login Screen */
-    #loginScreen {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-    }
-    .login-card {
-      background: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 420px;
-      text-align: center;
-    }
-    .login-card h1 { font-size: 1.8rem; margin-bottom: 8px; color: var(--primary-dark); }
-    .login-card p { color: var(--muted); margin-bottom: 24px; }
-    .form-group { margin-bottom: 16px; text-align: left; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
-    .form-control {
-      width: 100%; padding: 12px; border: 1px solid #e2e8f0;
-      border-radius: var(--radius); font-size: 1rem; font-family: inherit;
-      transition: var(--transition);
-    }
-    .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30,64,175,0.1); }
-    .btn {
-      padding: 12px 24px; border: none; border-radius: var(--radius);
-      font-weight: 600; cursor: pointer; transition: var(--transition);
-      font-size: 0.95rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-dark); }
-    .btn-danger { background: var(--secondary); color: #fff; }
-    .btn-danger:hover { opacity: 0.9; }
-    .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
-    .btn-block { width: 100%; }
-    .alert { padding: 12px; border-radius: var(--radius); margin-bottom: 16px; font-size: 0.9rem; display: none; }
-    .alert-error { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
-    .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-
-    /* Admin Dashboard */
-    #adminDashboard { display: none; }
+    /* Admin Dashboard Styles */
     .admin-header {
       background: var(--primary-dark); color: #fff; padding: 16px 0;
       display: flex; justify-content: space-between; align-items: center;
     }
     .admin-header h1 { font-size: 1.5rem; }
-    .logout-btn { background: rgba(255,255,255,0.15); color: #fff; padding: 8px 16px; border-radius: 50px; }
-    .logout-btn:hover { background: rgba(255,255,255,0.25); }
+    .warning-banner {
+      background: #fef3c7; color: #92400e; padding: 12px 20px;
+      text-align: center; font-weight: 600; border-bottom: 1px solid #fcd34d;
+      font-size: 0.9rem;
+    }
+    .warning-banner i { margin-right: 6px; }
     
     .admin-content { padding: 32px 0; }
     .admin-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 32px; }
@@ -110,38 +71,38 @@
     .loading { text-align: center; padding: 40px; color: var(--muted); }
     .empty-state { text-align: center; padding: 40px; color: var(--muted); }
     .empty-state i { font-size: 2rem; margin-bottom: 12px; display: block; }
+    
+    .alert { padding: 12px; border-radius: var(--radius); margin-bottom: 16px; font-size: 0.9rem; display: none; }
+    .alert-error { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    
+    .btn {
+      padding: 12px 24px; border: none; border-radius: var(--radius);
+      font-weight: 600; cursor: pointer; transition: var(--transition);
+      font-size: 0.95rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-danger { background: var(--secondary); color: #fff; }
+    .btn-danger:hover { opacity: 0.9; }
+    .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+    .btn-block { width: 100%; }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN SCREEN -->
-  <div id="loginScreen">
-    <div class="login-card">
-      <h1><i class="fas fa-lock"></i> Admin Login</h1>
-      <p>Login to access the Njogu Surveyor blog dashboard</p>
-      <div id="loginAlert" class="alert alert-error"></div>
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" class="form-control" placeholder="admin@njogusurveyor.co.ke" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" class="form-control" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">
-          <i class="fas fa-sign-in-alt"></i> Sign In
-        </button>
-      </form>
-    </div>
+  <!-- ⚠️ SECURITY WARNING BANNER -->
+  <div class="warning-banner">
+    <i class="fas fa-exclamation-triangle"></i>
+    DEVELOPMENT MODE: No authentication enabled. Re-enable login before going live.
   </div>
 
-  <!-- ADMIN DASHBOARD -->
+  <!-- ADMIN DASHBOARD (Always Visible) -->
   <div id="adminDashboard">
     <header class="admin-header">
       <div class="container" style="display:flex;justify-content:space-between;align-items:center;width:100%;">
-        <h1><i class="fas fa-shield-alt"></i> Blog Admin</h1>
-        <button id="logoutBtn" class="btn logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <h1><i class="fas fa-shield-alt"></i> Blog Admin <span style="font-size:0.9rem;font-weight:400;opacity:0.9">[DEV MODE]</span></h1>
+        <!-- Logout button removed - no auth to logout from -->
       </div>
     </header>
 
@@ -238,18 +199,16 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // ===== CONFIGURATION =====
-    // REPLACE THESE WITH YOUR ACTUAL SUPABASE CREDENTIALS
-    const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supaabse.co';
+    // ⚠️ FIX: Corrected typo in URL (was "supaabse" → "supabase")
+    const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
+    
+    // Initialize Supabase client
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // ===== DOM ELEMENTS =====
-    const loginScreen = document.getElementById('loginScreen');
     const adminDashboard = document.getElementById('adminDashboard');
-    const loginForm = document.getElementById('loginForm');
     const postForm = document.getElementById('postForm');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const loginAlert = document.getElementById('loginAlert');
     const statusAlert = document.getElementById('statusAlert');
     const postsTable = document.getElementById('postsTable');
     const postsBody = document.getElementById('postsBody');
@@ -261,26 +220,10 @@
 
     // ===== INITIALIZATION =====
     publishedDateInput.valueAsDate = new Date();
-
-    async function init() {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        showDashboard();
-        loadPosts();
-      } else {
-        showLogin();
-      }
-    }
-
-    function showLogin() {
-      loginScreen.style.display = 'flex';
-      adminDashboard.style.display = 'none';
-    }
-
-    function showDashboard() {
-      loginScreen.style.display = 'none';
-      adminDashboard.style.display = 'block';
-    }
+    
+    // Show dashboard immediately (no auth check)
+    adminDashboard.style.display = 'block';
+    loadPosts();
 
     function showAlert(element, message, type = 'error') {
       element.textContent = message;
@@ -288,28 +231,6 @@
       element.style.display = 'block';
       setTimeout(() => element.style.display = 'none', 5000);
     }
-
-    // ===== AUTHENTICATION =====
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        showAlert(loginAlert, 'Invalid email or password. Please try again.');
-      } else {
-        showDashboard();
-        loadPosts();
-      }
-    });
-
-    logoutBtn.addEventListener('click', async () => {
-      await supabase.auth.signOut();
-      showLogin();
-      document.getElementById('email').value = '';
-      document.getElementById('password').value = '';
-    });
 
     // ===== SLUG GENERATOR =====
     titleInput.addEventListener('input', () => {
@@ -336,7 +257,8 @@
       postsLoader.style.display = 'none';
 
       if (error) {
-        showAlert(statusAlert, 'Failed to load posts. Check console.');
+        console.error('Load posts error:', error);
+        showAlert(statusAlert, `Failed to load posts: ${error.message}`, 'error');
         return;
       }
 
@@ -406,6 +328,7 @@
       submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Post';
 
       if (error) {
+        console.error('Save error:', error);
         showAlert(statusAlert, `Error: ${error.message}`, 'error');
       } else {
         showAlert(statusAlert, postId ? 'Post updated successfully!' : 'New post published!', 'success');
@@ -420,6 +343,7 @@
     async function editPost(id) {
       const { data, error } = await supabase.from('blog_posts').select('*').eq('id', id).single();
       if (error) {
+        console.error('Edit load error:', error);
         showAlert(statusAlert, 'Failed to load post for editing.', 'error');
         return;
       }
@@ -443,6 +367,7 @@
 
       const { error } = await supabase.from('blog_posts').delete().eq('id', id);
       if (error) {
+        console.error('Delete error:', error);
         showAlert(statusAlert, 'Failed to delete post.', 'error');
       } else {
         showAlert(statusAlert, 'Post deleted successfully.', 'success');
@@ -450,9 +375,8 @@
       }
     }
 
-    // Start app
-    init();
+    // Initialize
+    console.log('🔓 Admin dashboard loaded (DEV MODE - no auth)');
   </script>
 </body>
 </html>
-
