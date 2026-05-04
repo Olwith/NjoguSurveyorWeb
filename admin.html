@@ -12,81 +12,489 @@
     :root {
       --primary: #1e40af;
       --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
       --secondary: #dc2626;
+      --secondary-dark: #b91c1c;
+      --success: #059669;
+      --success-light: #10b981;
+      --warning: #f59e0b;
+      --warning-bg: #fef3c7;
+      --warning-text: #92400e;
       --light: #f8fafc;
       --dark: #0f172a;
       --muted: #64748b;
+      --border: #e2e8f0;
+      --bg-card: #ffffff;
+      --bg-input: #ffffff;
+      --bg-table-header: #f1f5f9;
+      --bg-table-hover: #f8fafc;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
       --shadow: 0 4px 12px rgba(0,0,0,0.1);
-      --radius: 8px;
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+      --radius-sm: 6px;
+      --radius: 10px;
+      --radius-lg: 14px;
       --transition: all 0.2s ease;
-      --font: 'Inter', system-ui, sans-serif;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
     }
+
     [data-theme="dark"] {
       --primary: #3b82f6;
-      --primary-dark: #1d4ed8;
-      --light: #1e293b;
+      --primary-dark: #2563eb;
+      --primary-light: #60a5fa;
+      --secondary: #ef4444;
+      --secondary-dark: #dc2626;
+      --success: #10b981;
+      --success-light: #34d399;
+      --warning-bg: #78350f;
+      --warning-text: #fbbf24;
+      --light: #0f172a;
       --dark: #f1f5f9;
       --muted: #94a3b8;
+      --border: #334155;
+      --bg-card: #1e293b;
+      --bg-input: #0f172a;
+      --bg-table-header: #1e293b;
+      --bg-table-hover: #334155;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow: 0 4px 12px rgba(0,0,0,0.4);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: var(--font);
       background: var(--light);
       color: var(--dark);
       line-height: 1.6;
+      min-height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-    
-    /* Admin Dashboard Styles */
-    .admin-header {
-      background: var(--primary-dark); color: #fff; padding: 16px 0;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .admin-header h1 { font-size: 1.5rem; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* ==================== WARNING BANNER ==================== */
     .warning-banner {
-      background: #fef3c7; color: #92400e; padding: 12px 20px;
-      text-align: center; font-weight: 600; border-bottom: 1px solid #fcd34d;
+      background: var(--warning-bg);
+      color: var(--warning-text);
+      padding: 10px 20px;
+      text-align: center;
+      font-weight: 600;
+      border-bottom: 2px solid rgba(245, 158, 11, 0.3);
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+    }
+    .warning-banner i { margin-right: 8px; }
+
+    /* ==================== ADMIN HEADER ==================== */
+    .admin-header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: #fff;
+      padding: 20px 0;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .admin-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-light), var(--warning), var(--secondary));
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .admin-header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.02em;
+    }
+    .header-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.2);
+      padding: 4px 10px;
+      border-radius: 50px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* ==================== ADMIN CONTENT ==================== */
+    .admin-content { padding: 36px 0 60px; }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ==================== CARDS ==================== */
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+    .card h2 i {
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    /* ==================== FORM STYLES ==================== */
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--dark);
+      letter-spacing: 0.01em;
+    }
+    .form-group label span {
+      color: var(--secondary);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
       font-size: 0.9rem;
+      color: var(--dark);
+      background: var(--bg-input);
+      transition: var(--transition);
+      outline: none;
+      line-height: 1.5;
     }
-    .warning-banner i { margin-right: 6px; }
-    
-    .admin-content { padding: 32px 0; }
-    .admin-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 32px; }
-    @media (max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
-    
-    .card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 24px; }
-    .card h2 { font-size: 1.3rem; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #f1f5f9; }
-    
-    .post-form textarea { min-height: 150px; resize: vertical; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
-    
-    .post-list { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    .post-list th { text-align: left; padding: 12px; background: #f8fafc; font-weight: 600; border-bottom: 2px solid #e2e8f0; }
-    .post-list td { padding: 12px; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
-    .post-list tr:hover { background: #f8fafc; }
-    .post-actions { display: flex; gap: 8px; }
-    .badge { padding: 4px 8px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; background: rgba(30,64,175,0.1); color: var(--primary); }
-    
-    .loading { text-align: center; padding: 40px; color: var(--muted); }
-    .empty-state { text-align: center; padding: 40px; color: var(--muted); }
-    .empty-state i { font-size: 2rem; margin-bottom: 12px; display: block; }
-    
-    .alert { padding: 12px; border-radius: var(--radius); margin-bottom: 16px; font-size: 0.9rem; display: none; }
-    .alert-error { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
-    .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-    
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+    }
+    .form-control::placeholder {
+      color: var(--muted);
+      opacity: 0.7;
+    }
+    .form-control:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    select.form-control {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .post-form textarea.form-control {
+      min-height: 150px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ==================== BUTTONS ==================== */
     .btn {
-      padding: 12px 24px; border: none; border-radius: var(--radius);
-      font-weight: 600; cursor: pointer; transition: var(--transition);
-      font-size: 0.95rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.88rem;
+      font-family: var(--font);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      letter-spacing: 0.01em;
+      line-height: 1.4;
+      white-space: nowrap;
     }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-dark); }
-    .btn-danger { background: var(--secondary); color: #fff; }
-    .btn-danger:hover { opacity: 0.9; }
-    .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
-    .btn-block { width: 100%; }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .btn-danger {
+      background: var(--secondary);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+    }
+    .btn-danger:hover {
+      background: var(--secondary-dark);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+    }
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+    .btn-success:hover {
+      background: #047857;
+    }
+    .btn-sm {
+      padding: 7px 12px;
+      font-size: 0.8rem;
+    }
+    .btn-block {
+      width: 100%;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--dark);
+    }
+    .btn-outline:hover {
+      background: var(--bg-table-hover);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ==================== TABLE STYLES ==================== */
+    .post-list {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+    .post-list th {
+      text-align: left;
+      padding: 14px 16px;
+      background: var(--bg-table-header);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border-bottom: 2px solid var(--border);
+    }
+    .post-list td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      color: var(--dark);
+      transition: background 0.15s ease;
+    }
+    .post-list tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .post-list tbody tr:hover td {
+      background: var(--bg-table-hover);
+    }
+    .post-list td strong {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+      color: var(--dark);
+    }
+    .post-list td small {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* ==================== BADGES ==================== */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(30, 64, 175, 0.1);
+      color: var(--primary);
+      text-transform: capitalize;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* ==================== ALERTS ==================== */
+    .alert {
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 24px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .alert-error {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+    .alert-success {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+    [data-theme="dark"] .alert-error {
+      background: rgba(185, 28, 28, 0.2);
+      color: #fca5a5;
+      border-color: rgba(185, 28, 28, 0.4);
+    }
+    [data-theme="dark"] .alert-success {
+      background: rgba(21, 128, 61, 0.2);
+      color: #86efac;
+      border-color: rgba(21, 128, 61, 0.4);
+    }
+
+    /* ==================== LOADING & EMPTY STATES ==================== */
+    .loading {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .loading i {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+    }
+    .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+      opacity: 0.5;
+    }
+    .empty-state p {
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    /* ==================== SCROLLBAR ==================== */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--light);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--muted);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 768px) {
+      .admin-header h1 {
+        font-size: 1.25rem;
+      }
+      .card {
+        padding: 20px;
+      }
+      .card h2 {
+        font-size: 1.1rem;
+      }
+      .post-list {
+        font-size: 0.82rem;
+      }
+      .post-list th,
+      .post-list td {
+        padding: 10px 12px;
+      }
+      .post-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .post-actions .btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+      .admin-content {
+        padding: 24px 0 40px;
+      }
+      .warning-banner {
+        font-size: 0.78rem;
+        padding: 8px 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -100,9 +508,8 @@
   <!-- ADMIN DASHBOARD (Always Visible) -->
   <div id="adminDashboard">
     <header class="admin-header">
-      <div class="container" style="display:flex;justify-content:space-between;align-items:center;width:100%;">
-        <h1><i class="fas fa-shield-alt"></i> Blog Admin <span style="font-size:0.9rem;font-weight:400;opacity:0.9">[DEV MODE]</span></h1>
-        <!-- Logout button removed - no auth to logout from -->
+      <div class="container header-content">
+        <h1><i class="fas fa-shield-alt"></i> Blog Admin <span class="header-badge">DEV MODE</span></h1>
       </div>
     </header>
 
@@ -118,22 +525,22 @@
               <input type="hidden" id="postId">
               
               <div class="form-group">
-                <label for="title">Title *</label>
+                <label for="title">Title <span>*</span></label>
                 <input type="text" id="title" class="form-control" required placeholder="Enter blog title">
               </div>
 
               <div class="form-group">
-                <label for="slug">URL Slug *</label>
+                <label for="slug">URL Slug <span>*</span></label>
                 <input type="text" id="slug" class="form-control" required placeholder="e.g., how-to-read-survey-plan">
               </div>
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="author">Author *</label>
+                  <label for="author">Author <span>*</span></label>
                   <input type="text" id="author" class="form-control" value="Njogu Surveyor Team" required>
                 </div>
                 <div class="form-group">
-                  <label for="category">Category *</label>
+                  <label for="category">Category <span>*</span></label>
                   <select id="category" class="form-control" required>
                     <option value="land">Land & Subdivision</option>
                     <option value="titles">Title Deeds</option>
@@ -146,22 +553,22 @@
               </div>
 
               <div class="form-group">
-                <label for="publishedDate">Publish Date *</label>
+                <label for="publishedDate">Publish Date <span>*</span></label>
                 <input type="date" id="publishedDate" class="form-control" required>
               </div>
 
               <div class="form-group">
-                <label for="excerpt">Short Excerpt *</label>
+                <label for="excerpt">Short Excerpt <span>*</span></label>
                 <textarea id="excerpt" class="form-control" rows="3" required placeholder="Brief summary for blog cards (150 chars max)"></textarea>
               </div>
 
               <div class="form-group">
-                <label for="imageUrl">Featured Image URL *</label>
+                <label for="imageUrl">Featured Image URL <span>*</span></label>
                 <input type="url" id="imageUrl" class="form-control" required placeholder="https://images.unsplash.com/...">
               </div>
 
               <div class="form-group">
-                <label for="content">Full Content (HTML) *</label>
+                <label for="content">Full Content (HTML) <span>*</span></label>
                 <textarea id="content" class="form-control" rows="12" required placeholder="<p>Write your full blog post here...</p>"></textarea>
               </div>
 
@@ -199,7 +606,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // ===== CONFIGURATION =====
-    // ⚠️ FIX: Corrected typo in URL (was "supaabse" → "supabase")
     const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
     
@@ -272,12 +678,12 @@
         const date = new Date(post.created_at).toLocaleDateString('en-KE', { year: 'numeric', month: 'short', day: 'numeric' });
         const row = document.createElement('tr');
         row.innerHTML = `
-          <td><strong>${post.title}</strong><br><small style="color:var(--muted)">${post.slug}</small></td>
+          <td><strong>${post.title}</strong><small>${post.slug}</small></td>
           <td><span class="badge">${post.category}</span></td>
           <td>${date}</td>
           <td class="post-actions">
-            <button class="btn btn-sm btn-primary edit-btn" data-id="${post.id}"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-sm btn-danger delete-btn" data-id="${post.id}"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-sm btn-primary edit-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>
+            <button class="btn btn-sm btn-danger delete-btn" data-id="${post.id}"><i class="fas fa-trash"></i> Delete</button>
           </td>
         `;
         postsBody.appendChild(row);
@@ -380,3 +786,4 @@
   </script>
 </body>
 </html>
+
