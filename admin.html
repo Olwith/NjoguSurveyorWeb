@@ -16,8 +16,6 @@
       --secondary: #dc2626;
       --secondary-dark: #b91c1c;
       --success: #059669;
-      --success-light: #10b981;
-      --warning: #f59e0b;
       --warning-bg: #fef3c7;
       --warning-text: #92400e;
       --light: #f8fafc;
@@ -45,7 +43,6 @@
       --secondary: #ef4444;
       --secondary-dark: #dc2626;
       --success: #10b981;
-      --success-light: #34d399;
       --warning-bg: #78350f;
       --warning-text: #fbbf24;
       --light: #0f172a;
@@ -91,7 +88,80 @@
     }
     .warning-banner i { margin-right: 8px; }
 
-    /* ==================== ADMIN HEADER ==================== */
+    /* ==================== LOGIN VIEW ==================== */
+    .login-container {
+      display: none; /* Controlled by JS */
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--light) 0%, #e0e7ff 100%);
+    }
+    [data-theme="dark"] .login-container {
+      background: linear-gradient(135deg, var(--light) 0%, #0f172a 100%);
+    }
+    
+    .login-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 420px;
+      padding: 36px 32px;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .login-header h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .login-header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .login-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(30, 64, 175, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px auto;
+    }
+    .login-icon i {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .login-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .login-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ==================== ADMIN DASHBOARD ==================== */
+    #adminDashboard { display: none; }
+    
     .admin-header {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
       color: #fff;
@@ -106,7 +176,7 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--primary-light), var(--warning), var(--secondary));
+      background: linear-gradient(90deg, var(--primary-light), var(--warning-text), var(--secondary));
     }
     .header-content {
       display: flex;
@@ -132,6 +202,16 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       border: 1px solid rgba(255,255,255,0.2);
+    }
+    .user-badge {
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.1);
+      padding: 6px 12px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     /* ==================== ADMIN CONTENT ==================== */
@@ -174,20 +254,15 @@
     }
 
     /* ==================== FORM STYLES ==================== */
-    .form-group {
-      margin-bottom: 18px;
-    }
+    .form-group { margin-bottom: 18px; }
     .form-group label {
       display: block;
       font-weight: 600;
       font-size: 0.85rem;
       margin-bottom: 6px;
       color: var(--dark);
-      letter-spacing: 0.01em;
     }
-    .form-group label span {
-      color: var(--secondary);
-    }
+    .form-group label span { color: var(--secondary); }
 
     .form-control {
       width: 100%;
@@ -206,15 +281,8 @@
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
     }
-    .form-control::placeholder {
-      color: var(--muted);
-      opacity: 0.7;
-    }
-    .form-control:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
+    .form-control::placeholder { color: var(--muted); opacity: 0.7; }
+    
     select.form-control {
       cursor: pointer;
       appearance: none;
@@ -224,22 +292,15 @@
       padding-right: 36px;
     }
 
-    textarea.form-control {
-      min-height: 100px;
-      resize: vertical;
-    }
-    .post-form textarea.form-control {
-      min-height: 150px;
-    }
+    textarea.form-control { min-height: 100px; resize: vertical; }
+    .post-form textarea.form-control { min-height: 150px; }
 
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
-    @media (max-width: 600px) {
-      .form-row { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
 
     /* ==================== BUTTONS ==================== */
     .btn {
@@ -259,9 +320,7 @@
       line-height: 1.4;
       white-space: nowrap;
     }
-    .btn:active {
-      transform: scale(0.98);
-    }
+    .btn:active { transform: scale(0.98); }
     .btn-primary {
       background: var(--primary);
       color: #fff;
@@ -271,44 +330,25 @@
       background: var(--primary-dark);
       box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
     }
-    .btn-primary:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
+    
     .btn-danger {
       background: var(--secondary);
       color: #fff;
       box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
     }
-    .btn-danger:hover {
-      background: var(--secondary-dark);
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
-    }
-    .btn-success {
-      background: var(--success);
+    .btn-danger:hover { background: var(--secondary-dark); box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35); }
+    
+    .btn-sm { padding: 7px 12px; font-size: 0.8rem; }
+    .btn-block { width: 100%; }
+    .btn-logout {
+      background: rgba(255,255,255,0.1);
       color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      font-size: 0.85rem;
     }
-    .btn-success:hover {
-      background: #047857;
-    }
-    .btn-sm {
-      padding: 7px 12px;
-      font-size: 0.8rem;
-    }
-    .btn-block {
-      width: 100%;
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1.5px solid var(--border);
-      color: var(--dark);
-    }
-    .btn-outline:hover {
-      background: var(--bg-table-hover);
-      border-color: var(--primary);
-      color: var(--primary);
-    }
+    .btn-logout:hover { background: rgba(255,255,255,0.2); }
 
     /* ==================== TABLE STYLES ==================== */
     .post-list {
@@ -338,29 +378,12 @@
       color: var(--dark);
       transition: background 0.15s ease;
     }
-    .post-list tbody tr:last-child td {
-      border-bottom: none;
-    }
-    .post-list tbody tr:hover td {
-      background: var(--bg-table-hover);
-    }
-    .post-list td strong {
-      display: block;
-      font-size: 0.9rem;
-      margin-bottom: 2px;
-      color: var(--dark);
-    }
-    .post-list td small {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
+    .post-list tbody tr:last-child td { border-bottom: none; }
+    .post-list tbody tr:hover td { background: var(--bg-table-hover); }
+    .post-list td strong { display: block; font-size: 0.9rem; margin-bottom: 2px; color: var(--dark); }
+    .post-list td small { font-size: 0.78rem; color: var(--muted); }
 
-    .post-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+    .post-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
     /* ==================== BADGES ==================== */
     .badge {
@@ -390,126 +413,93 @@
       from { opacity: 0; transform: translateY(-8px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .alert-error {
-      background: #fee2e2;
-      color: #b91c1c;
-      border: 1px solid #fecaca;
-    }
-    .alert-success {
-      background: #dcfce7;
-      color: #15803d;
-      border: 1px solid #bbf7d0;
-    }
-    [data-theme="dark"] .alert-error {
-      background: rgba(185, 28, 28, 0.2);
-      color: #fca5a5;
-      border-color: rgba(185, 28, 28, 0.4);
-    }
-    [data-theme="dark"] .alert-success {
-      background: rgba(21, 128, 61, 0.2);
-      color: #86efac;
-      border-color: rgba(21, 128, 61, 0.4);
-    }
+    .alert-error { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    [data-theme="dark"] .alert-error { background: rgba(185, 28, 28, 0.2); color: #fca5a5; border-color: rgba(185, 28, 28, 0.4); }
+    [data-theme="dark"] .alert-success { background: rgba(21, 128, 61, 0.2); color: #86efac; border-color: rgba(21, 128, 61, 0.4); }
 
     /* ==================== LOADING & EMPTY STATES ==================== */
-    .loading {
-      text-align: center;
-      padding: 48px 20px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-    .loading i {
-      font-size: 1.5rem;
-      display: block;
-      margin-bottom: 12px;
-      color: var(--primary);
-    }
-    .empty-state {
-      text-align: center;
-      padding: 48px 20px;
-      color: var(--muted);
-    }
-    .empty-state i {
-      font-size: 2.5rem;
-      margin-bottom: 16px;
-      display: block;
-      opacity: 0.5;
-    }
-    .empty-state p {
-      font-size: 0.95rem;
-      margin-top: 8px;
-    }
+    .loading { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 0.95rem; }
+    .loading i { font-size: 1.5rem; display: block; margin-bottom: 12px; color: var(--primary); }
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--muted); }
+    .empty-state i { font-size: 2.5rem; margin-bottom: 16px; display: block; opacity: 0.5; }
+    .empty-state p { font-size: 0.95rem; margin-top: 8px; }
 
     /* ==================== SCROLLBAR ==================== */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--light);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--muted);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--primary);
-    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--light); }
+    ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 768px) {
-      .admin-header h1 {
-        font-size: 1.25rem;
-      }
-      .card {
-        padding: 20px;
-      }
-      .card h2 {
-        font-size: 1.1rem;
-      }
-      .post-list {
-        font-size: 0.82rem;
-      }
-      .post-list th,
-      .post-list td {
-        padding: 10px 12px;
-      }
-      .post-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .post-actions .btn {
-        width: 100%;
-      }
+      .admin-header h1 { font-size: 1.25rem; }
+      .card { padding: 20px; }
+      .card h2 { font-size: 1.1rem; }
+      .post-list { font-size: 0.82rem; }
+      .post-list th, .post-list td { padding: 10px 12px; }
+      .post-actions { flex-direction: column; align-items: stretch; }
+      .post-actions .btn { width: 100%; }
     }
-
     @media (max-width: 480px) {
-      .container {
-        padding: 0 16px;
-      }
-      .admin-content {
-        padding: 24px 0 40px;
-      }
-      .warning-banner {
-        font-size: 0.78rem;
-        padding: 8px 12px;
-      }
+      .container { padding: 0 16px; }
+      .admin-content { padding: 24px 0 40px; }
+      .warning-banner { font-size: 0.78rem; padding: 8px 12px; }
+      .login-card { padding: 24px 16px; }
+      .user-badge { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ⚠️ SECURITY WARNING BANNER -->
-  <div class="warning-banner">
-    <i class="fas fa-exclamation-triangle"></i>
-    DEVELOPMENT MODE: No authentication enabled. Re-enable login before going live.
+  <!-- ==================== LOGIN VIEW ==================== -->
+  <div id="loginView" class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-icon"><i class="fas fa-lock"></i></div>
+        <h1>Admin Login</h1>
+        <p>Enter your credentials to manage the blog</p>
+      </div>
+
+      <div id="loginAlert" class="alert" style="display:none;"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-control" required placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="form-control" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+      </form>
+
+      <div class="login-footer">
+        Protected by Supabase Auth
+      </div>
+    </div>
   </div>
 
-  <!-- ADMIN DASHBOARD (Always Visible) -->
+  <!-- ==================== ADMIN DASHBOARD ==================== -->
   <div id="adminDashboard">
+    <div class="warning-banner">
+      <i class="fas fa-shield-alt"></i> Secure Session Active. Always sign out after use.
+    </div>
+
     <header class="admin-header">
       <div class="container header-content">
-        <h1><i class="fas fa-shield-alt"></i> Blog Admin <span class="header-badge">DEV MODE</span></h1>
+        <h1><i class="fas fa-tachometer-alt"></i> Blog Admin <span class="header-badge">LIVE</span></h1>
+        
+        <div class="user-badge">
+          <i class="fas fa-user-circle"></i>
+          <span id="userEmail">Loading...</span>
+          <button id="logoutBtn" class="btn btn-logout" style="margin-left: 12px; padding: 4px 12px; font-size: 0.75rem;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
       </div>
     </header>
 
@@ -609,11 +599,17 @@
     const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
     
-    // Initialize Supabase client
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // ===== DOM ELEMENTS =====
+    const loginView = document.getElementById('loginView');
     const adminDashboard = document.getElementById('adminDashboard');
+    const loginForm = document.getElementById('loginForm');
+    const loginAlert = document.getElementById('loginAlert');
+    const loginBtn = document.getElementById('loginBtn');
+    const userEmailDisplay = document.getElementById('userEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
     const postForm = document.getElementById('postForm');
     const statusAlert = document.getElementById('statusAlert');
     const postsTable = document.getElementById('postsTable');
@@ -624,19 +620,86 @@
     const slugInput = document.getElementById('slug');
     const publishedDateInput = document.getElementById('publishedDate');
 
-    // ===== INITIALIZATION =====
-    publishedDateInput.valueAsDate = new Date();
-    
-    // Show dashboard immediately (no auth check)
-    adminDashboard.style.display = 'block';
-    loadPosts();
-
+    // ===== AUTH FUNCTIONS =====
     function showAlert(element, message, type = 'error') {
       element.textContent = message;
       element.className = `alert alert-${type}`;
       element.style.display = 'block';
-      setTimeout(() => element.style.display = 'none', 5000);
+      if (element !== loginAlert) {
+        setTimeout(() => element.style.display = 'none', 5000);
+      }
     }
+
+    function setView(view) {
+      if (view === 'login') {
+        loginView.style.display = 'flex';
+        adminDashboard.style.display = 'none';
+      } else {
+        loginView.style.display = 'none';
+        adminDashboard.style.display = 'block';
+        loadPosts();
+      }
+    }
+
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        userEmailDisplay.textContent = session.user.email;
+        setView('dashboard');
+      } else {
+        setView('login');
+      }
+    }
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+      loginAlert.style.display = 'none';
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+
+      if (error) {
+        showAlert(loginAlert, error.message || 'Login failed. Please check your credentials.', 'error');
+      } else {
+        loginForm.reset();
+        checkSession();
+      }
+    });
+
+    logoutBtn.addEventListener('click', async () => {
+      logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      const { error } = await supabase.auth.signOut();
+      if (!error) {
+        checkSession();
+      } else {
+        console.error('Logout error:', error);
+      }
+      logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+    });
+
+    // ===== INITIALIZATION =====
+    publishedDateInput.valueAsDate = new Date();
+    checkSession();
+
+    // Listen for auth state changes (e.g. token refresh, external logout)
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        userEmailDisplay.textContent = session.user.email;
+        setView('dashboard');
+      } else if (event === 'SIGNED_OUT') {
+        setView('login');
+      }
+    });
 
     // ===== SLUG GENERATOR =====
     titleInput.addEventListener('input', () => {
@@ -663,6 +726,11 @@
       postsLoader.style.display = 'none';
 
       if (error) {
+        if (error.message === 'Invalid API key' || error.message.includes('JWT')) {
+          // Likely auth issue or session expired, redirect to login
+          checkSession();
+          return;
+        }
         console.error('Load posts error:', error);
         showAlert(statusAlert, `Failed to load posts: ${error.message}`, 'error');
         return;
@@ -691,7 +759,6 @@
 
       postsTable.style.display = 'table';
 
-      // Attach event listeners
       document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', () => editPost(btn.dataset.id));
       });
@@ -720,36 +787,36 @@
       const postId = document.getElementById('postId').value;
       let error;
 
-      if (postId) {
-        // Update existing
-        const res = await supabase.from('blog_posts').update(postData).eq('id', postId);
-        error = res.error;
-      } else {
-        // Insert new
-        const res = await supabase.from('blog_posts').insert([postData]);
-        error = res.error;
-      }
+      try {
+        if (postId) {
+          const res = await supabase.from('blog_posts').update(postData).eq('id', postId);
+          error = res.error;
+        } else {
+          const res = await supabase.from('blog_posts').insert([postData]);
+          error = res.error;
+        }
 
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Post';
+        if (error) throw error;
 
-      if (error) {
-        console.error('Save error:', error);
-        showAlert(statusAlert, `Error: ${error.message}`, 'error');
-      } else {
         showAlert(statusAlert, postId ? 'Post updated successfully!' : 'New post published!', 'success');
         postForm.reset();
         document.getElementById('postId').value = '';
         publishedDateInput.valueAsDate = new Date();
         document.getElementById('author').value = 'Njogu Surveyor Team';
+        document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Publish Post';
         loadPosts();
+
+      } catch (err) {
+        console.error('Save error:', err);
+        showAlert(statusAlert, `Error: ${err.message}`, 'error');
+      } finally {
+        submitBtn.disabled = false;
       }
     });
 
     async function editPost(id) {
       const { data, error } = await supabase.from('blog_posts').select('*').eq('id', id).single();
       if (error) {
-        console.error('Edit load error:', error);
         showAlert(statusAlert, 'Failed to load post for editing.', 'error');
         return;
       }
@@ -773,16 +840,12 @@
 
       const { error } = await supabase.from('blog_posts').delete().eq('id', id);
       if (error) {
-        console.error('Delete error:', error);
         showAlert(statusAlert, 'Failed to delete post.', 'error');
       } else {
         showAlert(statusAlert, 'Post deleted successfully.', 'success');
         loadPosts();
       }
     }
-
-    // Initialize
-    console.log('🔓 Admin dashboard loaded (DEV MODE - no auth)');
   </script>
 </body>
 </html>
