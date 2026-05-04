@@ -89,15 +89,17 @@
     .warning-banner i { margin-right: 8px; }
 
     /* ==================== LOGIN VIEW ==================== */
-    .login-container {
-      display: none; /* Controlled by JS */
+    /* FIXED: Default to visible to prevent blank screen on load */
+    #loginView {
+      display: flex;
       min-height: 100vh;
       align-items: center;
       justify-content: center;
       padding: 20px;
       background: linear-gradient(135deg, var(--light) 0%, #e0e7ff 100%);
+      animation: fadeIn 0.4s ease;
     }
-    [data-theme="dark"] .login-container {
+    [data-theme="dark"] #loginView {
       background: linear-gradient(135deg, var(--light) 0%, #0f172a 100%);
     }
     
@@ -109,7 +111,6 @@
       width: 100%;
       max-width: 420px;
       padding: 36px 32px;
-      animation: fadeIn 0.4s ease;
     }
     
     @keyframes fadeIn {
@@ -160,7 +161,9 @@
     }
 
     /* ==================== ADMIN DASHBOARD ==================== */
-    #adminDashboard { display: none; }
+    #adminDashboard { 
+      display: none; /* Hidden until login succeeds */
+    }
     
     .admin-header {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
@@ -286,7 +289,7 @@
     select.form-control {
       cursor: pointer;
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-image: url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 14px center;
       padding-right: 36px;
@@ -453,7 +456,7 @@
 <body>
 
   <!-- ==================== LOGIN VIEW ==================== -->
-  <div id="loginView" class="login-container">
+  <div id="loginView">
     <div class="login-card">
       <div class="login-header">
         <div class="login-icon"><i class="fas fa-lock"></i></div>
@@ -642,11 +645,19 @@
     }
 
     async function checkSession() {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        userEmailDisplay.textContent = session.user.email;
-        setView('dashboard');
-      } else {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        
+        if (session?.user) {
+          userEmailDisplay.textContent = session.user.email;
+          setView('dashboard');
+        } else {
+          setView('login');
+        }
+      } catch (err) {
+        console.error('Session check failed:', err);
+        // Fallback to login if anything goes wrong
         setView('login');
       }
     }
@@ -680,18 +691,21 @@
       logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
       const { error } = await supabase.auth.signOut();
       if (!error) {
-        checkSession();
+        setView('login');
       } else {
         console.error('Logout error:', error);
+        setView('login'); // Force switch anyway
       }
       logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
     });
 
     // ===== INITIALIZATION =====
-    publishedDateInput.valueAsDate = new Date();
-    checkSession();
+    document.addEventListener('DOMContentLoaded', () => {
+      publishedDateInput.valueAsDate = new Date();
+      checkSession();
+    });
 
-    // Listen for auth state changes (e.g. token refresh, external logout)
+    // Listen for auth state changes
     supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         userEmailDisplay.textContent = session.user.email;
@@ -727,7 +741,6 @@
 
       if (error) {
         if (error.message === 'Invalid API key' || error.message.includes('JWT')) {
-          // Likely auth issue or session expired, redirect to login
           checkSession();
           return;
         }
