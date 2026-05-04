@@ -89,7 +89,6 @@
     .warning-banner i { margin-right: 8px; }
 
     /* ==================== LOGIN VIEW ==================== */
-    /* FIXED: Default to visible to prevent blank screen on load */
     #loginView {
       display: flex;
       min-height: 100vh;
@@ -154,16 +153,9 @@
       font-size: 0.85rem;
       color: var(--muted);
     }
-    .login-footer a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-    }
 
     /* ==================== ADMIN DASHBOARD ==================== */
-    #adminDashboard { 
-      display: none; /* Hidden until login succeeds */
-    }
+    #adminDashboard { display: none; }
     
     .admin-header {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
@@ -171,15 +163,6 @@
       padding: 20px 0;
       box-shadow: var(--shadow-lg);
       position: relative;
-    }
-    .admin-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary-light), var(--warning-text), var(--secondary));
     }
     .header-content {
       display: flex;
@@ -194,27 +177,16 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      letter-spacing: -0.02em;
-    }
-    .header-badge {
-      font-size: 0.7rem;
-      font-weight: 700;
-      background: rgba(255,255,255,0.2);
-      padding: 4px 10px;
-      border-radius: 50px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.2);
     }
     .user-badge {
       font-size: 0.8rem;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.15);
       padding: 6px 12px;
       border-radius: 50px;
       display: flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
     }
 
     /* ==================== ADMIN CONTENT ==================== */
@@ -226,18 +198,14 @@
       align-items: start;
     }
 
-    @media (max-width: 960px) {
-      .admin-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 960px) { .admin-grid { grid-template-columns: 1fr; } }
 
-    /* ==================== CARDS ==================== */
     .card {
       background: var(--bg-card);
       border-radius: var(--radius-lg);
       padding: 28px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .card h2 {
       font-size: 1.25rem;
@@ -248,15 +216,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--dark);
-      letter-spacing: -0.01em;
     }
-    .card h2 i {
-      color: var(--primary);
-      font-size: 1.1rem;
-    }
+    .card h2 i { color: var(--primary); }
 
-    /* ==================== FORM STYLES ==================== */
+    /* ==================== FORMS & TABLES ==================== */
     .form-group { margin-bottom: 18px; }
     .form-group label {
       display: block;
@@ -265,8 +228,6 @@
       margin-bottom: 6px;
       color: var(--dark);
     }
-    .form-group label span { color: var(--secondary); }
-
     .form-control {
       width: 100%;
       padding: 10px 14px;
@@ -276,181 +237,47 @@
       font-size: 0.9rem;
       color: var(--dark);
       background: var(--bg-input);
-      transition: var(--transition);
       outline: none;
-      line-height: 1.5;
     }
     .form-control:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
     }
-    .form-control::placeholder { color: var(--muted); opacity: 0.7; }
-    
-    select.form-control {
-      cursor: pointer;
-      appearance: none;
-      background-image: url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-    }
-
-    textarea.form-control { min-height: 100px; resize: vertical; }
-    .post-form textarea.form-control { min-height: 150px; }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
 
-    /* ==================== BUTTONS ==================== */
+    .post-list { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .post-list th { background: var(--bg-table-header); padding: 12px; text-align: left; font-size: 0.78rem; text-transform: uppercase; color: var(--muted); }
+    .post-list td { padding: 12px; border-bottom: 1px solid var(--border); }
+    .post-list td strong { display: block; }
+    .post-list td small { color: var(--muted); font-size: 0.78rem; }
+    .post-list tbody tr:hover td { background: var(--bg-table-hover); }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; background: rgba(30, 64, 175, 0.1); color: var(--primary); }
+
     .btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      font-size: 0.88rem;
-      font-family: var(--font);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      letter-spacing: 0.01em;
-      line-height: 1.4;
-      white-space: nowrap;
+      padding: 10px 20px; border: none; border-radius: var(--radius-sm);
+      font-weight: 600; cursor: pointer; transition: var(--transition);
+      font-size: 0.88rem; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
     }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);
-    }
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
-    }
-    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
-    
-    .btn-danger {
-      background: var(--secondary);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
-    }
-    .btn-danger:hover { background: var(--secondary-dark); box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35); }
-    
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-primary:disabled { opacity: 0.6; }
+    .btn-danger { background: var(--secondary); color: #fff; }
     .btn-sm { padding: 7px 12px; font-size: 0.8rem; }
     .btn-block { width: 100%; }
-    .btn-logout {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 8px 16px;
-      font-size: 0.85rem;
-    }
-    .btn-logout:hover { background: rgba(255,255,255,0.2); }
+    .btn-logout { background: rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; font-size: 0.8rem; }
 
-    /* ==================== TABLE STYLES ==================== */
-    .post-list {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      font-size: 0.88rem;
-      overflow: hidden;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-    }
-    .post-list th {
-      text-align: left;
-      padding: 14px 16px;
-      background: var(--bg-table-header);
-      font-weight: 700;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      border-bottom: 2px solid var(--border);
-    }
-    .post-list td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: middle;
-      color: var(--dark);
-      transition: background 0.15s ease;
-    }
-    .post-list tbody tr:last-child td { border-bottom: none; }
-    .post-list tbody tr:hover td { background: var(--bg-table-hover); }
-    .post-list td strong { display: block; font-size: 0.9rem; margin-bottom: 2px; color: var(--dark); }
-    .post-list td small { font-size: 0.78rem; color: var(--muted); }
-
-    .post-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-
-    /* ==================== BADGES ==================== */
-    .badge {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: rgba(30, 64, 175, 0.1);
-      color: var(--primary);
-      text-transform: capitalize;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-
-    /* ==================== ALERTS ==================== */
-    .alert {
-      padding: 14px 18px;
-      border-radius: var(--radius-sm);
-      margin-bottom: 24px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      display: none;
-      animation: slideIn 0.3s ease;
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .alert-error { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
-    .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-    [data-theme="dark"] .alert-error { background: rgba(185, 28, 28, 0.2); color: #fca5a5; border-color: rgba(185, 28, 28, 0.4); }
-    [data-theme="dark"] .alert-success { background: rgba(21, 128, 61, 0.2); color: #86efac; border-color: rgba(21, 128, 61, 0.4); }
-
-    /* ==================== LOADING & EMPTY STATES ==================== */
-    .loading { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 0.95rem; }
-    .loading i { font-size: 1.5rem; display: block; margin-bottom: 12px; color: var(--primary); }
-    .empty-state { text-align: center; padding: 48px 20px; color: var(--muted); }
-    .empty-state i { font-size: 2.5rem; margin-bottom: 16px; display: block; opacity: 0.5; }
-    .empty-state p { font-size: 0.95rem; margin-top: 8px; }
+    .alert { padding: 12px; border-radius: 6px; margin-bottom: 16px; display: none; font-size: 0.9rem; }
+    .alert-error { background: #fee2e2; color: #b91c1c; }
+    .alert-success { background: #dcfce7; color: #15803d; }
+    
+    .loading { text-align: center; padding: 40px; color: var(--muted); }
+    .empty-state { text-align: center; padding: 40px; color: var(--muted); }
 
     /* ==================== SCROLLBAR ==================== */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: var(--light); }
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
-
-    /* ==================== RESPONSIVE ==================== */
-    @media (max-width: 768px) {
-      .admin-header h1 { font-size: 1.25rem; }
-      .card { padding: 20px; }
-      .card h2 { font-size: 1.1rem; }
-      .post-list { font-size: 0.82rem; }
-      .post-list th, .post-list td { padding: 10px 12px; }
-      .post-actions { flex-direction: column; align-items: stretch; }
-      .post-actions .btn { width: 100%; }
-    }
-    @media (max-width: 480px) {
-      .container { padding: 0 16px; }
-      .admin-content { padding: 24px 0 40px; }
-      .warning-banner { font-size: 0.78rem; padding: 8px 12px; }
-      .login-card { padding: 24px 16px; }
-      .user-badge { display: none; }
-    }
+    ::-webkit-scrollbar-track { background: var(--light); }
   </style>
 </head>
 <body>
@@ -464,7 +291,7 @@
         <p>Enter your credentials to manage the blog</p>
       </div>
 
-      <div id="loginAlert" class="alert" style="display:none;"></div>
+      <div id="loginAlert" class="alert"></div>
 
       <form id="loginForm">
         <div class="form-group">
@@ -479,27 +306,18 @@
           <i class="fas fa-sign-in-alt"></i> Sign In
         </button>
       </form>
-
-      <div class="login-footer">
-        Protected by Supabase Auth
-      </div>
     </div>
   </div>
 
   <!-- ==================== ADMIN DASHBOARD ==================== -->
   <div id="adminDashboard">
-    <div class="warning-banner">
-      <i class="fas fa-shield-alt"></i> Secure Session Active. Always sign out after use.
-    </div>
-
     <header class="admin-header">
       <div class="container header-content">
-        <h1><i class="fas fa-tachometer-alt"></i> Blog Admin <span class="header-badge">LIVE</span></h1>
-        
+        <h1><i class="fas fa-tachometer-alt"></i> Blog Admin</h1>
         <div class="user-badge">
           <i class="fas fa-user-circle"></i>
-          <span id="userEmail">Loading...</span>
-          <button id="logoutBtn" class="btn btn-logout" style="margin-left: 12px; padding: 4px 12px; font-size: 0.75rem;">
+          <span id="userEmail">...</span>
+          <button id="logoutBtn" class="btn btn-logout">
             <i class="fas fa-sign-out-alt"></i> Logout
           </button>
         </div>
@@ -514,26 +332,23 @@
           <!-- POST FORM -->
           <div class="card">
             <h2><i class="fas fa-pen-nib"></i> Create / Edit Post</h2>
-            <form id="postForm" class="post-form">
+            <form id="postForm">
               <input type="hidden" id="postId">
-              
               <div class="form-group">
-                <label for="title">Title <span>*</span></label>
-                <input type="text" id="title" class="form-control" required placeholder="Enter blog title">
+                <label for="title">Title *</label>
+                <input type="text" id="title" class="form-control" required>
               </div>
-
               <div class="form-group">
-                <label for="slug">URL Slug <span>*</span></label>
-                <input type="text" id="slug" class="form-control" required placeholder="e.g., how-to-read-survey-plan">
+                <label for="slug">URL Slug *</label>
+                <input type="text" id="slug" class="form-control" required placeholder="my-post-slug">
               </div>
-
               <div class="form-row">
                 <div class="form-group">
-                  <label for="author">Author <span>*</span></label>
+                  <label for="author">Author *</label>
                   <input type="text" id="author" class="form-control" value="Njogu Surveyor Team" required>
                 </div>
                 <div class="form-group">
-                  <label for="category">Category <span>*</span></label>
+                  <label for="category">Category *</label>
                   <select id="category" class="form-control" required>
                     <option value="land">Land & Subdivision</option>
                     <option value="titles">Title Deeds</option>
@@ -544,27 +359,22 @@
                   </select>
                 </div>
               </div>
-
               <div class="form-group">
-                <label for="publishedDate">Publish Date <span>*</span></label>
+                <label for="publishedDate">Publish Date *</label>
                 <input type="date" id="publishedDate" class="form-control" required>
               </div>
-
               <div class="form-group">
-                <label for="excerpt">Short Excerpt <span>*</span></label>
-                <textarea id="excerpt" class="form-control" rows="3" required placeholder="Brief summary for blog cards (150 chars max)"></textarea>
+                <label for="excerpt">Excerpt *</label>
+                <textarea id="excerpt" class="form-control" rows="2" required></textarea>
               </div>
-
               <div class="form-group">
-                <label for="imageUrl">Featured Image URL <span>*</span></label>
-                <input type="url" id="imageUrl" class="form-control" required placeholder="https://images.unsplash.com/...">
+                <label for="imageUrl">Featured Image URL *</label>
+                <input type="url" id="imageUrl" class="form-control" required>
               </div>
-
               <div class="form-group">
-                <label for="content">Full Content (HTML) <span>*</span></label>
-                <textarea id="content" class="form-control" rows="12" required placeholder="<p>Write your full blog post here...</p>"></textarea>
+                <label for="content">Content (HTML) *</label>
+                <textarea id="content" class="form-control" rows="8" required></textarea>
               </div>
-
               <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
                 <i class="fas fa-paper-plane"></i> Publish Post
               </button>
@@ -577,18 +387,12 @@
             <div id="postsLoader" class="loading"><i class="fas fa-spinner fa-spin"></i> Loading posts...</div>
             <table class="post-list" id="postsTable" style="display:none;">
               <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
+                <tr><th>Title</th><th>Category</th><th>Date</th><th>Actions</th></tr>
               </thead>
               <tbody id="postsBody"></tbody>
             </table>
             <div id="emptyState" class="empty-state" style="display:none;">
-              <i class="fas fa-folder-open"></i>
-              <p>No blog posts found. Create your first one!</p>
+              <p>No posts found.</p>
             </div>
           </div>
         </div>
@@ -598,13 +402,14 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // ===== CONFIGURATION =====
+    // ===== 1. CONFIGURATION & INITIALIZATION =====
     const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
-    
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // ===== DOM ELEMENTS =====
+    // FIX: Renamed to supabaseClient to avoid shadowing the global library object
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ===== 2. DOM ELEMENTS =====
     const loginView = document.getElementById('loginView');
     const adminDashboard = document.getElementById('adminDashboard');
     const loginForm = document.getElementById('loginForm');
@@ -619,165 +424,149 @@
     const postsBody = document.getElementById('postsBody');
     const postsLoader = document.getElementById('postsLoader');
     const emptyState = document.getElementById('emptyState');
-    const titleInput = document.getElementById('title');
-    const slugInput = document.getElementById('slug');
-    const publishedDateInput = document.getElementById('publishedDate');
 
-    // ===== AUTH FUNCTIONS =====
+    // ===== 3. HELPER FUNCTIONS =====
     function showAlert(element, message, type = 'error') {
+      if (!element) return;
       element.textContent = message;
       element.className = `alert alert-${type}`;
       element.style.display = 'block';
-      if (element !== loginAlert) {
-        setTimeout(() => element.style.display = 'none', 5000);
+      // Auto-hide dashboard alerts after 5s, keep login alert until dismissed/hidden manually
+      if (element.id === 'statusAlert') {
+        setTimeout(() => { element.style.display = 'none'; }, 5000);
       }
     }
 
     function setView(view) {
-      if (view === 'login') {
-        loginView.style.display = 'flex';
-        adminDashboard.style.display = 'none';
-      } else {
+      if (view === 'dashboard') {
         loginView.style.display = 'none';
         adminDashboard.style.display = 'block';
         loadPosts();
+      } else {
+        loginView.style.display = 'flex';
+        adminDashboard.style.display = 'none';
       }
     }
 
+    // ===== 4. AUTH LOGIC =====
     async function checkSession() {
+      console.log('Checking session...');
       try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (error) throw error;
+        // FIX: Corrected destructuring syntax {  { session } } -> { data: { session } }
+        const { data: { session }, error } = await supabaseClient.auth.getSession();
         
+        if (error) throw error;
+
         if (session?.user) {
+          console.log('Session found:', session.user.email);
           userEmailDisplay.textContent = session.user.email;
           setView('dashboard');
         } else {
+          console.log('No session found, showing login.');
           setView('login');
         }
       } catch (err) {
-        console.error('Session check failed:', err);
-        // Fallback to login if anything goes wrong
+        console.error('Session check error:', err);
         setView('login');
       }
     }
 
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
-      
+
+      console.log('Attempting login for:', email);
+
       loginBtn.disabled = true;
       loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
       loginAlert.style.display = 'none';
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+      try {
+        // FIX: Use supabaseClient
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
 
-      loginBtn.disabled = false;
-      loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+        if (error) throw error;
 
-      if (error) {
-        showAlert(loginAlert, error.message || 'Login failed. Please check your credentials.', 'error');
-      } else {
-        loginForm.reset();
-        checkSession();
+        console.log('Login successful:', data);
+        setView('dashboard');
+
+      } catch (error) {
+        console.error('Login failed:', error.message);
+        showAlert(loginAlert, error.message || 'Login failed', 'error');
+        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+        loginBtn.disabled = false;
       }
     });
 
     logoutBtn.addEventListener('click', async () => {
-      logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-      const { error } = await supabase.auth.signOut();
-      if (!error) {
+      try {
+        await supabaseClient.auth.signOut();
         setView('login');
-      } else {
-        console.error('Logout error:', error);
-        setView('login'); // Force switch anyway
+      } catch (error) {
+        console.error('Logout failed:', error);
       }
-      logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
-    });
-
-    // ===== INITIALIZATION =====
-    document.addEventListener('DOMContentLoaded', () => {
-      publishedDateInput.valueAsDate = new Date();
-      checkSession();
     });
 
     // Listen for auth state changes
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session?.user) {
-        userEmailDisplay.textContent = session.user.email;
-        setView('dashboard');
-      } else if (event === 'SIGNED_OUT') {
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
         setView('login');
       }
     });
 
-    // ===== SLUG GENERATOR =====
-    titleInput.addEventListener('input', () => {
-      const slug = titleInput.value
-        .toLowerCase()
-        .trim()
-        .replace(/[^\w\s-]/g, '')
-        .replace(/[\s_-]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-      slugInput.value = slug;
-    });
-
-    // ===== CRUD OPERATIONS =====
+    // ===== 5. BLOG CRUD OPERATIONS =====
     async function loadPosts() {
       postsLoader.style.display = 'block';
       postsTable.style.display = 'none';
       emptyState.style.display = 'none';
 
-      const { data, error } = await supabase
-        .from('blog_posts')
-        .select('id, title, slug, category, created_at')
-        .order('created_at', { ascending: false });
+      try {
+        // FIX: Use supabaseClient
+        const { data, error } = await supabaseClient
+          .from('blog_posts')
+          .select('id, title, slug, category, created_at')
+          .order('created_at', { ascending: false });
 
-      postsLoader.style.display = 'none';
+        postsLoader.style.display = 'none';
 
-      if (error) {
-        if (error.message === 'Invalid API key' || error.message.includes('JWT')) {
-          checkSession();
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          emptyState.style.display = 'block';
           return;
         }
+
+        postsBody.innerHTML = '';
+        data.forEach(post => {
+          const date = new Date(post.created_at).toLocaleDateString('en-KE', { year: 'numeric', month: 'short', day: 'numeric' });
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><strong>${post.title}</strong><small>${post.slug}</small></td>
+            <td><span class="badge">${post.category}</span></td>
+            <td>${date}</td>
+            <td class="post-actions">
+              <button class="btn btn-sm btn-primary edit-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>
+              <button class="btn btn-sm btn-danger delete-btn" data-id="${post.id}"><i class="fas fa-trash"></i> Delete</button>
+            </td>
+          `;
+          postsBody.appendChild(row);
+        });
+        postsTable.style.display = 'table';
+
+        // Attach listeners
+        document.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', () => editPost(btn.dataset.id)));
+        document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', () => deletePost(btn.dataset.id)));
+
+      } catch (error) {
         console.error('Load posts error:', error);
-        showAlert(statusAlert, `Failed to load posts: ${error.message}`, 'error');
-        return;
+        postsLoader.style.display = 'none';
+        showAlert(statusAlert, 'Failed to load posts: ' + error.message, 'error');
       }
-
-      if (!data || data.length === 0) {
-        emptyState.style.display = 'block';
-        return;
-      }
-
-      postsBody.innerHTML = '';
-      data.forEach(post => {
-        const date = new Date(post.created_at).toLocaleDateString('en-KE', { year: 'numeric', month: 'short', day: 'numeric' });
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><strong>${post.title}</strong><small>${post.slug}</small></td>
-          <td><span class="badge">${post.category}</span></td>
-          <td>${date}</td>
-          <td class="post-actions">
-            <button class="btn btn-sm btn-primary edit-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>
-            <button class="btn btn-sm btn-danger delete-btn" data-id="${post.id}"><i class="fas fa-trash"></i> Delete</button>
-          </td>
-        `;
-        postsBody.appendChild(row);
-      });
-
-      postsTable.style.display = 'table';
-
-      document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', () => editPost(btn.dataset.id));
-      });
-      document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', () => deletePost(btn.dataset.id));
-      });
     }
 
     postForm.addEventListener('submit', async (e) => {
@@ -798,67 +587,80 @@
       };
 
       const postId = document.getElementById('postId').value;
-      let error;
 
       try {
         if (postId) {
-          const res = await supabase.from('blog_posts').update(postData).eq('id', postId);
-          error = res.error;
+          // Update
+          const { error } = await supabaseClient.from('blog_posts').update(postData).eq('id', postId);
+          if (error) throw error;
+          showAlert(statusAlert, 'Post updated successfully!', 'success');
         } else {
-          const res = await supabase.from('blog_posts').insert([postData]);
-          error = res.error;
+          // Insert
+          const { error } = await supabaseClient.from('blog_posts').insert([postData]);
+          if (error) throw error;
+          showAlert(statusAlert, 'New post published!', 'success');
         }
-
-        if (error) throw error;
-
-        showAlert(statusAlert, postId ? 'Post updated successfully!' : 'New post published!', 'success');
+        
         postForm.reset();
         document.getElementById('postId').value = '';
-        publishedDateInput.valueAsDate = new Date();
+        document.getElementById('publishedDate').valueAsDate = new Date();
         document.getElementById('author').value = 'Njogu Surveyor Team';
-        document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Publish Post';
         loadPosts();
 
-      } catch (err) {
-        console.error('Save error:', err);
-        showAlert(statusAlert, `Error: ${err.message}`, 'error');
+      } catch (error) {
+        console.error('Save post error:', error);
+        showAlert(statusAlert, 'Failed to save post: ' + error.message, 'error');
       } finally {
         submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Post';
       }
     });
 
     async function editPost(id) {
-      const { data, error } = await supabase.from('blog_posts').select('*').eq('id', id).single();
-      if (error) {
-        showAlert(statusAlert, 'Failed to load post for editing.', 'error');
-        return;
-      }
+      try {
+        const { data, error } = await supabaseClient.from('blog_posts').select('*').eq('id', id).single();
+        if (error) throw error;
 
-      document.getElementById('postId').value = data.id;
-      document.getElementById('title').value = data.title;
-      document.getElementById('slug').value = data.slug;
-      document.getElementById('author').value = data.author || 'Njogu Surveyor Team';
-      document.getElementById('category').value = data.category;
-      document.getElementById('publishedDate').value = data.published_at || data.created_at.split('T')[0];
-      document.getElementById('excerpt').value = data.excerpt;
-      document.getElementById('imageUrl').value = data.image_url;
-      document.getElementById('content').value = data.content;
-      
-      document.getElementById('submitBtn').innerHTML = '<i class="fas fa-save"></i> Update Post';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById('postId').value = data.id;
+        document.getElementById('title').value = data.title;
+        document.getElementById('slug').value = data.slug;
+        document.getElementById('author').value = data.author || 'Njogu Surveyor Team';
+        document.getElementById('category').value = data.category;
+        document.getElementById('publishedDate').value = data.published_at || data.created_at.split('T')[0];
+        document.getElementById('excerpt').value = data.excerpt;
+        document.getElementById('imageUrl').value = data.image_url;
+        document.getElementById('content').value = data.content;
+        
+        document.getElementById('submitBtn').innerHTML = '<i class="fas fa-save"></i> Update Post';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (error) {
+        console.error('Edit error:', error);
+        showAlert(statusAlert, 'Failed to load post for editing.', 'error');
+      }
     }
 
     async function deletePost(id) {
-      if (!confirm('Are you sure you want to delete this post? This cannot be undone.')) return;
+      if (!confirm('Are you sure you want to delete this post?')) return;
 
-      const { error } = await supabase.from('blog_posts').delete().eq('id', id);
-      if (error) {
-        showAlert(statusAlert, 'Failed to delete post.', 'error');
-      } else {
-        showAlert(statusAlert, 'Post deleted successfully.', 'success');
+      try {
+        const { error } = await supabaseClient.from('blog_posts').delete().eq('id', id);
+        if (error) throw error;
+        showAlert(statusAlert, 'Post deleted.', 'success');
         loadPosts();
+      } catch (error) {
+        console.error('Delete error:', error);
+        showAlert(statusAlert, 'Failed to delete post.', 'error');
       }
     }
+
+    // Slug generator
+    document.getElementById('title').addEventListener('input', function() {
+      const slug = this.value.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+      document.getElementById('slug').value = slug;
+    });
+
+    // ===== 6. START APP =====
+    document.addEventListener('DOMContentLoaded', checkSession);
   </script>
 </body>
 </html>
