@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Post</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <div id="postContainer">Loading...</div>
+
+  <script>
+    const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
+    const SUPABASE_ANON_KEY = 'YOUR_KEY';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function getSlug() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('slug');
+    }
+
+    async function loadPost() {
+      const slug = getSlug();
+
+      if (!slug) {
+        document.getElementById('postContainer').innerHTML = 'No post found.';
+        return;
+      }
+
+      const { data, error } = await supabaseClient
+        .from('blog_posts')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+
+      if (error || !data) {
+        document.getElementById('postContainer').innerHTML = 'Post not found.';
+        return;
+      }
+
+      document.title = data.title;
+
+      document.getElementById('postContainer').innerHTML = `
+        <h1>${data.title}</h1>
+        <p><em>${new Date(data.published_at).toDateString()}</em></p>
+        <img src="${data.image_url}" style="max-width:600px;">
+        <div>${data.content}</div>
+      `;
+    }
+
+    loadPost();
+  </script>
+
+</body>
+</html>
