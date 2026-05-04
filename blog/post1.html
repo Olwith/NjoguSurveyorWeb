@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loading Article - Njogu Surveyor</title>
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Read the latest insights on land surveying, real estate, and property in Kenya.">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" />
+  
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --secondary: #dc2626;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --header-h: 72px;
+      --max-width: 800px;
+      --container-pad: 5%;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+      --font-main: 'Inter', system-ui, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #ef4444;
+      --light: #1e293b;
+      --dark: #f1f5f9;
+      --muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      line-height: 1.7;
+      color: var(--dark);
+      background: #fff;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+    [data-theme="dark"] body { background: #0f172a; color: #f1f5f9; }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    a:hover { color: var(--secondary); }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* Header */
+    header {
+      background: var(--primary-dark); padding: 0;
+      position: sticky; top: 0; z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      height: var(--header-h); max-width: 1400px; margin: 0 auto; padding: 0 var(--container-pad);
+    }
+    .logo { display: flex; align-items: center; gap: 12px; color: #fff; }
+    .logo img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--secondary); }
+    .logo-text { font-size: 1.25rem; font-weight: 700; }
+    .logo-text span { color: var(--secondary); }
+    
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { color: #fff; font-weight: 500; }
+    .nav-links a:hover { color: var(--secondary-light); }
+    
+    .mobile-toggle { display: none; color: #fff; font-size: 1.5rem; background: none; border: none; }
+    .theme-toggle {
+      background: rgba(255,255,255,0.15); border: none; width: 40px; height: 40px;
+      border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center;
+      transition: var(--transition); cursor: pointer;
+    }
+    .theme-toggle:hover { background: var(--secondary); }
+
+    /* Hero */
+    .post-hero {
+      width: 100%; height: 450px; position: relative; overflow: hidden;
+      background-color: var(--muted); margin-bottom: 0;
+    }
+    .post-hero img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease; }
+    .post-hero .overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+      padding: 60px 20px 40px; color: #fff; text-align: center;
+    }
+    .hero-badge {
+      display: inline-block; padding: 4px 12px; background: var(--secondary);
+      border-radius: 50px; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
+    }
+    .hero-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 12px; line-height: 1.2; max-width: 900px; margin-left: auto; margin-right: auto; }
+    .hero-meta { font-size: 0.95rem; opacity: 0.85; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* Article Content */
+    .article-wrapper { max-width: var(--max-width); margin: 0 auto; padding: 48px var(--container-pad) 80px; }
+    .article-content { font-size: 1.1rem; line-height: 1.8; color: var(--dark); }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-content h2 { font-size: 1.8rem; font-weight: 700; margin: 2.5rem 0 1rem; color: var(--primary); line-height: 1.3; }
+    .article-content h3 { font-size: 1.4rem; font-weight: 600; margin: 2rem 0 1rem; }
+    .article-content ul, .article-content ol { margin-bottom: 1.5rem; padding-left: 24px; }
+    .article-content li { margin-bottom: 0.5rem; }
+    .article-content blockquote {
+      border-left: 4px solid var(--secondary); padding: 16px 24px; margin: 24px 0;
+      background: rgba(30,64,175,0.05); border-radius: 0 8px 8px 0;
+      font-style: italic; color: var(--muted);
+    }
+    [data-theme="dark"] .article-content blockquote { background: rgba(59,130,246,0.1); }
+    .article-content a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+    .article-content a:hover { color: var(--secondary); }
+    .article-content strong { font-weight: 600; }
+
+    /* Back Link */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px; padding: 16px 24px;
+      margin-top: 40px; border-radius: 8px; background: var(--light);
+      border: 1px solid #e2e8f0; font-weight: 600; color: var(--primary);
+      transition: var(--transition);
+    }
+    [data-theme="dark"] .back-link { border-color: #334155; background: #1e293b; }
+    .back-link:hover { background: var(--primary); color: #fff; transform: translateX(-5px); }
+
+    /* States */
+    .loading-screen, .error-screen { text-align: center; padding: 100px 20px; min-height: 60vh; }
+    .loading-screen i { font-size: 2.5rem; color: var(--primary); margin-bottom: 16px; display: block; }
+    .error-screen i { font-size: 4rem; color: var(--secondary); margin-bottom: 24px; display: block; }
+    .error-screen h2 { font-size: 2rem; margin-bottom: 12px; }
+    .error-screen p { color: var(--muted); margin-bottom: 24px; font-size: 1.1rem; }
+    .error-btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px;
+      background: var(--primary); color: #fff; border-radius: 50px; font-weight: 600;
+      transition: var(--transition);
+    }
+    .error-btn:hover { background: var(--primary-dark); transform: translateY(-2px); color: #fff; }
+
+    /* Footer */
+    footer { background: #0b0f1a; color: #9ca3af; padding: 30px 0; text-align: center; margin-top: auto; }
+    footer a { color: #d1d5db; }
+    footer a:hover { color: var(--secondary); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .mobile-toggle { display: block; }
+      .nav-links {
+        position: fixed; top: var(--header-h); left: 0; width: 100%; background: var(--primary-dark);
+        flex-direction: column; padding: 24px; gap: 16px; transform: translateY(-150%);
+        transition: transform 0.3s ease; z-index: 1001;
+      }
+      .nav-links.open { transform: translateY(0); }
+      .post-hero { height: 280px; }
+      .hero-title { font-size: 1.8rem; }
+      .article-wrapper { padding: 32px 20px 60px; }
+      .article-content { font-size: 1.05rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <a href="../index.html" class="logo">
+        <img src="https://image.qwenlm.ai/public_source/eb2b3530-0c8d-431f-9a13-2f1265fd23e3/15837c7f9-b07f-4cb3-b7cb-c68c2e377713.png" alt="Logo">
+        <div class="logo-text">Njogu<span>Surveyor</span></div>
+      </a>
+      <button class="mobile-toggle" id="menuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Loading State -->
+  <div id="loadingScreen" class="loading-screen">
+    <i class="fas fa-circle-notch fa-spin"></i>
+    <p>Loading article...</p>
+  </div>
+
+  <!-- Error State -->
+  <div id="errorScreen" class="error-screen" style="display:none;">
+    <i class="fas fa-exclamation-triangle"></i>
+    <h2>Article Not Found</h2>
+    <p id="errorMessage">The post you are looking for might have been removed or is temporarily unavailable.</p>
+    <a href="../blog.html" class="error-btn"><i class="fas fa-arrow-left"></i> Back to all articles</a>
+  </div>
+
+  <!-- Article Content -->
+  <div id="articleView" style="display:none;">
+    <div class="post-hero">
+      <img id="heroImage" src="" alt="">
+      <div class="overlay">
+        <span id="heroCategory" class="hero-badge"></span>
+        <h1 id="heroTitle" class="hero-title"></h1>
+        <div class="hero-meta">
+          <span><i class="fas fa-user-edit"></i> <span id="heroAuthor"></span></span>
+          <span><i class="far fa-calendar-alt"></i> <span id="heroDate"></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-wrapper">
+      <div id="postBody" class="article-content">
+        <!-- Full Article Content Injected Here -->
+      </div>
+
+      <a href="../blog.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to all articles</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="max-width:1400px;margin:0 auto;padding:0 5%;">
+      <p>&copy; <span id="year"></span> Njogu Surveyor Real Estate Consultancy. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // ===== 1. SUPABASE CONFIGURATION =====
+    const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ===== 2. UI ELEMENTS =====
+    const loadingScreen = document.getElementById('loadingScreen');
+    const errorScreen = document.getElementById('errorScreen');
+    const errorMessage = document.getElementById('errorMessage');
+    const articleView = document.getElementById('articleView');
+    
+    const heroImage = document.getElementById('heroImage');
+    const heroCategory = document.getElementById('heroCategory');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroAuthor = document.getElementById('heroAuthor');
+    const heroDate = document.getElementById('heroDate');
+    const postBody = document.getElementById('postBody');
+
+    const categoryMap = {
+      'land': 'Land & Subdivision', 'titles': 'Title Deeds', 'buying': 'Buying & Selling',
+      'legal': 'Legal & Policy', 'planning': 'Planning & Zoning', 'development': 'Development'
+    };
+
+    // ===== 3. FETCH & RENDER LOGIC =====
+    async function loadPost() {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+
+      console.log('Attempting to fetch slug:', slug);
+
+      if (!slug) {
+        showError('Invalid URL: No article slug provided.');
+        return;
+      }
+
+      try {
+        const {  data: post, error } = await supabaseClient
+          .from('blog_posts')
+          .select('*')
+          .eq('slug', slug)
+          .single();
+
+        if (error) {
+          console.error('Supabase Fetch Error:', error);
+          if (error.code === 'PGRST116' || error.message.includes('not found')) {
+            showError('Article not found in database.');
+          } else if (error.message.includes('JWT') || error.message.includes('permission')) {
+            showError('Permission denied: Please check Supabase Row Level Security (RLS) policies for the blog_posts table.');
+          } else {
+            showError('Failed to load this article: ' + error.message);
+          }
+          return;
+        }
+
+        if (!post) {
+          showError('Article not found.');
+          return;
+        }
+
+        renderPost(post);
+      } catch (err) {
+        console.error('Unexpected Error:', err);
+        showError('An unexpected error occurred.');
+      }
+    }
+
+    function renderPost(post) {
+      loadingScreen.style.display = 'none';
+      articleView.style.display = 'block';
+
+      heroImage.src = post.image_url;
+      heroImage.alt = post.title;
+      heroTitle.textContent = post.title;
+      heroAuthor.textContent = post.author;
+      heroCategory.textContent = categoryMap[post.category] || post.category;
+      
+      const dateObj = new Date(post.published_at || post.created_at);
+      heroDate.textContent = dateObj.toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      // Inject HTML content
+      postBody.innerHTML = post.content;
+
+      // Update metadata
+      document.title = `${post.title} - Njogu Surveyor`;
+      document.querySelector('meta[name="description"]').content = post.excerpt;
+
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function showError(msg) {
+      loadingScreen.style.display = 'none';
+      articleView.style.display = 'none';
+      errorScreen.style.display = 'block';
+      if (msg) errorMessage.textContent = msg;
+    }
+
+    // ===== 4. THEME & MOBILE MENU =====
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.querySelector('i').className = 'fas fa-sun';
+    }
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      themeToggle.querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      menuBtn.querySelector('i').classList.toggle('fa-bars');
+      menuBtn.querySelector('i').classList.toggle('fa-times');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.querySelector('i').className = 'fas fa-bars';
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', loadPost);
+  </script>
+</body>
+</html>
+
