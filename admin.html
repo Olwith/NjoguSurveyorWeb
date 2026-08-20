@@ -189,6 +189,35 @@
       color: white;
     }
 
+    /* ==================== TABS ==================== */
+    .admin-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 28px;
+      border-bottom: 2px solid var(--border);
+      overflow-x: auto;
+    }
+    .admin-tab-btn {
+      padding: 12px 20px;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .admin-tab-btn:hover { color: var(--primary); }
+    .admin-tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+
     /* ==================== ADMIN CONTENT ==================== */
     .admin-content { padding: 36px 0 60px; }
     .admin-grid {
@@ -218,6 +247,12 @@
       gap: 10px;
     }
     .card h2 i { color: var(--primary); }
+    .card-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: -14px;
+      margin-bottom: 20px;
+    }
 
     /* ==================== FORMS & TABLES ==================== */
     .form-group { margin-bottom: 18px; }
@@ -248,10 +283,11 @@
 
     .post-list { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); }
     .post-list th { background: var(--bg-table-header); padding: 12px; text-align: left; font-size: 0.78rem; text-transform: uppercase; color: var(--muted); }
-    .post-list td { padding: 12px; border-bottom: 1px solid var(--border); }
+    .post-list td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
     .post-list td strong { display: block; }
     .post-list td small { color: var(--muted); font-size: 0.78rem; }
     .post-list tbody tr:hover td { background: var(--bg-table-hover); }
+    .post-actions { display: flex; gap: 6px; flex-wrap: wrap; }
     .badge { display: inline-block; padding: 3px 8px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; background: rgba(30, 64, 175, 0.1); color: var(--primary); }
 
     .btn {
@@ -263,6 +299,7 @@
     .btn-primary:hover { background: var(--primary-dark); }
     .btn-primary:disabled { opacity: 0.6; }
     .btn-danger { background: var(--secondary); color: #fff; }
+    .btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
     .btn-sm { padding: 7px 12px; font-size: 0.8rem; }
     .btn-block { width: 100%; }
     .btn-logout { background: rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; font-size: 0.8rem; }
@@ -273,6 +310,24 @@
     
     .loading { text-align: center; padding: 40px; color: var(--muted); }
     .empty-state { text-align: center; padding: 40px; color: var(--muted); }
+
+    /* ==================== SHARE LINK BOX ==================== */
+    .share-box {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      background: rgba(5, 150, 105, 0.08);
+      border: 1.5px solid var(--success);
+    }
+    .share-box.show { display: block; }
+    .share-box p { font-size: 0.82rem; font-weight: 700; color: var(--success); margin-bottom: 8px; }
+    .share-link-row { display: flex; gap: 8px; }
+    .share-link-row input {
+      flex: 1; padding: 9px 10px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-size: 0.82rem;
+      background: var(--bg-input); color: var(--dark);
+    }
 
     /* ==================== SCROLLBAR ==================== */
     ::-webkit-scrollbar { width: 8px; }
@@ -288,7 +343,7 @@
       <div class="login-header">
         <div class="login-icon"><i class="fas fa-lock"></i></div>
         <h1>Admin Login</h1>
-        <p>Enter your credentials to manage the blog</p>
+        <p>Enter your credentials to manage the site</p>
       </div>
 
       <div id="loginAlert" class="alert"></div>
@@ -313,7 +368,7 @@
   <div id="adminDashboard">
     <header class="admin-header">
       <div class="container header-content">
-        <h1><i class="fas fa-tachometer-alt"></i> Blog Admin</h1>
+        <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
         <div class="user-badge">
           <i class="fas fa-user-circle"></i>
           <span id="userEmail">...</span>
@@ -326,76 +381,141 @@
 
     <main class="admin-content">
       <div class="container">
-        <div id="statusAlert" class="alert"></div>
-        
-        <div class="admin-grid">
-          <!-- POST FORM -->
-          <div class="card">
-            <h2><i class="fas fa-pen-nib"></i> Create / Edit Post</h2>
-            <form id="postForm">
-              <input type="hidden" id="postId">
-              <div class="form-group">
-                <label for="title">Title *</label>
-                <input type="text" id="title" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="slug">URL Slug *</label>
-                <input type="text" id="slug" class="form-control" required placeholder="my-post-slug">
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="author">Author *</label>
-                  <input type="text" id="author" class="form-control" value="Njogu Surveyor Team" required>
-                </div>
-                <div class="form-group">
-                  <label for="category">Category *</label>
-                  <select id="category" class="form-control" required>
-                    <option value="land">Land & Subdivision</option>
-                    <option value="titles">Title Deeds</option>
-                    <option value="buying">Buying & Selling</option>
-                    <option value="legal">Legal & Policy</option>
-                    <option value="planning">Planning & Zoning</option>
-                    <option value="development">Development</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="publishedDate">Publish Date *</label>
-                <input type="date" id="publishedDate" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="excerpt">Excerpt *</label>
-                <textarea id="excerpt" class="form-control" rows="2" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="imageUrl">Featured Image URL *</label>
-                <input type="url" id="imageUrl" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="content">Content (HTML) *</label>
-                <textarea id="content" class="form-control" rows="8" required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-                <i class="fas fa-paper-plane"></i> Publish Post
-              </button>
-            </form>
-          </div>
 
-          <!-- POSTS LIST -->
-          <div class="card">
-            <h2><i class="fas fa-list"></i> All Posts</h2>
-            <div id="postsLoader" class="loading"><i class="fas fa-spinner fa-spin"></i> Loading posts...</div>
-            <table class="post-list" id="postsTable" style="display:none;">
-              <thead>
-                <tr><th>Title</th><th>Category</th><th>Date</th><th>Actions</th></tr>
-              </thead>
-              <tbody id="postsBody"></tbody>
-            </table>
-            <div id="emptyState" class="empty-state" style="display:none;">
-              <p>No posts found.</p>
+        <div class="admin-tabs">
+          <button class="admin-tab-btn active" data-tab="blogPanel"><i class="fas fa-pen-nib"></i> Blog</button>
+          <button class="admin-tab-btn" data-tab="reportsPanel"><i class="fas fa-file-pdf"></i> Client Reports</button>
+        </div>
+
+        <!-- ==================== BLOG PANEL ==================== -->
+        <div id="blogPanel" class="admin-panel active">
+          <div id="statusAlert" class="alert"></div>
+          <div class="admin-grid">
+            <!-- POST FORM -->
+            <div class="card">
+              <h2><i class="fas fa-pen-nib"></i> Create / Edit Post</h2>
+              <form id="postForm">
+                <input type="hidden" id="postId">
+                <div class="form-group">
+                  <label for="title">Title *</label>
+                  <input type="text" id="title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="slug">URL Slug *</label>
+                  <input type="text" id="slug" class="form-control" required placeholder="my-post-slug">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="author">Author *</label>
+                    <input type="text" id="author" class="form-control" value="Njogu Surveyor Team" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select id="category" class="form-control" required>
+                      <option value="land">Land & Subdivision</option>
+                      <option value="titles">Title Deeds</option>
+                      <option value="buying">Buying & Selling</option>
+                      <option value="legal">Legal & Policy</option>
+                      <option value="planning">Planning & Zoning</option>
+                      <option value="development">Development</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="publishedDate">Publish Date *</label>
+                  <input type="date" id="publishedDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="excerpt">Excerpt *</label>
+                  <textarea id="excerpt" class="form-control" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="imageUrl">Featured Image URL *</label>
+                  <input type="url" id="imageUrl" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="content">Content (HTML) *</label>
+                  <textarea id="content" class="form-control" rows="8" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                  <i class="fas fa-paper-plane"></i> Publish Post
+                </button>
+              </form>
+            </div>
+
+            <!-- POSTS LIST -->
+            <div class="card">
+              <h2><i class="fas fa-list"></i> All Posts</h2>
+              <div id="postsLoader" class="loading"><i class="fas fa-spinner fa-spin"></i> Loading posts...</div>
+              <table class="post-list" id="postsTable" style="display:none;">
+                <thead>
+                  <tr><th>Title</th><th>Category</th><th>Date</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="postsBody"></tbody>
+              </table>
+              <div id="emptyState" class="empty-state" style="display:none;">
+                <p>No posts found.</p>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- ==================== CLIENT REPORTS PANEL ==================== -->
+        <div id="reportsPanel" class="admin-panel">
+          <div id="reportsStatusAlert" class="alert"></div>
+          <div class="admin-grid">
+            <!-- UPLOAD FORM -->
+            <div class="card">
+              <h2><i class="fas fa-file-upload"></i> Upload Client Report</h2>
+              <p class="card-note">Uploads a PDF and gives you a private link to send the client — the link only works for whoever has it; reports are never listed publicly.</p>
+              <form id="reportForm">
+                <div class="form-group">
+                  <label for="reportClientName">Client Name *</label>
+                  <input type="text" id="reportClientName" class="form-control" required placeholder="e.g. Peter Kamau">
+                </div>
+                <div class="form-group">
+                  <label for="reportTitle">Report Title *</label>
+                  <input type="text" id="reportTitle" class="form-control" required placeholder="e.g. Land Due Diligence Report — Karen Plot">
+                </div>
+                <div class="form-group">
+                  <label for="reportDescription">Short Description (optional)</label>
+                  <textarea id="reportDescription" class="form-control" rows="3" placeholder="Shown to the client on the download page"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="reportFile">PDF File *</label>
+                  <input type="file" id="reportFile" class="form-control" accept="application/pdf" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="reportSubmitBtn">
+                  <i class="fas fa-upload"></i> Upload Report
+                </button>
+              </form>
+
+              <div class="share-box" id="shareBox">
+                <p><i class="fas fa-check-circle"></i> Uploaded — share this link with your client:</p>
+                <div class="share-link-row">
+                  <input type="text" id="shareLinkInput" readonly>
+                  <button class="btn btn-outline btn-sm" id="copyLinkBtn" type="button"><i class="fas fa-copy"></i> Copy</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- REPORTS LIST -->
+            <div class="card">
+              <h2><i class="fas fa-list"></i> All Reports</h2>
+              <div id="reportsLoader" class="loading"><i class="fas fa-spinner fa-spin"></i> Loading reports...</div>
+              <table class="post-list" id="reportsTable" style="display:none;">
+                <thead>
+                  <tr><th>Client / Title</th><th>Date</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="reportsBody"></tbody>
+              </table>
+              <div id="reportsEmptyState" class="empty-state" style="display:none;">
+                <p>No reports uploaded yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </main>
   </div>
@@ -406,8 +526,10 @@
     const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
 
-    // FIX: Renamed to supabaseClient to avoid shadowing the global library object
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const REPORTS_BUCKET = 'client-reports';
+    // Change this if your report page lives elsewhere
+    const REPORT_PAGE_URL = 'https://njogusurveyor.co.ke/report.html';
 
     // ===== 2. DOM ELEMENTS =====
     const loginView = document.getElementById('loginView');
@@ -425,16 +547,22 @@
     const postsLoader = document.getElementById('postsLoader');
     const emptyState = document.getElementById('emptyState');
 
+    const reportForm = document.getElementById('reportForm');
+    const reportsStatusAlert = document.getElementById('reportsStatusAlert');
+    const reportsTable = document.getElementById('reportsTable');
+    const reportsBody = document.getElementById('reportsBody');
+    const reportsLoader = document.getElementById('reportsLoader');
+    const reportsEmptyState = document.getElementById('reportsEmptyState');
+    const shareBox = document.getElementById('shareBox');
+    const shareLinkInput = document.getElementById('shareLinkInput');
+
     // ===== 3. HELPER FUNCTIONS =====
     function showAlert(element, message, type = 'error') {
       if (!element) return;
       element.textContent = message;
       element.className = `alert alert-${type}`;
       element.style.display = 'block';
-      // Auto-hide dashboard alerts after 5s, keep login alert until dismissed/hidden manually
-      if (element.id === 'statusAlert') {
-        setTimeout(() => { element.style.display = 'none'; }, 5000);
-      }
+      setTimeout(() => { element.style.display = 'none'; }, 5000);
     }
 
     function setView(view) {
@@ -442,27 +570,33 @@
         loginView.style.display = 'none';
         adminDashboard.style.display = 'block';
         loadPosts();
+        loadReports();
       } else {
         loginView.style.display = 'flex';
         adminDashboard.style.display = 'none';
       }
     }
 
+    // ===== 3b. TABS =====
+    document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
     // ===== 4. AUTH LOGIC =====
     async function checkSession() {
-      console.log('Checking session...');
       try {
-        // FIX: Corrected destructuring syntax {  { session } } -> { data: { session } }
         const { data: { session }, error } = await supabaseClient.auth.getSession();
-        
         if (error) throw error;
 
         if (session?.user) {
-          console.log('Session found:', session.user.email);
           userEmailDisplay.textContent = session.user.email;
           setView('dashboard');
         } else {
-          console.log('No session found, showing login.');
           setView('login');
         }
       } catch (err) {
@@ -477,24 +611,14 @@
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
 
-      console.log('Attempting login for:', email);
-
       loginBtn.disabled = true;
       loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
       loginAlert.style.display = 'none';
 
       try {
-        // FIX: Use supabaseClient
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-          email,
-          password
-        });
-
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) throw error;
-
-        console.log('Login successful:', data);
         setView('dashboard');
-
       } catch (error) {
         console.error('Login failed:', error.message);
         showAlert(loginAlert, error.message || 'Login failed', 'error');
@@ -512,11 +636,8 @@
       }
     });
 
-    // Listen for auth state changes
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT') {
-        setView('login');
-      }
+    supabaseClient.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT') setView('login');
     });
 
     // ===== 5. BLOG CRUD OPERATIONS =====
@@ -526,14 +647,12 @@
       emptyState.style.display = 'none';
 
       try {
-        // FIX: Use supabaseClient
         const { data, error } = await supabaseClient
           .from('blog_posts')
           .select('id, title, slug, category, created_at')
           .order('created_at', { ascending: false });
 
         postsLoader.style.display = 'none';
-
         if (error) throw error;
 
         if (!data || data.length === 0) {
@@ -558,7 +677,6 @@
         });
         postsTable.style.display = 'table';
 
-        // Attach listeners
         document.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', () => editPost(btn.dataset.id)));
         document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', () => deletePost(btn.dataset.id)));
 
@@ -590,12 +708,10 @@
 
       try {
         if (postId) {
-          // Update
           const { error } = await supabaseClient.from('blog_posts').update(postData).eq('id', postId);
           if (error) throw error;
           showAlert(statusAlert, 'Post updated successfully!', 'success');
         } else {
-          // Insert
           const { error } = await supabaseClient.from('blog_posts').insert([postData]);
           if (error) throw error;
           showAlert(statusAlert, 'New post published!', 'success');
@@ -653,15 +769,154 @@
       }
     }
 
-    // Slug generator
     document.getElementById('title').addEventListener('input', function() {
       const slug = this.value.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
       document.getElementById('slug').value = slug;
     });
 
-    // ===== 6. START APP =====
+    // ===== 6. CLIENT REPORTS CRUD OPERATIONS =====
+    async function loadReports() {
+      reportsLoader.style.display = 'block';
+      reportsTable.style.display = 'none';
+      reportsEmptyState.style.display = 'none';
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('client_reports')
+          .select('id, client_name, report_title, created_at')
+          .order('created_at', { ascending: false });
+
+        reportsLoader.style.display = 'none';
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          reportsEmptyState.style.display = 'block';
+          return;
+        }
+
+        reportsBody.innerHTML = '';
+        data.forEach(report => {
+          const date = new Date(report.created_at).toLocaleDateString('en-KE', { year: 'numeric', month: 'short', day: 'numeric' });
+          const link = `${REPORT_PAGE_URL}?id=${report.id}`;
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><strong>${report.report_title}</strong><small>${report.client_name}</small></td>
+            <td>${date}</td>
+            <td class="post-actions">
+              <button class="btn btn-sm btn-outline copy-report-link-btn" data-link="${link}"><i class="fas fa-link"></i> Copy Link</button>
+              <button class="btn btn-sm btn-danger delete-report-btn" data-id="${report.id}"><i class="fas fa-trash"></i> Delete</button>
+            </td>
+          `;
+          reportsBody.appendChild(row);
+        });
+        reportsTable.style.display = 'table';
+
+        document.querySelectorAll('.copy-report-link-btn').forEach(btn => btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(btn.dataset.link);
+          showAlert(reportsStatusAlert, 'Link copied to clipboard!', 'success');
+        }));
+        document.querySelectorAll('.delete-report-btn').forEach(btn => btn.addEventListener('click', () => deleteReport(btn.dataset.id)));
+
+      } catch (error) {
+        console.error('Load reports error:', error);
+        reportsLoader.style.display = 'none';
+        showAlert(reportsStatusAlert, 'Failed to load reports: ' + error.message, 'error');
+      }
+    }
+
+    reportForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById('reportSubmitBtn');
+      const fileInput = document.getElementById('reportFile');
+      const file = fileInput.files[0];
+
+      if (!file) return;
+      if (file.type !== 'application/pdf') {
+        showAlert(reportsStatusAlert, 'Please select a PDF file.', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+      shareBox.classList.remove('show');
+
+      try {
+        // Generate the report's ID up-front — it doubles as the storage filename,
+        // so the file path itself is unguessable.
+        const reportId = crypto.randomUUID();
+        const filePath = `${reportId}.pdf`;
+
+        const { error: uploadError } = await supabaseClient
+          .storage
+          .from(REPORTS_BUCKET)
+          .upload(filePath, file, { contentType: 'application/pdf', upsert: false });
+
+        if (uploadError) throw uploadError;
+
+        const reportData = {
+          id: reportId,
+          client_name: document.getElementById('reportClientName').value,
+          report_title: document.getElementById('reportTitle').value,
+          description: document.getElementById('reportDescription').value || null,
+          file_path: filePath
+        };
+
+        const { error: insertError } = await supabaseClient.from('client_reports').insert([reportData]);
+        if (insertError) throw insertError;
+
+        const link = `${REPORT_PAGE_URL}?id=${reportId}`;
+        shareLinkInput.value = link;
+        shareBox.classList.add('show');
+
+        showAlert(reportsStatusAlert, 'Report uploaded successfully!', 'success');
+        reportForm.reset();
+        loadReports();
+
+      } catch (error) {
+        console.error('Upload report error:', error);
+        showAlert(reportsStatusAlert, 'Failed to upload report: ' + error.message, 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Report';
+      }
+    });
+
+    document.getElementById('copyLinkBtn').addEventListener('click', () => {
+      navigator.clipboard.writeText(shareLinkInput.value);
+      showAlert(reportsStatusAlert, 'Link copied to clipboard!', 'success');
+    });
+
+    async function deleteReport(id) {
+      if (!confirm('Delete this report? This cannot be undone and the client\'s link will stop working.')) return;
+
+      try {
+        // Look up the file path first so we can remove it from storage too
+        const { data: report, error: fetchError } = await supabaseClient
+          .from('client_reports')
+          .select('file_path')
+          .eq('id', id)
+          .single();
+        if (fetchError) throw fetchError;
+
+        const { error: storageError } = await supabaseClient
+          .storage
+          .from(REPORTS_BUCKET)
+          .remove([report.file_path]);
+        if (storageError) console.warn('Storage delete warning:', storageError.message);
+
+        const { error: deleteError } = await supabaseClient.from('client_reports').delete().eq('id', id);
+        if (deleteError) throw deleteError;
+
+        showAlert(reportsStatusAlert, 'Report deleted.', 'success');
+        loadReports();
+      } catch (error) {
+        console.error('Delete report error:', error);
+        showAlert(reportsStatusAlert, 'Failed to delete report.', 'error');
+      }
+    }
+
+    // ===== 7. START APP =====
     document.addEventListener('DOMContentLoaded', checkSession);
   </script>
 </body>
 </html>
-
