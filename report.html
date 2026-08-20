@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Your Report | Njogu Surveyor</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --secondary: #dc2626;
+      --secondary-light: #ef4444;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --radius-lg: 16px;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.1);
+      --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-main);
+      background: linear-gradient(135deg, var(--light) 0%, #e0e7ff 100%);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      padding-top: calc(24px + env(safe-area-inset-top));
+      padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    }
+    .card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      max-width: 480px;
+      width: 100%;
+      padding: 40px 32px;
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .logo-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 28px; }
+    .logo-row img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--secondary); }
+    .logo-row span { font-weight: 700; font-size: 1.1rem; color: var(--primary-dark); }
+    .logo-row span b { color: var(--secondary); }
+
+    .icon-wrap {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(30,64,175,0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .icon-wrap i { font-size: 1.8rem; color: var(--primary); }
+
+    h1 { font-size: 1.4rem; margin-bottom: 6px; color: var(--dark); }
+    .client-name { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
+    .description { color: #444; font-size: 0.95rem; margin-bottom: 24px; line-height: 1.6; }
+    .meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 28px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 14px 32px; background: var(--secondary);
+      color: #fff; border-radius: 50px; font-weight: 700;
+      font-size: 1rem; text-decoration: none; border: none;
+      box-shadow: 0 10px 25px rgba(220,38,38,0.3);
+      transition: transform 0.2s ease; width: 100%;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .state { display: none; }
+    .state.show { display: block; }
+
+    .loading i { font-size: 1.8rem; color: var(--primary); margin-bottom: 14px; }
+    .loading p { color: var(--muted); }
+
+    .error i { font-size: 2rem; color: var(--secondary); margin-bottom: 14px; }
+    .error h1 { margin-bottom: 8px; }
+    .error p { color: var(--muted); font-size: 0.95rem; }
+
+    .footer-note { margin-top: 24px; font-size: 0.8rem; color: var(--muted); }
+    .footer-note a { color: var(--primary); text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-row">
+      <img src="https://image.qwenlm.ai/public_source/eb2b3530-0c8d-431f-9a13-2f1265fd23e3/15837c7f9-b07f-4cb3-b7cb-c68c2e377713.png" alt="Njogu Surveyor">
+      <span>Njogu<b>Surveyor</b></span>
+    </div>
+
+    <!-- Loading state -->
+    <div id="loadingState" class="state show loading">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Loading your report…</p>
+    </div>
+
+    <!-- Report found state -->
+    <div id="reportState" class="state">
+      <div class="icon-wrap"><i class="fas fa-file-pdf"></i></div>
+      <h1 id="reportTitle">Report Title</h1>
+      <p class="client-name" id="clientName">Prepared for —</p>
+      <p class="description" id="reportDescription"></p>
+      <p class="meta" id="reportDate"></p>
+      <a id="downloadBtn" class="btn" href="#" target="_blank" rel="noopener">
+        <i class="fas fa-download"></i> Download PDF Report
+      </a>
+    </div>
+
+    <!-- Not found / error state -->
+    <div id="errorState" class="state error">
+      <i class="fas fa-exclamation-circle"></i>
+      <h1>Report Not Found</h1>
+      <p>This link is invalid or has expired. Please contact us to request your report again.</p>
+    </div>
+
+    <p class="footer-note">
+      Questions? <a href="https://wa.me/254724737528" target="_blank" rel="noopener">Chat with us on WhatsApp</a>
+    </p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Same Supabase project as admin.html (where reports are uploaded)
+    const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const BUCKET = 'client-reports';
+
+    function showState(id) {
+      document.querySelectorAll('.state').forEach(el => el.classList.remove('show'));
+      document.getElementById(id).classList.add('show');
+    }
+
+    async function loadReport() {
+      const params = new URLSearchParams(window.location.search);
+      const reportId = params.get('id');
+
+      if (!reportId) {
+        showState('errorState');
+        return;
+      }
+
+      try {
+        const { data, error } = await supabaseClient.rpc('get_client_report', { p_id: reportId });
+        if (error) throw error;
+
+        // rpc returns an array of rows
+        const report = Array.isArray(data) ? data[0] : data;
+        if (!report) {
+          showState('errorState');
+          return;
+        }
+
+        document.getElementById('reportTitle').textContent = report.report_title;
+        document.getElementById('clientName').textContent = 'Prepared for ' + report.client_name;
+        document.getElementById('reportDescription').textContent = report.description || '';
+        document.getElementById('reportDescription').style.display = report.description ? 'block' : 'none';
+
+        const date = new Date(report.created_at).toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('reportDate').textContent = 'Issued ' + date;
+
+        const { data: publicUrlData } = supabaseClient
+          .storage
+          .from(BUCKET)
+          .getPublicUrl(report.file_path);
+
+        document.getElementById('downloadBtn').href = publicUrlData.publicUrl;
+
+        showState('reportState');
+        document.title = report.report_title + ' | Njogu Surveyor';
+      } catch (err) {
+        console.error('Failed to load report:', err);
+        showState('errorState');
+      }
+    }
+
+    loadReport();
+  </script>
+</body>
+</html>
