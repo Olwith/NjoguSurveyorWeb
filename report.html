@@ -72,8 +72,10 @@
       font-size: 1rem; text-decoration: none; border: none;
       box-shadow: 0 10px 25px rgba(220,38,38,0.3);
       transition: transform 0.2s ease; width: 100%;
+      cursor: pointer; font-family: inherit;
     }
     .btn:hover { transform: translateY(-2px); }
+    .btn:disabled { opacity: 0.7; cursor: default; transform: none; }
 
     .state { display: none; }
     .state.show { display: block; }
@@ -84,6 +86,8 @@
     .error i { font-size: 2rem; color: var(--secondary); margin-bottom: 14px; }
     .error h1 { margin-bottom: 8px; }
     .error p { color: var(--muted); font-size: 0.95rem; }
+
+    .download-note { margin-top: 14px; font-size: 0.82rem; color: var(--muted); }
 
     .footer-note { margin-top: 24px; font-size: 0.8rem; color: var(--muted); }
     .footer-note a { color: var(--primary); text-decoration: none; font-weight: 600; }
@@ -109,9 +113,10 @@
       <p class="client-name" id="clientName">Prepared for —</p>
       <p class="description" id="reportDescription"></p>
       <p class="meta" id="reportDate"></p>
-      <a id="downloadBtn" class="btn" href="#" target="_blank" rel="noopener">
-        <i class="fas fa-download"></i> Download PDF Report
-      </a>
+      <button id="downloadBtn" class="btn" type="button">
+        <i class="fas fa-download"></i> <span id="downloadBtnLabel">Download PDF Report</span>
+      </button>
+      <p class="download-note" id="downloadNote"></p>
     </div>
 
     <!-- Not found / error state -->
@@ -133,11 +138,15 @@
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const BUCKET = 'client-reports';
+    // Where the visitor lands after the download starts
+    const HOME_URL = 'index.html';
 
     function showState(id) {
       document.querySelectorAll('.state').forEach(el => el.classList.remove('show'));
       document.getElementById(id).classList.add('show');
     }
+
+    let currentReport = null;
 
     async function loadReport() {
       const params = new URLSearchParams(window.location.search);
@@ -159,6 +168,8 @@
           return;
         }
 
+        currentReport = report;
+
         document.getElementById('reportTitle').textContent = report.report_title;
         document.getElementById('clientName').textContent = 'Prepared for ' + report.client_name;
         document.getElementById('reportDescription').textContent = report.description || '';
@@ -167,13 +178,6 @@
         const date = new Date(report.created_at).toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' });
         document.getElementById('reportDate').textContent = 'Issued ' + date;
 
-        const { data: publicUrlData } = supabaseClient
-          .storage
-          .from(BUCKET)
-          .getPublicUrl(report.file_path);
-
-        document.getElementById('downloadBtn').href = publicUrlData.publicUrl;
-
         showState('reportState');
         document.title = report.report_title + ' | Njogu Surveyor';
       } catch (err) {
@@ -181,6 +185,61 @@
         showState('errorState');
       }
     }
+
+    async function downloadReport() {
+      if (!currentReport) return;
+
+      const btn = document.getElementById('downloadBtn');
+      const label = document.getElementById('downloadBtnLabel');
+      const note = document.getElementById('downloadNote');
+
+      btn.disabled = true;
+      label.textContent = 'Downloading…';
+
+      try {
+        const { data: publicUrlData } = supabaseClient
+          .storage
+          .from(BUCKET)
+          .getPublicUrl(currentReport.file_path);
+
+        // Fetch the file as a blob so we can force a real save-to-device
+        // download instead of the browser just opening/navigating to the PDF.
+        const response = await fetch(publicUrlData.publicUrl);
+        if (!response.ok) throw new Error('Download failed');
+        const blob = await response.blob();
+
+        const blobUrl = URL.createObjectURL(blob);
+        const fileName = (currentReport.report_title || 'report')
+          .replace(/[^\w\s-]/g, '')
+          .trim()
+          .replace(/\s+/g, '-') + '.pdf';
+
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+
+        label.textContent = 'Downloaded!';
+        note.textContent = 'Taking you back to the homepage…';
+
+        // Give the browser a moment to actually start the file save
+        // before navigating away.
+        setTimeout(() => {
+          window.location.href = HOME_URL;
+        }, 1500);
+
+      } catch (err) {
+        console.error('Download failed:', err);
+        btn.disabled = false;
+        label.textContent = 'Download PDF Report';
+        note.textContent = 'Something went wrong — please try again.';
+      }
+    }
+
+    document.getElementById('downloadBtn').addEventListener('click', downloadReport);
 
     loadReport();
   </script>
