@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Client Portal | Njogu Surveyor</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1e40af">
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
+
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #dc2626;
+      --success: #059669;
+      --warning: #f59e0b;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg-card: #ffffff;
+      --bg-input: #ffffff;
+      --bg-hover: #f1f5f9;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+      --radius: 10px;
+      --radius-lg: 14px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --primary-light: #60a5fa;
+      --secondary: #ef4444;
+      --success: #10b981;
+      --light: #0f172a;
+      --dark: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+      --bg-card: #1e293b;
+      --bg-input: #0f172a;
+      --bg-hover: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* ============ TOP BAR ============ */
+    .topbar {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: #fff;
+      padding: 16px 0;
+      box-shadow: var(--shadow-lg);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-content {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      color: #fff; text-decoration: none; font-weight: 700; font-size: 1.1rem;
+    }
+    .brand i { font-size: 1.5rem; }
+    .topbar-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* ============ BUTTONS ============ */
+    .btn {
+      padding: 10px 18px; border: none; border-radius: 8px;
+      font-family: var(--font); font-weight: 600; cursor: pointer;
+      transition: all 0.2s ease; font-size: 0.88rem;
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-secondary { background: var(--secondary); color: #fff; }
+    .btn-secondary:hover { background: #b91c1c; }
+    .btn-ghost { background: rgba(255,255,255,0.15); color: #fff; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.25); }
+    .btn-outline {
+      background: transparent; color: var(--primary);
+      border: 1.5px solid var(--primary);
+    }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+    .btn-danger { background: var(--secondary); color: #fff; }
+    .btn-sm { padding: 7px 12px; font-size: 0.8rem; }
+    .btn-block { width: 100%; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* ============ AUTH VIEW ============ */
+    .auth-wrap {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #e0e7ff 0%, var(--light) 100%);
+    }
+    [data-theme="dark"] .auth-wrap {
+      background: linear-gradient(135deg, #1e293b 0%, var(--light) 100%);
+    }
+    .auth-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      width: 100%; max-width: 440px; padding: 36px 32px;
+    }
+    .auth-header { text-align: center; margin-bottom: 24px; }
+    .auth-header .icon {
+      width: 68px; height: 68px; background: rgba(30,64,175,0.1);
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; margin: 0 auto 14px;
+    }
+    .auth-header .icon i { font-size: 1.8rem; color: var(--primary); }
+    .auth-header h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 6px; }
+    .auth-header p { color: var(--muted); font-size: 0.9rem; }
+
+    .auth-tabs {
+      display: flex; gap: 4px; margin-bottom: 22px;
+      background: var(--bg-hover); padding: 4px; border-radius: 8px;
+    }
+    .auth-tab {
+      flex: 1; padding: 9px; border: none; background: transparent;
+      font-family: var(--font); font-weight: 600; font-size: 0.85rem;
+      color: var(--muted); cursor: pointer; border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .auth-tab.active { background: var(--bg-card); color: var(--primary); box-shadow: var(--shadow-sm); }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block; font-weight: 600; font-size: 0.82rem;
+      margin-bottom: 6px; color: var(--dark);
+    }
+    .form-control {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px; font-family: var(--font);
+      font-size: 0.9rem; color: var(--dark);
+      background: var(--bg-input); outline: none;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30,64,175,0.15);
+    }
+    textarea.form-control { resize: vertical; min-height: 90px; }
+    select.form-control { cursor: pointer; }
+
+    .alert {
+      padding: 12px; border-radius: 8px; margin-bottom: 14px;
+      display: none; font-size: 0.88rem;
+    }
+    .alert-error { background: #fee2e2; color: #b91c1c; }
+    .alert-success { background: #dcfce7; color: #15803d; }
+    .alert-info { background: #dbeafe; color: #1e40af; }
+
+    /* ============ DASHBOARD VIEW ============ */
+    .dashboard { display: none; padding: 28px 0 60px; }
+    .welcome {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px;
+      margin-bottom: 24px; box-shadow: var(--shadow-sm);
+    }
+    .welcome h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    .welcome p { color: var(--muted); font-size: 0.92rem; }
+
+    .tabs {
+      display: flex; gap: 4px; margin-bottom: 22px;
+      border-bottom: 2px solid var(--border); overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 12px 18px; background: none; border: none;
+      font-family: var(--font); font-weight: 700; font-size: 0.9rem;
+      color: var(--muted); cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s; display: flex; align-items: center;
+      gap: 7px; white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--primary); }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fade 0.3s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px;
+      box-shadow: var(--shadow-sm); margin-bottom: 20px;
+    }
+    .card h3 {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .card h3 i { color: var(--primary); }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-card .label {
+      font-size: 0.75rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
+    }
+    .stat-card .value {
+      font-size: 1.8rem; font-weight: 800; color: var(--primary);
+      margin-top: 4px; line-height: 1;
+    }
+    .stat-card .value.small { font-size: 1.3rem; }
+
+    /* Project cards */
+    .project-list { display: grid; gap: 16px; }
+    .project-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px;
+      transition: all 0.2s; cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+    .project-item:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .project-item-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px; margin-bottom: 10px;
+    }
+    .project-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .project-meta {
+      font-size: 0.82rem; color: var(--muted);
+      display: flex; gap: 14px; flex-wrap: wrap;
+    }
+    .project-meta i { margin-right: 4px; }
+
+    .status-badge {
+      display: inline-block; padding: 4px 10px; border-radius: 50px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.3px; white-space: nowrap;
+    }
+    .status-pending { background: #fef3c7; color: #92400e; }
+    .status-in_progress { background: #dbeafe; color: #1e40af; }
+    .status-review { background: #e0e7ff; color: #4338ca; }
+    .status-completed { background: #dcfce7; color: #15803d; }
+    .status-cancelled { background: #fee2e2; color: #b91c1c; }
+    [data-theme="dark"] .status-pending { background: rgba(245,158,11,0.2); color: #fbbf24; }
+    [data-theme="dark"] .status-in_progress { background: rgba(59,130,246,0.2); color: #60a5fa; }
+    [data-theme="dark"] .status-review { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+    [data-theme="dark"] .status-completed { background: rgba(16,185,129,0.2); color: #34d399; }
+    [data-theme="dark"] .status-cancelled { background: rgba(239,68,68,0.2); color: #f87171; }
+
+    .empty-state {
+      text-align: center; padding: 40px 20px;
+      color: var(--muted);
+    }
+    .empty-state i { font-size: 2.5rem; opacity: 0.3; margin-bottom: 12px; display: block; }
+
+    /* Upload drop zone */
+    .drop-zone {
+      border: 2px dashed var(--border); border-radius: var(--radius);
+      padding: 30px 20px; text-align: center;
+      cursor: pointer; transition: all 0.2s;
+      background: var(--bg-input);
+    }
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: var(--primary);
+      background: rgba(30,64,175,0.04);
+    }
+    .drop-zone i { font-size: 2rem; color: var(--primary); margin-bottom: 8px; }
+    .drop-zone p { font-weight: 600; margin-bottom: 4px; }
+    .drop-zone small { color: var(--muted); font-size: 0.8rem; }
+
+    /* Documents table */
+    .doc-table { width: 100%; border-collapse: collapse; }
+    .doc-table th, .doc-table td {
+      text-align: left; padding: 10px 8px;
+      border-bottom: 1px solid var(--border); font-size: 0.86rem;
+    }
+    .doc-table th {
+      font-size: 0.72rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .doc-table tr:hover td { background: var(--bg-hover); }
+    .doc-table .file-name { font-weight: 600; }
+    .doc-table .file-name i { color: var(--primary); margin-right: 6px; }
+    .doc-table .actions { display: flex; gap: 6px; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px; z-index: 1000;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--bg-card); border-radius: var(--radius-lg);
+      width: 100%; max-width: 640px; max-height: 90vh;
+      overflow-y: auto; box-shadow: var(--shadow-lg);
+      animation: fade 0.25s ease;
+    }
+    .modal-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .modal-header h3 { font-size: 1.1rem; font-weight: 700; }
+    .modal-close {
+      background: none; border: none; font-size: 1.5rem;
+      cursor: pointer; color: var(--muted); width: 32px; height: 32px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { background: var(--bg-hover); color: var(--dark); }
+    .modal-body { padding: 24px; }
+    .modal-footer {
+      padding: 16px 24px; border-top: 1px solid var(--border);
+      display: flex; justify-content: flex-end; gap: 10px;
+    }
+
+    .info-row {
+      display: flex; justify-content: space-between;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+      font-size: 0.9rem; gap: 12px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .label { color: var(--muted); font-weight: 600; flex-shrink: 0; }
+    .info-row .value { text-align: right; font-weight: 500; }
+
+    .loading {
+      text-align: center; padding: 40px; color: var(--muted);
+    }
+    .loading i { margin-right: 8px; }
+
+    @media (max-width: 640px) {
+      .auth-card { padding: 28px 22px; }
+      .welcome { padding: 18px; }
+      .welcome h2 { font-size: 1.2rem; }
+      .card { padding: 18px; }
+      .topbar-content { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== AUTH VIEW ==================== -->
+<div id="authView" class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="icon"><i class="fas fa-user-shield"></i></div>
+      <h1>Client Portal</h1>
+      <p>Sign in to manage your projects & documents</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-auth-tab="login">Sign In</button>
+      <button class="auth-tab" data-auth-tab="signup">Create Account</button>
+    </div>
+
+    <div id="authAlert" class="alert"></div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" class="auth-form">
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" class="form-control" required placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" class="form-control" required placeholder="••••••••" minlength="6">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" class="auth-form" style="display:none;">
+      <div class="form-group">
+        <label for="signupName">Full Name *</label>
+        <input type="text" id="signupName" class="form-control" required placeholder="e.g. Peter Kamau">
+      </div>
+      <div class="form-group">
+        <label for="signupEmail">Email *</label>
+        <input type="email" id="signupEmail" class="form-control" required placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label for="signupPhone">Phone *</label>
+        <input type="tel" id="signupPhone" class="form-control" required placeholder="+254 7XX XXX XXX">
+      </div>
+      <div class="form-group">
+        <label for="signupCompany">Company (optional)</label>
+        <input type="text" id="signupCompany" class="form-control" placeholder="Your company name">
+      </div>
+      <div class="form-group">
+        <label for="signupPassword">Password * (min 6 chars)</label>
+        <input type="password" id="signupPassword" class="form-control" required placeholder="••••••••" minlength="6">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="signupBtn">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+    </form>
+
+    <p style="text-align:center;margin-top:20px;font-size:0.85rem;color:var(--muted);">
+      <a href="index.html" style="color:var(--primary);font-weight:600;text-decoration:none;">
+        <i class="fas fa-arrow-left"></i> Back to website
+      </a>
+    </p>
+  </div>
+</div>
+
+<!-- ==================== DASHBOARD VIEW ==================== -->
+<div id="dashboardView" class="dashboard" style="display:none;">
+  <div class="topbar">
+    <div class="container topbar-content">
+      <a href="index.html" class="brand">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>Njogu Surveyor — Client Portal</span>
+      </a>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" id="themeToggle" title="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <span style="font-size:0.82rem;opacity:0.9;" id="userEmailTop"></span>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="welcome">
+      <h2>Welcome, <span id="userName">Client</span> 👋</h2>
+      <p>Manage your projects, upload documents, and track progress with Njogu Surveyor.</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="overviewTab"><i class="fas fa-chart-line"></i> Overview</button>
+      <button class="tab-btn" data-tab="projectsTab"><i class="fas fa-folder-open"></i> My Projects</button>
+      <button class="tab-btn" data-tab="docsTab"><i class="fas fa-file-alt"></i> Documents</button>
+      <button class="tab-btn" data-tab="newProjectTab"><i class="fas fa-plus-circle"></i> Start New Project</button>
+    </div>
+
+    <div id="dashboardAlert" class="alert"></div>
+
+    <!-- OVERVIEW -->
+    <div id="overviewTab" class="tab-panel active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">Total Projects</div>
+          <div class="value" id="statTotalProjects">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">In Progress</div>
+          <div class="value" id="statInProgress">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Completed</div>
+          <div class="value" id="statCompleted">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Documents</div>
+          <div class="value" id="statDocs">0</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-clock"></i> Recent Projects</h3>
+        <div id="recentProjects"></div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div id="projectsTab" class="tab-panel">
+      <div class="card">
+        <h3><i class="fas fa-folder-open"></i> All My Projects</h3>
+        <div id="projectsList" class="project-list">
+          <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading projects...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div id="docsTab" class="tab-panel">
+      <div class="card">
+        <h3><i class="fas fa-cloud-upload-alt"></i> Upload Document</h3>
+        <p style="color:var(--muted);font-size:0.85rem;margin-bottom:14px;">
+          Select which project this document belongs to, then choose or drag a file.
+        </p>
+        <div class="form-group">
+          <label for="docProjectSelect">Project *</label>
+          <select id="docProjectSelect" class="form-control" required>
+            <option value="">-- Select a project --</option>
+          </select>
+        </div>
+        <div class="drop-zone" id="dropZone">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Click to select a file, or drag & drop here</p>
+          <small>PDF, DOC, DOCX, JPG, PNG, DWG, ZIP — Max 25 MB</small>
+          <input type="file" id="docFileInput" style="display:none;" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip,.dwg">
+        </div>
+        <div id="docFileName" style="margin-top:12px;font-size:0.85rem;color:var(--muted);"></div>
+        <button class="btn btn-primary" style="margin-top:14px;" id="uploadDocBtn" disabled>
+          <i class="fas fa-upload"></i> Upload Document
+        </button>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-folder"></i> My Documents</h3>
+        <div id="docsList">
+          <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading documents...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW PROJECT -->
+    <div id="newProjectTab" class="tab-panel">
+      <div class="card">
+        <h3><i class="fas fa-plus-circle"></i> Start a New Project</h3>
+        <form id="newProjectForm">
+          <div class="form-group">
+            <label for="projTitle">Project Title *</label>
+            <input type="text" id="projTitle" class="form-control" required placeholder="e.g. Land Subdivision — Ruiru Plot">
+          </div>
+          <div class="form-group">
+            <label for="projService">Service Needed *</label>
+            <select id="projService" class="form-control" required>
+              <option value="">-- Select a service --</option>
+              <option>Due Diligence on Buying Land</option>
+              <option>Land Subdivision</option>
+              <option>Sectional Property</option>
+              <option>Boundary Alignment</option>
+              <option>Title Processing</option>
+              <option>Allotment Letter & New Grant Survey</option>
+              <option>Loss of Title</option>
+              <option>Pre-Purchase Inspection</option>
+              <option>Sending Advertisements Inquiry</option>
+              <option>Consultation Matters on Land</option>
+              <option>Report by a Land Surveyor to Court</option>
+              <option>Mediation in Land Dispute</option>
+              <option>Can't Find Your Land?</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="projLocation">Property Location *</label>
+            <input type="text" id="projLocation" class="form-control" required placeholder="e.g. Ruiru, Kiambu County">
+          </div>
+          <div class="form-group">
+            <label for="projDescription">Project Description *</label>
+            <textarea id="projDescription" class="form-control" required placeholder="Describe what you need. Include land size, plot number, current status, etc."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="projBudget">Budget Range (KES)</label>
+            <input type="text" id="projBudget" class="form-control" placeholder="e.g. 50,000 - 100,000">
+          </div>
+          <div class="form-group">
+            <label for="projTimeline">Preferred Timeline</label>
+            <select id="projTimeline" class="form-control">
+              <option value="">-- Select --</option>
+              <option>Urgent (within 1 week)</option>
+              <option>2 - 4 weeks</option>
+              <option>1 - 3 months</option>
+              <option>Flexible</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="newProjectBtn">
+            <i class="fas fa-paper-plane"></i> Submit Project Request
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== PROJECT DETAIL MODAL ==================== -->
+<div class="modal-overlay" id="projectModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalProjectTitle">Project Details</h3>
+      <button class="modal-close" id="closeProjectModal">&times;</button>
+    </div>
+    <div class="modal-body" id="modalProjectBody">
+      <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="closeProjectModalBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   CONFIG
+============================================================ */
+const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
+const DOCS_BUCKET = 'project-documents';
+const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ============================================================
+   DOM
+============================================================ */
+const authView = document.getElementById('authView');
+const dashboardView = document.getElementById('dashboardView');
+const authAlert = document.getElementById('authAlert');
+const dashboardAlert = document.getElementById('dashboardAlert');
+
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const loginBtn = document.getElementById('loginBtn');
+const signupBtn = document.getElementById('signupBtn');
+
+const userEmailTop = document.getElementById('userEmailTop');
+const userName = document.getElementById('userName');
+const logoutBtn = document.getElementById('logoutBtn');
+const themeToggle = document.getElementById('themeToggle');
+
+const projectModal = document.getElementById('projectModal');
+const modalProjectTitle = document.getElementById('modalProjectTitle');
+const modalProjectBody = document.getElementById('modalProjectBody');
+
+let currentUser = null;
+let cachedProjects = [];
+let cachedDocs = [];
+let selectedDocFile = null;
+
+/* ============================================================
+   HELPERS
+============================================================ */
+function showAlert(el, msg, type='error') {
+  el.textContent = msg;
+  el.className = `alert alert-${type}`;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-KE', {
+    year: 'numeric', month: 'short', day: 'numeric'
+  });
+}
+
+function formatBytes(b) {
+  if (!b) return '—';
+  const k = 1024, sizes = ['B','KB','MB','GB'];
+  const i = Math.floor(Math.log(b) / Math.log(k));
+  return parseFloat((b / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+function prettyStatus(s) {
+  const map = {
+    pending: 'Pending Review',
+    in_progress: 'In Progress',
+    review: 'Under Review',
+    completed: 'Completed',
+    cancelled: 'Cancelled'
+  };
+  return map[s] || s;
+}
+
+/* ============================================================
+   AUTH TABS
+============================================================ */
+document.querySelectorAll('.auth-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.authTab;
+    loginForm.style.display  = tab === 'login'  ? 'block' : 'none';
+    signupForm.style.display = tab === 'signup' ? 'block' : 'none';
+    authAlert.style.display = 'none';
+  });
+});
+
+/* ============================================================
+   DASHBOARD TABS
+============================================================ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ============================================================
+   THEME
+============================================================ */
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark' || (!savedTheme && matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+}
+themeToggle?.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  themeToggle.innerHTML = isDark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+});
+
+/* ============================================================
+   AUTH
+============================================================ */
+async function checkSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session?.user) {
+    currentUser = session.user;
+    await enterDashboard();
+  } else {
+    authView.style.display = 'flex';
+    dashboardView.style.display = 'none';
+  }
+}
+
+async function enterDashboard() {
+  authView.style.display = 'none';
+  dashboardView.style.display = 'block';
+
+  userEmailTop.textContent = currentUser.email;
+
+  // Load profile name
+  const { data: profile } = await sb
+    .from('client_profiles')
+    .select('full_name')
+    .eq('id', currentUser.id)
+    .maybeSingle();
+  userName.textContent = profile?.full_name || currentUser.email.split('@')[0];
+
+  await Promise.all([loadProjects(), loadDocs()]);
+  renderOverview();
+}
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginBtn.disabled = true;
+  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+  authAlert.style.display = 'none';
+
+  const { data, error } = await sb.auth.signInWithPassword({
+    email: document.getElementById('loginEmail').value.trim(),
+    password: document.getElementById('loginPassword').value
+  });
+
+  loginBtn.disabled = false;
+  loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+
+  if (error) return showAlert(authAlert, error.message, 'error');
+
+  currentUser = data.user;
+  await enterDashboard();
+});
+
+signupForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  signupBtn.disabled = true;
+  signupBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+  authAlert.style.display = 'none';
+
+  const name    = document.getElementById('signupName').value.trim();
+  const email   = document.getElementById('signupEmail').value.trim();
+  const phone   = document.getElementById('signupPhone').value.trim();
+  const company = document.getElementById('signupCompany').value.trim();
+  const password= document.getElementById('signupPassword').value;
+
+  const { data, error } = await sb.auth.signUp({
+    email, password,
+    options: {
+      data: { full_name: name, phone, company }
+    }
+  });
+
+  signupBtn.disabled = false;
+  signupBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+
+  if (error) return showAlert(authAlert, error.message, 'error');
+
+  if (data.session) {
+    currentUser = data.user;
+    await enterDashboard();
+  } else {
+    showAlert(authAlert, 'Account created! Please check your email to confirm, then sign in.', 'success');
+    document.querySelector('.auth-tab[data-auth-tab="login"]').click();
+  }
+});
+
+logoutBtn?.addEventListener('click', async () => {
+  await sb.auth.signOut();
+  location.reload();
+});
+
+/* ============================================================
+   LOAD PROJECTS
+============================================================ */
+async function loadProjects() {
+  const { data, error } = await sb
+    .from('projects')
+    .select('*')
+    .eq('client_id', currentUser.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error(error);
+    document.getElementById('projectsList').innerHTML =
+      `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Failed to load projects</p></div>`;
+    return;
+  }
+
+  cachedProjects = data || [];
+  renderProjects();
+  populateProjectSelect();
+}
+
+function renderProjects() {
+  const wrap = document.getElementById('projectsList');
+  if (!cachedProjects.length) {
+    wrap.innerHTML = `<div class="empty-state">
+      <i class="fas fa-folder-open"></i>
+      <p>No projects yet. Click <strong>Start New Project</strong> to create one.</p>
+    </div>`;
+    return;
+  }
+  wrap.innerHTML = cachedProjects.map(p => `
+    <div class="project-item" data-id="${p.id}">
+      <div class="project-item-header">
+        <div>
+          <h4>${escapeHtml(p.title)}</h4>
+          <div class="project-meta">
+            <span><i class="fas fa-tools"></i>${escapeHtml(p.service_type)}</span>
+            ${p.location ? `<span><i class="fas fa-map-marker-alt"></i>${escapeHtml(p.location)}</span>` : ''}
+            <span><i class="fas fa-calendar"></i>${formatDate(p.created_at)}</span>
+          </div>
+        </div>
+        <span class="status-badge status-${p.status}">${prettyStatus(p.status)}</span>
+      </div>
+      ${p.description ? `<p style="color:var(--muted);font-size:0.88rem;margin-top:6px;">${escapeHtml(p.description).slice(0, 160)}${p.description.length>160?'…':''}</p>` : ''}
+    </div>
+  `).join('');
+
+  wrap.querySelectorAll('.project-item').forEach(item => {
+    item.addEventListener('click', () => openProjectModal(item.dataset.id));
+  });
+}
+
+function populateProjectSelect() {
+  const sel = document.getElementById('docProjectSelect');
+  const current = sel.value;
+  sel.innerHTML = '<option value="">-- Select a project --</option>' +
+    cachedProjects.map(p =>
+      `<option value="${p.id}">${escapeHtml(p.title)}</option>`
+    ).join('');
+  if (current) sel.value = current;
+}
+
+/* ============================================================
+   LOAD DOCS
+============================================================ */
+async function loadDocs() {
+  const { data, error } = await sb
+    .from('project_documents')
+    .select('*')
+    .eq('uploaded_by', currentUser.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error(error);
+    document.getElementById('docsList').innerHTML =
+      `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Failed to load documents</p></div>`;
+    return;
+  }
+
+  cachedDocs = data || [];
+  renderDocs();
+}
+
+function renderDocs() {
+  const wrap = document.getElementById('docsList');
+  if (!cachedDocs.length) {
+    wrap.innerHTML = `<div class="empty-state">
+      <i class="fas fa-file-alt"></i>
+      <p>No documents uploaded yet.</p>
+    </div>`;
+    return;
+  }
+
+  wrap.innerHTML = `
+    <table class="doc-table">
+      <thead>
+        <tr><th>File</th><th>Project</th><th>Size</th><th>Date</th><th></th></tr>
+      </thead>
+      <tbody>
+        ${cachedDocs.map(d => {
+          const proj = cachedProjects.find(p => p.id === d.project_id);
+          return `
+            <tr>
+              <td class="file-name">
+                <i class="fas ${fileIcon(d.file_name)}"></i>${escapeHtml(d.file_name)}
+              </td>
+              <td>${escapeHtml(proj?.title || '—')}</td>
+              <td>${formatBytes(d.file_size)}</td>
+              <td>${formatDate(d.created_at)}</td>
+              <td class="actions">
+                <button class="btn btn-sm btn-outline" onclick="downloadDoc('${d.id}')">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="deleteDoc('${d.id}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function fileIcon(name) {
+  const ext = (name.split('.').pop() || '').toLowerCase();
+  if (ext === 'pdf') return 'fa-file-pdf';
+  if (['doc','docx'].includes(ext)) return 'fa-file-word';
+  if (['jpg','jpeg','png','gif','webp'].includes(ext)) return 'fa-file-image';
+  if (['zip','rar','7z'].includes(ext)) return 'fa-file-archive';
+  if (['dwg','dxf'].includes(ext)) return 'fa-drafting-compass';
+  return 'fa-file';
+}
+
+async function downloadDoc(id) {
+  const doc = cachedDocs.find(d => d.id === id);
+  if (!doc) return;
+  const { data, error } = await sb.storage.from(DOCS_BUCKET).createSignedUrl(doc.file_path, 60);
+  if (error) return showAlert(dashboardAlert, 'Download failed: ' + error.message, 'error');
+  window.open(data.signedUrl, '_blank');
+}
+window.downloadDoc = downloadDoc;
+
+async function deleteDoc(id) {
+  if (!confirm('Delete this document? This cannot be undone.')) return;
+  const doc = cachedDocs.find(d => d.id === id);
+  if (!doc) return;
+
+  await sb.storage.from(DOCS_BUCKET).remove([doc.file_path]);
+  const { error } = await sb.from('project_documents').delete().eq('id', id);
+  if (error) return showAlert(dashboardAlert, 'Delete failed: ' + error.message, 'error');
+
+  showAlert(dashboardAlert, 'Document deleted.', 'success');
+  await loadDocs();
+  renderOverview();
+}
+window.deleteDoc = deleteDoc;
+
+/* ============================================================
+   UPLOAD DOCUMENT
+============================================================ */
+const dropZone = document.getElementById('dropZone');
+const docFileInput = document.getElementById('docFileInput');
+const docFileName = document.getElementById('docFileName');
+const uploadDocBtn = document.getElementById('uploadDocBtn');
+
+dropZone.addEventListener('click', () => docFileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  if (e.dataTransfer.files.length) setDocFile(e.dataTransfer.files[0]);
+});
+docFileInput.addEventListener('change', e => {
+  if (e.target.files.length) setDocFile(e.target.files[0]);
+});
+
+function setDocFile(file) {
+  if (file.size > MAX_FILE_SIZE) {
+    showAlert(dashboardAlert, 'File is too large. Max 25 MB.', 'error');
+    return;
+  }
+  selectedDocFile = file;
+  docFileName.innerHTML = `<i class="fas ${fileIcon(file.name)}" style="color:var(--primary);"></i>
+    <strong>${escapeHtml(file.name)}</strong> — ${formatBytes(file.size)}`;
+  uploadDocBtn.disabled = false;
+}
+
+uploadDocBtn.addEventListener('click', async () => {
+  const projectId = document.getElementById('docProjectSelect').value;
+  if (!projectId) return showAlert(dashboardAlert, 'Please select a project first.', 'error');
+  if (!selectedDocFile) return showAlert(dashboardAlert, 'Please choose a file.', 'error');
+
+  uploadDocBtn.disabled = true;
+  uploadDocBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+
+  try {
+    const safeName = selectedDocFile.name.replace(/[^\w.\-]+/g, '_');
+    const filePath = `${currentUser.id}/${projectId}/${Date.now()}_${safeName}`;
+
+    const { error: upErr } = await sb.storage.from(DOCS_BUCKET).upload(filePath, selectedDocFile, {
+      contentType: selectedDocFile.type || 'application/octet-stream',
+      upsert: false
+    });
+    if (upErr) throw upErr;
+
+    const { error: dbErr } = await sb.from('project_documents').insert([{
+      project_id: projectId,
+      uploaded_by: currentUser.id,
+      uploader_role: 'client',
+      file_name: selectedDocFile.name,
+      file_path: filePath,
+      file_size: selectedDocFile.size,
+      file_type: selectedDocFile.type
+    }]);
+    if (dbErr) throw dbErr;
+
+    showAlert(dashboardAlert, 'Document uploaded successfully!', 'success');
+    selectedDocFile = null;
+    docFileInput.value = '';
+    docFileName.innerHTML = '';
+    uploadDocBtn.disabled = true;
+
+    await loadDocs();
+    renderOverview();
+  } catch (err) {
+    console.error(err);
+    showAlert(dashboardAlert, 'Upload failed: ' + err.message, 'error');
+  } finally {
+    uploadDocBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Document';
+  }
+});
+
+/* ============================================================
+   NEW PROJECT
+============================================================ */
+document.getElementById('newProjectForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('newProjectBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+  const payload = {
+    client_id: currentUser.id,
+    title: document.getElementById('projTitle').value.trim(),
+    service_type: document.getElementById('projService').value,
+    location: document.getElementById('projLocation').value.trim(),
+    description: document.getElementById('projDescription').value.trim(),
+    budget: document.getElementById('projBudget').value.trim() || null,
+    timeline: document.getElementById('projTimeline').value || null,
+    status: 'pending'
+  };
+
+  const { error } = await sb.from('projects').insert([payload]);
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Project Request';
+
+  if (error) return showAlert(dashboardAlert, 'Failed: ' + error.message, 'error');
+
+  showAlert(dashboardAlert, 'Project request submitted! We will contact you shortly.', 'success');
+  e.target.reset();
+  await loadProjects();
+  renderOverview();
+  document.querySelector('.tab-btn[data-tab="projectsTab"]').click();
+});
+
+/* ============================================================
+   OVERVIEW
+============================================================ */
+function renderOverview() {
+  document.getElementById('statTotalProjects').textContent = cachedProjects.length;
+  document.getElementById('statInProgress').textContent =
+    cachedProjects.filter(p => p.status === 'in_progress' || p.status === 'review').length;
+  document.getElementById('statCompleted').textContent =
+    cachedProjects.filter(p => p.status === 'completed').length;
+  document.getElementById('statDocs').textContent = cachedDocs.length;
+
+  const recent = cachedProjects.slice(0, 3);
+  const wrap = document.getElementById('recentProjects');
+  if (!recent.length) {
+    wrap.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i><p>No projects yet.</p></div>`;
+    return;
+  }
+  wrap.innerHTML = recent.map(p => `
+    <div class="project-item" data-id="${p.id}">
+      <div class="project-item-header">
+        <div>
+          <h4>${escapeHtml(p.title)}</h4>
+          <div class="project-meta">
+            <span><i class="fas fa-calendar"></i>${formatDate(p.created_at)}</span>
+          </div>
+        </div>
+        <span class="status-badge status-${p.status}">${prettyStatus(p.status)}</span>
+      </div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('.project-item').forEach(item => {
+    item.addEventListener('click', () => openProjectModal(item.dataset.id));
+  });
+}
+
+/* ============================================================
+   PROJECT MODAL
+============================================================ */
+async function openProjectModal(id) {
+  const p = cachedProjects.find(x => x.id === id);
+  if (!p) return;
+
+  modalProjectTitle.textContent = p.title;
+  modalProjectBody.innerHTML = `<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>`;
+  projectModal.classList.add('show');
+
+  const { data: docs } = await sb
+    .from('project_documents')
+    .select('*')
+    .eq('project_id', id)
+    .order('created_at', { ascending: false });
+
+  modalProjectBody.innerHTML = `
+    <div class="info-row"><span class="label">Status</span>
+      <span class="value"><span class="status-badge status-${p.status}">${prettyStatus(p.status)}</span></span>
+    </div>
+    <div class="info-row"><span class="label">Service</span><span class="value">${escapeHtml(p.service_type)}</span></div>
+    <div class="info-row"><span class="label">Location</span><span class="value">${escapeHtml(p.location || '—')}</span></div>
+    <div class="info-row"><span class="label">Budget</span><span class="value">${escapeHtml(p.budget || '—')}</span></div>
+    <div class="info-row"><span class="label">Timeline</span><span class="value">${escapeHtml(p.timeline || '—')}</span></div>
+    <div class="info-row"><span class="label">Created</span><span class="value">${formatDate(p.created_at)}</span></div>
+
+    <h4 style="margin-top:18px;font-size:0.95rem;font-weight:700;">Description</h4>
+    <p style="color:var(--muted);font-size:0.9rem;white-space:pre-wrap;">${escapeHtml(p.description || '—')}</p>
+
+    ${p.admin_notes ? `
+      <h4 style="margin-top:18px;font-size:0.95rem;font-weight:700;">
+        <i class="fas fa-comment-dots" style="color:var(--primary);"></i> Note from Surveyor
+      </h4>
+      <p style="background:rgba(30,64,175,0.08);padding:12px;border-radius:8px;font-size:0.9rem;white-space:pre-wrap;">${escapeHtml(p.admin_notes)}</p>
+    ` : ''}
+
+    <h4 style="margin-top:18px;font-size:0.95rem;font-weight:700;">
+      <i class="fas fa-paperclip"></i> Documents (${docs?.length || 0})
+    </h4>
+    ${docs && docs.length ? `
+      <table class="doc-table" style="margin-top:8px;">
+        <thead><tr><th>File</th><th>Size</th><th></th></tr></thead>
+        <tbody>
+          ${docs.map(d => `
+            <tr>
+              <td class="file-name"><i class="fas ${fileIcon(d.file_name)}"></i>${escapeHtml(d.file_name)}</td>
+              <td>${formatBytes(d.file_size)}</td>
+              <td>
+                <button class="btn btn-sm btn-outline" onclick="downloadDoc('${d.id}')">
+                  <i class="fas fa-download"></i>
+                </button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    ` : `<p style="color:var(--muted);font-size:0.85rem;">No documents yet.</p>`}
+  `;
+}
+
+document.getElementById('closeProjectModal').addEventListener('click', () => projectModal.classList.remove('show'));
+document.getElementById('closeProjectModalBtn').addEventListener('click', () => projectModal.classList.remove('show'));
+projectModal.addEventListener('click', e => { if (e.target === projectModal) projectModal.classList.remove('show'); });
+
+/* ============================================================
+   INIT
+============================================================ */
+sb.auth.onAuthStateChange((event) => {
+  if (event === 'SIGNED_OUT') {
+    authView.style.display = 'flex';
+    dashboardView.style.display = 'none';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', checkSession);
+</script>
+</body>
+</html>
