@@ -644,12 +644,27 @@
       margin-top: 3px; flex-shrink: 0;
     }
     .about-img {
-      height: 420px; border-radius: var(--radius-lg);
-      background: url('https://image.qwenlm.ai/public_source/eb2b3530-0c8d-431f-9a13-2f1265fd23e3/15837c7f9-b07f-4cb3-b7cb-c68c2e377713.png') center/cover no-repeat;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-      position: relative; overflow: hidden;
-      border: 4px solid var(--primary);
-    }
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+  overflow: hidden;
+  border: 4px solid var(--primary);
+  background: linear-gradient(135deg, #dbeafe 0%, #f8fafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.about-img:hover img {
+  transform: scale(1.02);
+}
     .about-img::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(30,58,138,0.2), transparent 60%);
@@ -1494,18 +1509,12 @@
       </div>
     </div>
 
-    <!-- ===== ABOUT IMAGE ===== -->
+    <!-- ===== ABOUT IMAGE (full display, no crop) ===== -->
     <div class="about-img" role="img" aria-label="Edward Karungu Njogu - Registered Land Surveyor">
       <img src="https://njogusurveyor.co.ke/images/owner.jpeg"
            alt="Edward Karungu Njogu - Registered Land Surveyor at Njogu Surveyor Real Estate Consultancy"
            loading="lazy"
-           width="600"
-           height="600"
            crossorigin="anonymous">
-      <div class="about-img-caption">
-        <h4>Edward Karungu Njogu</h4>
-        <p>Registered Land Surveyor & Founder</p>
-      </div>
     </div>
   </div>
 </section>
