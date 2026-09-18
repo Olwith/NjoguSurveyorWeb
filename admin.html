@@ -428,7 +428,6 @@
             <i class="fas fa-user-circle"></i>
             <span id="userEmail">...</span>
           </span>
-          <!-- ===== CLIENT PORTAL QUICK ACCESS (admin header) ===== -->
           <a href="client-portal.html" class="portal-quick-btn" title="Open Client Portal in a new tab" target="_blank" rel="noopener">
             <i class="fas fa-external-link-alt"></i> Client Portal
           </a>
@@ -595,6 +594,9 @@
                 <input type="text" id="filterSearch" class="form-control" placeholder="Client name, project title, phone...">
               </div>
             </div>
+            <button class="btn btn-outline btn-sm" id="refreshProjectsBtn" style="margin-top:8px;">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
           </div>
 
           <div class="card">
@@ -1036,7 +1038,11 @@
       }
     }
 
-    // ===== 7. CLIENT PROJECTS (ADMIN VIEW) =====
+    // ============================================================
+    // ===== 7. CLIENT PROJECTS (ADMIN VIEW — OPTION 2) =====
+    // Two-query merge: fetch projects, then fetch profiles separately,
+    // then merge in JavaScript. No FK constraint required.
+    // ============================================================
     let adminProjects = [];
 
     async function loadAdminProjects() {
@@ -1049,26 +1055,57 @@
       table.style.display  = 'none';
       empty.style.display  = 'none';
 
-      // Join projects with client profiles
-      const { data, error } = await supabaseClient
-        .from('projects')
-        .select(`
-          id, title, service_type, location, description, budget, timeline,
-          status, admin_notes, created_at, client_id,
-          client_profiles ( full_name, phone, company )
-        `)
-        .order('created_at', { ascending: false });
+      try {
+        // ---- QUERY 1: Fetch all projects ----
+        const { data: projects, error: projErr } = await supabaseClient
+          .from('projects')
+          .select('id, title, service_type, location, description, budget, timeline, status, admin_notes, created_at, client_id')
+          .order('created_at', { ascending: false });
 
-      loader.style.display = 'none';
+        if (projErr) throw projErr;
 
-      if (error) {
+        if (!projects || projects.length === 0) {
+          adminProjects = [];
+          loader.style.display = 'none';
+          renderAdminProjects();
+          return;
+        }
+
+        // ---- QUERY 2: Fetch profiles for those client IDs ----
+        const clientIds = [...new Set(projects.map(p => p.client_id).filter(Boolean))];
+
+        let profiles = [];
+        if (clientIds.length > 0) {
+          const { data: profData, error: profErr } = await supabaseClient
+            .from('client_profiles')
+            .select('id, full_name, phone, company')
+            .in('id', clientIds);
+
+          if (profErr) {
+            // Non-fatal: log and continue with no profiles
+            console.warn('Could not load client profiles:', profErr.message);
+          } else {
+            profiles = profData || [];
+          }
+        }
+
+        // ---- MERGE: Attach profile to each project ----
+        const profileMap = {};
+        profiles.forEach(pr => { profileMap[pr.id] = pr; });
+
+        adminProjects = projects.map(p => ({
+          ...p,
+          client_profiles: profileMap[p.client_id] || null
+        }));
+
+        loader.style.display = 'none';
+        renderAdminProjects();
+
+      } catch (error) {
         console.error('Load admin projects error:', error);
+        loader.style.display = 'none';
         showAlert(document.getElementById('clientsStatusAlert'), 'Failed to load: ' + error.message, 'error');
-        return;
       }
-
-      adminProjects = data || [];
-      renderAdminProjects();
     }
 
     function renderAdminProjects() {
@@ -1143,11 +1180,13 @@
       modal.classList.add('show');
 
       // Get docs for this project
-      const { data: docs } = await supabaseClient
+      const { data: docs, error: docsErr } = await supabaseClient
         .from('project_documents')
         .select('*')
         .eq('project_id', id)
         .order('created_at', { ascending: false });
+
+      if (docsErr) console.warn('Could not load project documents:', docsErr.message);
 
       body.innerHTML = `
         <div style="display:grid;gap:10px;margin-bottom:20px;">
@@ -1155,13 +1194,14 @@
             <span class="label">Client</span>
             <span class="value">
               ${escapeHtmlAdmin(client.full_name || '—')}<br>
-              <small style="color:var(--muted);">${escapeHtmlAdmin(client.phone || '')} · ${escapeHtmlAdmin(client.company || '')}</small>
+              <small style="color:var(--muted);">${escapeHtmlAdmin(client.phone || '')} ${client.company ? '· ' + escapeHtmlAdmin(client.company) : ''}</small>
             </span>
           </div>
           <div class="info-row"><span class="label">Service</span><span class="value">${escapeHtmlAdmin(p.service_type)}</span></div>
           <div class="info-row"><span class="label">Location</span><span class="value">${escapeHtmlAdmin(p.location || '—')}</span></div>
           <div class="info-row"><span class="label">Budget</span><span class="value">${escapeHtmlAdmin(p.budget || '—')}</span></div>
           <div class="info-row"><span class="label">Timeline</span><span class="value">${escapeHtmlAdmin(p.timeline || '—')}</span></div>
+          <div class="info-row"><span class="label">Submitted</span><span class="value">${new Date(p.created_at).toLocaleDateString('en-KE', {year:'numeric',month:'short',day:'numeric'})}</span></div>
         </div>
 
         <h4 style="font-size:0.95rem;margin-bottom:8px;">Description</h4>
@@ -1202,13 +1242,13 @@
               ${docs.map(d => `
                 <tr>
                   <td><strong>${escapeHtmlAdmin(d.file_name)}</strong></td>
-                  <td><span class="badge">${d.uploader_role}</span></td>
+                  <td><span class="badge">${escapeHtmlAdmin(d.uploader_role)}</span></td>
                   <td>${(d.file_size/1024).toFixed(1)} KB</td>
                   <td class="post-actions">
                     <button class="btn btn-sm btn-outline" onclick="adminDownloadDoc('${d.id}')">
                       <i class="fas fa-download"></i>
                     </button>
-                    <button class="btn btn-sm btn-danger" onclick="adminDeleteDoc('${d.id}')">
+                    <button class="btn btn-sm btn-danger" onclick="adminDeleteDoc('${d.id}', '${p.id}')">
                       <i class="fas fa-trash"></i>
                     </button>
                   </td>
@@ -1234,7 +1274,17 @@
         return;
       }
       showAlert(document.getElementById('clientsStatusAlert'), 'Project updated!', 'success');
-      await loadAdminProjects();
+
+      // Update local cache so the modal stays consistent without a full reload
+      const p = adminProjects.find(x => x.id === id);
+      if (p) {
+        p.status = status;
+        p.admin_notes = notes;
+      }
+      // Re-render table
+      renderAdminProjects();
+      // Close modal
+      document.getElementById('adminProjectModal').classList.remove('show');
     }
 
     async function adminUploadDoc(projectId) {
@@ -1243,11 +1293,14 @@
       if (!file) return alert('Select a file first');
 
       const { data: { user } } = await supabaseClient.auth.getUser();
+      if (!user) return alert('Not authenticated');
+
       const safeName = file.name.replace(/[^\w.\-]+/g, '_');
       const path = `admin/${projectId}/${Date.now()}_${safeName}`;
 
       const { error: upErr } = await supabaseClient.storage
-        .from(PROJECT_DOCS_BUCKET).upload(path, file, { contentType: file.type || 'application/octet-stream' });
+        .from(PROJECT_DOCS_BUCKET)
+        .upload(path, file, { contentType: file.type || 'application/octet-stream' });
       if (upErr) return alert('Upload failed: ' + upErr.message);
 
       const { error: dbErr } = await supabaseClient.from('project_documents').insert([{
@@ -1266,19 +1319,29 @@
     }
 
     async function adminDownloadDoc(id) {
-      const { data: d } = await supabaseClient.from('project_documents').select('file_path').eq('id', id).single();
-      const { data, error } = await supabaseClient.storage.from(PROJECT_DOCS_BUCKET).createSignedUrl(d.file_path, 60);
+      const { data: d, error: fetchErr } = await supabaseClient
+        .from('project_documents').select('file_path').eq('id', id).single();
+      if (fetchErr) return alert('Could not find document: ' + fetchErr.message);
+
+      const { data, error } = await supabaseClient.storage
+        .from(PROJECT_DOCS_BUCKET).createSignedUrl(d.file_path, 60);
       if (error) return alert('Download error: ' + error.message);
       window.open(data.signedUrl, '_blank');
     }
 
-    async function adminDeleteDoc(id) {
+    async function adminDeleteDoc(id, projectId) {
       if (!confirm('Delete this document?')) return;
-      const { data: d } = await supabaseClient.from('project_documents').select('file_path').eq('id', id).single();
+
+      const { data: d, error: fetchErr } = await supabaseClient
+        .from('project_documents').select('file_path').eq('id', id).single();
+      if (fetchErr) return alert('Could not find document: ' + fetchErr.message);
+
       await supabaseClient.storage.from(PROJECT_DOCS_BUCKET).remove([d.file_path]);
-      await supabaseClient.from('project_documents').delete().eq('id', id);
-      alert('Deleted');
-      document.getElementById('adminProjectModal').classList.remove('show');
+      const { error: delErr } = await supabaseClient.from('project_documents').delete().eq('id', id);
+      if (delErr) return alert('Delete failed: ' + delErr.message);
+
+      // Re-open modal to refresh the doc list
+      openAdminProject(projectId);
     }
 
     // Attach to window so inline onclick works
@@ -1291,6 +1354,11 @@
     // Filters
     document.getElementById('filterStatus')?.addEventListener('change', renderAdminProjects);
     document.getElementById('filterSearch')?.addEventListener('input', renderAdminProjects);
+
+    // Refresh button
+    document.getElementById('refreshProjectsBtn')?.addEventListener('click', () => {
+      loadAdminProjects();
+    });
 
     // Close modal
     document.getElementById('closeAdminModal')?.addEventListener('click', () => {
