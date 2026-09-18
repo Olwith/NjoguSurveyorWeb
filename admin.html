@@ -71,23 +71,6 @@
 
     .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
-    /* ==================== WARNING BANNER ==================== */
-    .warning-banner {
-      background: var(--warning-bg);
-      color: var(--warning-text);
-      padding: 10px 20px;
-      text-align: center;
-      font-weight: 600;
-      border-bottom: 2px solid rgba(245, 158, 11, 0.3);
-      font-size: 0.85rem;
-      letter-spacing: 0.02em;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(8px);
-    }
-    .warning-banner i { margin-right: 8px; }
-
     /* ==================== LOGIN VIEW ==================== */
     #loginView {
       display: flex;
@@ -153,6 +136,12 @@
       font-size: 0.85rem;
       color: var(--muted);
     }
+    .login-footer a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .login-footer a:hover { color: var(--secondary); }
 
     /* ==================== ADMIN DASHBOARD ==================== */
     #adminDashboard { display: none; }
@@ -179,6 +168,12 @@
       gap: 10px;
     }
     .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .user-badge .email-chip {
       font-size: 0.8rem;
       background: rgba(255,255,255,0.15);
       padding: 6px 12px;
@@ -187,6 +182,19 @@
       align-items: center;
       gap: 8px;
       color: white;
+    }
+    /* ===== CLIENT PORTAL QUICK ACCESS ===== */
+    .portal-quick-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px; background: rgba(255,255,255,0.2);
+      color: #fff; border-radius: 50px; font-weight: 700;
+      font-size: 0.82rem; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      transition: var(--transition);
+    }
+    .portal-quick-btn:hover {
+      background: #fff; color: var(--primary-dark);
+      border-color: #fff;
     }
 
     /* ==================== TABS ==================== */
@@ -329,6 +337,46 @@
       background: var(--bg-input); color: var(--dark);
     }
 
+    /* ==================== MODAL ==================== */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px; z-index: 2000;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+      background: var(--bg-card); border-radius: var(--radius-lg);
+      width: 100%; max-width: 720px; max-height: 90vh;
+      overflow-y: auto; box-shadow: var(--shadow-lg);
+      animation: fadeIn 0.25s ease;
+    }
+    .modal-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .modal-header h3 { font-size: 1.1rem; font-weight: 700; }
+    .modal-close {
+      background: none; border: none; font-size: 1.5rem;
+      cursor: pointer; color: var(--muted); width: 32px; height: 32px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { background: var(--bg-table-hover); color: var(--dark); }
+    .modal-body { padding: 24px; }
+    .modal-footer {
+      padding: 16px 24px; border-top: 1px solid var(--border);
+      display: flex; justify-content: flex-end; gap: 10px;
+    }
+
+    .info-row {
+      display: flex; justify-content: space-between;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+      font-size: 0.9rem; gap: 12px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .label { color: var(--muted); font-weight: 600; flex-shrink: 0; }
+    .info-row .value { text-align: right; font-weight: 500; }
+
     /* ==================== SCROLLBAR ==================== */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 4px; }
@@ -361,6 +409,12 @@
           <i class="fas fa-sign-in-alt"></i> Sign In
         </button>
       </form>
+
+      <p class="login-footer">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Back to website</a>
+        &nbsp;·&nbsp;
+        <a href="client-portal.html"><i class="fas fa-user-circle"></i> Client Portal</a>
+      </p>
     </div>
   </div>
 
@@ -370,8 +424,14 @@
       <div class="container header-content">
         <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
         <div class="user-badge">
-          <i class="fas fa-user-circle"></i>
-          <span id="userEmail">...</span>
+          <span class="email-chip">
+            <i class="fas fa-user-circle"></i>
+            <span id="userEmail">...</span>
+          </span>
+          <!-- ===== CLIENT PORTAL QUICK ACCESS (admin header) ===== -->
+          <a href="client-portal.html" class="portal-quick-btn" title="Open Client Portal in a new tab" target="_blank" rel="noopener">
+            <i class="fas fa-external-link-alt"></i> Client Portal
+          </a>
           <button id="logoutBtn" class="btn btn-logout">
             <i class="fas fa-sign-out-alt"></i> Logout
           </button>
@@ -385,13 +445,13 @@
         <div class="admin-tabs">
           <button class="admin-tab-btn active" data-tab="blogPanel"><i class="fas fa-pen-nib"></i> Blog</button>
           <button class="admin-tab-btn" data-tab="reportsPanel"><i class="fas fa-file-pdf"></i> Client Reports</button>
+          <button class="admin-tab-btn" data-tab="clientsPanel"><i class="fas fa-users"></i> Client Projects</button>
         </div>
 
         <!-- ==================== BLOG PANEL ==================== -->
         <div id="blogPanel" class="admin-panel active">
           <div id="statusAlert" class="alert"></div>
           <div class="admin-grid">
-            <!-- POST FORM -->
             <div class="card">
               <h2><i class="fas fa-pen-nib"></i> Create / Edit Post</h2>
               <form id="postForm">
@@ -443,7 +503,6 @@
               </form>
             </div>
 
-            <!-- POSTS LIST -->
             <div class="card">
               <h2><i class="fas fa-list"></i> All Posts</h2>
               <div id="postsLoader" class="loading"><i class="fas fa-spinner fa-spin"></i> Loading posts...</div>
@@ -464,7 +523,6 @@
         <div id="reportsPanel" class="admin-panel">
           <div id="reportsStatusAlert" class="alert"></div>
           <div class="admin-grid">
-            <!-- UPLOAD FORM -->
             <div class="card">
               <h2><i class="fas fa-file-upload"></i> Upload Client Report</h2>
               <form id="reportForm">
@@ -498,7 +556,6 @@
               </div>
             </div>
 
-            <!-- REPORTS LIST -->
             <div class="card">
               <h2><i class="fas fa-list"></i> All Reports</h2>
               <div id="reportsLoader" class="loading"><i class="fas fa-spinner fa-spin"></i> Loading reports...</div>
@@ -515,8 +572,68 @@
           </div>
         </div>
 
+        <!-- ==================== CLIENT PROJECTS PANEL ==================== -->
+        <div id="clientsPanel" class="admin-panel">
+          <div id="clientsStatusAlert" class="alert"></div>
+
+          <div class="card" style="margin-bottom:24px;">
+            <h2><i class="fas fa-filter"></i> Filter Projects</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="filterStatus">Status</label>
+                <select id="filterStatus" class="form-control">
+                  <option value="">All statuses</option>
+                  <option value="pending">Pending</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="review">Under Review</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="filterSearch">Search</label>
+                <input type="text" id="filterSearch" class="form-control" placeholder="Client name, project title, phone...">
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2><i class="fas fa-briefcase"></i> All Client Projects</h2>
+            <div id="adminProjectsLoader" class="loading"><i class="fas fa-spinner fa-spin"></i> Loading projects...</div>
+            <table class="post-list" id="adminProjectsTable" style="display:none;">
+              <thead>
+                <tr>
+                  <th>Client / Project</th>
+                  <th>Service</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminProjectsBody"></tbody>
+            </table>
+            <div id="adminProjectsEmpty" class="empty-state" style="display:none;">
+              <p>No client projects found.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </main>
+  </div>
+
+  <!-- ==================== PROJECT DETAIL MODAL ==================== -->
+  <div class="modal-overlay" id="adminProjectModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="adminModalTitle">Project Details</h3>
+        <button class="modal-close" id="closeAdminModal">&times;</button>
+      </div>
+      <div class="modal-body" id="adminModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="document.getElementById('adminProjectModal').classList.remove('show')">Close</button>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -527,7 +644,7 @@
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const REPORTS_BUCKET = 'client-reports';
-    // Change this if your report page lives elsewhere
+    const PROJECT_DOCS_BUCKET = 'project-documents';
     const REPORT_PAGE_URL = 'https://njogusurveyor.co.ke/report.html';
 
     // ===== 2. DOM ELEMENTS =====
@@ -564,12 +681,19 @@
       setTimeout(() => { element.style.display = 'none'; }, 5000);
     }
 
+    function escapeHtmlAdmin(s) {
+      if (s == null) return '';
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    }
+
     function setView(view) {
       if (view === 'dashboard') {
         loginView.style.display = 'none';
         adminDashboard.style.display = 'block';
         loadPosts();
         loadReports();
+        loadAdminProjects();
       } else {
         loginView.style.display = 'flex';
         adminDashboard.style.display = 'none';
@@ -583,6 +707,7 @@
         document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
         btn.classList.add('active');
         document.getElementById(btn.dataset.tab).classList.add('active');
+        if (btn.dataset.tab === 'clientsPanel') loadAdminProjects();
       });
     });
 
@@ -840,8 +965,6 @@
       shareBox.classList.remove('show');
 
       try {
-        // Generate the report's ID up-front — it doubles as the storage filename,
-        // so the file path itself is unguessable.
         const reportId = crypto.randomUUID();
         const filePath = `${reportId}.pdf`;
 
@@ -889,7 +1012,6 @@
       if (!confirm('Delete this report? This cannot be undone and the client\'s link will stop working.')) return;
 
       try {
-        // Look up the file path first so we can remove it from storage too
         const { data: report, error: fetchError } = await supabaseClient
           .from('client_reports')
           .select('file_path')
@@ -914,7 +1036,271 @@
       }
     }
 
-    // ===== 7. START APP =====
+    // ===== 7. CLIENT PROJECTS (ADMIN VIEW) =====
+    let adminProjects = [];
+
+    async function loadAdminProjects() {
+      const loader = document.getElementById('adminProjectsLoader');
+      const table  = document.getElementById('adminProjectsTable');
+      const empty  = document.getElementById('adminProjectsEmpty');
+      if (!loader) return;
+
+      loader.style.display = 'block';
+      table.style.display  = 'none';
+      empty.style.display  = 'none';
+
+      // Join projects with client profiles
+      const { data, error } = await supabaseClient
+        .from('projects')
+        .select(`
+          id, title, service_type, location, description, budget, timeline,
+          status, admin_notes, created_at, client_id,
+          client_profiles ( full_name, phone, company )
+        `)
+        .order('created_at', { ascending: false });
+
+      loader.style.display = 'none';
+
+      if (error) {
+        console.error('Load admin projects error:', error);
+        showAlert(document.getElementById('clientsStatusAlert'), 'Failed to load: ' + error.message, 'error');
+        return;
+      }
+
+      adminProjects = data || [];
+      renderAdminProjects();
+    }
+
+    function renderAdminProjects() {
+      const table = document.getElementById('adminProjectsTable');
+      const empty = document.getElementById('adminProjectsEmpty');
+      const body  = document.getElementById('adminProjectsBody');
+      if (!table) return;
+
+      const search = (document.getElementById('filterSearch')?.value || '').toLowerCase();
+      const status = document.getElementById('filterStatus')?.value || '';
+
+      const filtered = adminProjects.filter(p => {
+        if (status && p.status !== status) return false;
+        if (search) {
+          const haystack = [
+            p.title, p.service_type, p.location,
+            p.client_profiles?.full_name, p.client_profiles?.company,
+            p.client_profiles?.phone
+          ].filter(Boolean).join(' ').toLowerCase();
+          if (!haystack.includes(search)) return false;
+        }
+        return true;
+      });
+
+      if (!filtered.length) {
+        table.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      const statusColors = {
+        pending: 'background:#fef3c7;color:#92400e;',
+        in_progress: 'background:#dbeafe;color:#1e40af;',
+        review: 'background:#e0e7ff;color:#4338ca;',
+        completed: 'background:#dcfce7;color:#15803d;',
+        cancelled: 'background:#fee2e2;color:#b91c1c;'
+      };
+
+      body.innerHTML = filtered.map(p => {
+        const client = p.client_profiles || {};
+        return `
+          <tr>
+            <td>
+              <strong>${escapeHtmlAdmin(p.title)}</strong>
+              <small>${escapeHtmlAdmin(client.full_name || 'Unknown client')} · ${escapeHtmlAdmin(client.phone || '')}</small>
+            </td>
+            <td>${escapeHtmlAdmin(p.service_type)}</td>
+            <td><span class="badge" style="${statusColors[p.status] || ''}">${p.status.replace('_',' ')}</span></td>
+            <td>${new Date(p.created_at).toLocaleDateString('en-KE', {year:'numeric',month:'short',day:'numeric'})}</td>
+            <td class="post-actions">
+              <button class="btn btn-sm btn-primary" onclick="openAdminProject('${p.id}')">
+                <i class="fas fa-eye"></i> Manage
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      table.style.display = 'table';
+      empty.style.display = 'none';
+    }
+
+    async function openAdminProject(id) {
+      const p = adminProjects.find(x => x.id === id);
+      if (!p) return;
+      const client = p.client_profiles || {};
+
+      const modal = document.getElementById('adminProjectModal');
+      const body  = document.getElementById('adminModalBody');
+      document.getElementById('adminModalTitle').textContent = p.title;
+      body.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+      modal.classList.add('show');
+
+      // Get docs for this project
+      const { data: docs } = await supabaseClient
+        .from('project_documents')
+        .select('*')
+        .eq('project_id', id)
+        .order('created_at', { ascending: false });
+
+      body.innerHTML = `
+        <div style="display:grid;gap:10px;margin-bottom:20px;">
+          <div class="info-row">
+            <span class="label">Client</span>
+            <span class="value">
+              ${escapeHtmlAdmin(client.full_name || '—')}<br>
+              <small style="color:var(--muted);">${escapeHtmlAdmin(client.phone || '')} · ${escapeHtmlAdmin(client.company || '')}</small>
+            </span>
+          </div>
+          <div class="info-row"><span class="label">Service</span><span class="value">${escapeHtmlAdmin(p.service_type)}</span></div>
+          <div class="info-row"><span class="label">Location</span><span class="value">${escapeHtmlAdmin(p.location || '—')}</span></div>
+          <div class="info-row"><span class="label">Budget</span><span class="value">${escapeHtmlAdmin(p.budget || '—')}</span></div>
+          <div class="info-row"><span class="label">Timeline</span><span class="value">${escapeHtmlAdmin(p.timeline || '—')}</span></div>
+        </div>
+
+        <h4 style="font-size:0.95rem;margin-bottom:8px;">Description</h4>
+        <p style="background:var(--bg-table-hover);padding:12px;border-radius:8px;font-size:0.9rem;white-space:pre-wrap;margin-bottom:20px;">
+          ${escapeHtmlAdmin(p.description || '—')}
+        </p>
+
+        <h4 style="font-size:0.95rem;margin-bottom:8px;">Update Status</h4>
+        <select id="adminStatusSelect" class="form-control" style="margin-bottom:12px;">
+          <option value="pending" ${p.status==='pending'?'selected':''}>Pending</option>
+          <option value="in_progress" ${p.status==='in_progress'?'selected':''}>In Progress</option>
+          <option value="review" ${p.status==='review'?'selected':''}>Under Review</option>
+          <option value="completed" ${p.status==='completed'?'selected':''}>Completed</option>
+          <option value="cancelled" ${p.status==='cancelled'?'selected':''}>Cancelled</option>
+        </select>
+
+        <h4 style="font-size:0.95rem;margin-bottom:8px;">Notes for Client</h4>
+        <textarea id="adminNotesInput" class="form-control" rows="3"
+          placeholder="e.g. Site visit scheduled for Monday 10am.">${escapeHtmlAdmin(p.admin_notes || '')}</textarea>
+
+        <button class="btn btn-primary" style="margin-top:12px;" onclick="saveAdminProject('${p.id}')">
+          <i class="fas fa-save"></i> Save Changes
+        </button>
+
+        <h4 style="font-size:0.95rem;margin:24px 0 8px;">
+          <i class="fas fa-paperclip"></i> Documents (${docs?.length || 0})
+        </h4>
+        <div style="margin-bottom:16px;">
+          <input type="file" id="adminDocFile" class="form-control" style="margin-bottom:8px;">
+          <button class="btn btn-outline btn-sm" onclick="adminUploadDoc('${p.id}')">
+            <i class="fas fa-upload"></i> Upload to this project
+          </button>
+        </div>
+        ${docs && docs.length ? `
+          <table class="post-list">
+            <thead><tr><th>File</th><th>By</th><th>Size</th><th></th></tr></thead>
+            <tbody>
+              ${docs.map(d => `
+                <tr>
+                  <td><strong>${escapeHtmlAdmin(d.file_name)}</strong></td>
+                  <td><span class="badge">${d.uploader_role}</span></td>
+                  <td>${(d.file_size/1024).toFixed(1)} KB</td>
+                  <td class="post-actions">
+                    <button class="btn btn-sm btn-outline" onclick="adminDownloadDoc('${d.id}')">
+                      <i class="fas fa-download"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="adminDeleteDoc('${d.id}')">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        ` : `<p style="color:var(--muted);font-size:0.85rem;">No documents uploaded.</p>`}
+      `;
+    }
+
+    async function saveAdminProject(id) {
+      const status = document.getElementById('adminStatusSelect').value;
+      const notes  = document.getElementById('adminNotesInput').value;
+
+      const { error } = await supabaseClient
+        .from('projects')
+        .update({ status, admin_notes: notes, updated_at: new Date().toISOString() })
+        .eq('id', id);
+
+      if (error) {
+        showAlert(document.getElementById('clientsStatusAlert'), 'Save failed: ' + error.message, 'error');
+        return;
+      }
+      showAlert(document.getElementById('clientsStatusAlert'), 'Project updated!', 'success');
+      await loadAdminProjects();
+    }
+
+    async function adminUploadDoc(projectId) {
+      const fileInput = document.getElementById('adminDocFile');
+      const file = fileInput.files[0];
+      if (!file) return alert('Select a file first');
+
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      const safeName = file.name.replace(/[^\w.\-]+/g, '_');
+      const path = `admin/${projectId}/${Date.now()}_${safeName}`;
+
+      const { error: upErr } = await supabaseClient.storage
+        .from(PROJECT_DOCS_BUCKET).upload(path, file, { contentType: file.type || 'application/octet-stream' });
+      if (upErr) return alert('Upload failed: ' + upErr.message);
+
+      const { error: dbErr } = await supabaseClient.from('project_documents').insert([{
+        project_id: projectId,
+        uploaded_by: user.id,
+        uploader_role: 'admin',
+        file_name: file.name,
+        file_path: path,
+        file_size: file.size,
+        file_type: file.type
+      }]);
+      if (dbErr) return alert('DB error: ' + dbErr.message);
+
+      alert('File uploaded!');
+      openAdminProject(projectId);
+    }
+
+    async function adminDownloadDoc(id) {
+      const { data: d } = await supabaseClient.from('project_documents').select('file_path').eq('id', id).single();
+      const { data, error } = await supabaseClient.storage.from(PROJECT_DOCS_BUCKET).createSignedUrl(d.file_path, 60);
+      if (error) return alert('Download error: ' + error.message);
+      window.open(data.signedUrl, '_blank');
+    }
+
+    async function adminDeleteDoc(id) {
+      if (!confirm('Delete this document?')) return;
+      const { data: d } = await supabaseClient.from('project_documents').select('file_path').eq('id', id).single();
+      await supabaseClient.storage.from(PROJECT_DOCS_BUCKET).remove([d.file_path]);
+      await supabaseClient.from('project_documents').delete().eq('id', id);
+      alert('Deleted');
+      document.getElementById('adminProjectModal').classList.remove('show');
+    }
+
+    // Attach to window so inline onclick works
+    window.openAdminProject   = openAdminProject;
+    window.saveAdminProject   = saveAdminProject;
+    window.adminUploadDoc     = adminUploadDoc;
+    window.adminDownloadDoc   = adminDownloadDoc;
+    window.adminDeleteDoc     = adminDeleteDoc;
+
+    // Filters
+    document.getElementById('filterStatus')?.addEventListener('change', renderAdminProjects);
+    document.getElementById('filterSearch')?.addEventListener('input', renderAdminProjects);
+
+    // Close modal
+    document.getElementById('closeAdminModal')?.addEventListener('click', () => {
+      document.getElementById('adminProjectModal').classList.remove('show');
+    });
+    document.getElementById('adminProjectModal')?.addEventListener('click', (e) => {
+      if (e.target.id === 'adminProjectModal') e.target.classList.remove('show');
+    });
+
+    // ===== 8. START APP =====
     document.addEventListener('DOMContentLoaded', checkSession);
   </script>
 </body>
