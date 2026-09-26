@@ -939,6 +939,16 @@
     }
     [data-theme="dark"] .contact-note { color: #94a3b8; }
 
+    /* WhatsApp submit button */
+    .btn-whatsapp-submit {
+      width: 100%; padding: 16px;
+      background: #25D366;
+      box-shadow: 0 10px 25px rgba(37,211,102,0.35);
+    }
+    .btn-whatsapp-submit:hover {
+      box-shadow: 0 16px 35px rgba(37,211,102,0.5);
+    }
+
     .stats-bar {
       background: var(--primary-dark);
       padding: 40px var(--container-pad);
@@ -1754,14 +1764,14 @@
             </a>
           </div>
         </div>
-        <form action="https://formspree.io/f/xvzddell" method="POST" class="contact-form" aria-label="Contact form">
+        <form id="whatsappInquiryForm" class="contact-form" aria-label="WhatsApp inquiry form">
           <div class="form-group">
             <label for="contactName">Your Name</label>
             <input type="text" id="contactName" name="name" class="form-control" placeholder="Enter your full name" required>
           </div>
           <div class="form-group">
-            <label for="contactEmail">Your Email</label>
-            <input type="email" id="contactEmail" name="email" class="form-control" placeholder="Enter your email address" required>
+            <label for="contactEmail">Your Email (optional)</label>
+            <input type="email" id="contactEmail" name="email" class="form-control" placeholder="Enter your email address">
           </div>
           <div class="form-group">
             <label for="contactPhone">Your Phone (optional)</label>
@@ -1769,31 +1779,32 @@
           </div>
           <div class="form-group">
             <label for="contactService">Service Needed</label>
-            <select id="contactService" name="service" class="form-control">
+            <select id="contactService" name="service" class="form-control" required>
               <option value="">Select a service</option>
-              <option value="due-diligence">Due Diligence on Buying Land</option>
-              <option value="subdivision">Land Subdivision</option>
-              <option value="sectional">Sectional Property</option>
-              <option value="boundary">Boundary Alignment</option>
-              <option value="title">Title Processing</option>
-              <option value="allotment">Allotment Letter & New Grant Survey</option>
-              <option value="loss-title">Loss of Title</option>
-              <option value="pre-purchase">Pre-Purchase Inspection</option>
-              <option value="advertisement">Sending Advertisements Inquiry</option>
-              <option value="consultation">Consultation Matters on Land</option>
-              <option value="court-report">Report by a Land Surveyor to Court</option>
-              <option value="mediation">Mediation in Land Dispute</option>
-              <option value="locate-land">Can't Find Your Land?</option>
-              <option value="other">Other</option>
+              <option value="Due Diligence on Buying Land">Due Diligence on Buying Land</option>
+              <option value="Land Subdivision">Land Subdivision</option>
+              <option value="Sectional Property">Sectional Property</option>
+              <option value="Boundary Alignment">Boundary Alignment</option>
+              <option value="Title Processing">Title Processing</option>
+              <option value="Allotment Letter & New Grant Survey">Allotment Letter & New Grant Survey</option>
+              <option value="Loss of Title">Loss of Title</option>
+              <option value="Pre-Purchase Inspection">Pre-Purchase Inspection</option>
+              <option value="Sending Advertisements Inquiry">Sending Advertisements Inquiry</option>
+              <option value="Consultation Matters on Land">Consultation Matters on Land</option>
+              <option value="Report by a Land Surveyor to Court">Report by a Land Surveyor to Court</option>
+              <option value="Mediation in Land Dispute">Mediation in Land Dispute</option>
+              <option value="Can't Find Your Land?">Can't Find Your Land?</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div class="form-group">
             <label for="contactMessage">Your Message</label>
-            <textarea id="contactMessage" name="message" class="form-control" rows="5" placeholder="Tell us about your project or inquiry" required></textarea>
+            <textarea id="contactMessage" name="message" class="form-control" rows="4" placeholder="Tell us about your project or inquiry" required></textarea>
           </div>
-          <input type="hidden" name="subject" value="Njogu Surveyor Website Inquiry">
-          <button type="submit" class="btn" style="width:100%;padding:16px;">Send Message</button>
-          <p class="contact-note">We reply within 1 business day</p>
+          <button type="submit" class="btn btn-whatsapp-submit">
+            <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i> Send via WhatsApp
+          </button>
+          <p class="contact-note">Your message will open in WhatsApp — we reply within 1 business day</p>
         </form>
       </div>
     </section>
@@ -1961,6 +1972,33 @@
         .bindPopup(popupContent, { maxWidth: 280 })
         .openPopup();
     }
+
+    // ===== WhatsApp Form Submission =====
+    const whatsappForm = document.getElementById('whatsappInquiryForm');
+    whatsappForm?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const phone = document.getElementById('contactPhone').value.trim();
+      const service = document.getElementById('contactService').value;
+      const message = document.getElementById('contactMessage').value.trim();
+      
+      if (!name || !service || !message) {
+        alert('Please fill in your name, select a service, and provide a message.');
+        return;
+      }
+      
+      let whatsappText = `Hello Njogu Surveyor, I would like to make an inquiry.%0A%0A`;
+      whatsappText += `*Name:* ${encodeURIComponent(name)}%0A`;
+      if (email) whatsappText += `*Email:* ${encodeURIComponent(email)}%0A`;
+      if (phone) whatsappText += `*Phone:* ${encodeURIComponent(phone)}%0A`;
+      whatsappText += `*Service:* ${encodeURIComponent(service)}%0A`;
+      whatsappText += `*Message:* ${encodeURIComponent(message)}`;
+      
+      const whatsappURL = `https://wa.me/254724737528?text=${whatsappText}`;
+      window.open(whatsappURL, '_blank');
+    });
 
     const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
