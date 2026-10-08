@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Articles — Njogu Surveyor</title>
+  <meta name="description" content="In-depth articles on land surveying, property, and real estate in Kenya.">
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #dc2626;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg-card: #ffffff;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.08);
+      --radius-lg: 16px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #ef4444;
+      --light: #0f172a;
+      --dark: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+      --bg-card: #1e293b;
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    [data-theme="dark"] body { background: #0f172a; }
+
+    /* Header */
+    .site-header {
+      background: var(--primary-dark);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      position: sticky; top: 0; z-index: 100;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .site-header a.back-link {
+      color: #fff; text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.9rem;
+    }
+    .site-header a.back-link:hover { color: #fca5a5; }
+    .site-header .brand {
+      font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .site-header .brand span { color: var(--secondary); }
+    .theme-toggle {
+      background: rgba(255,255,255,0.15); border: none; color: #fff;
+      width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .theme-toggle:hover { background: var(--secondary); }
+
+    /* Hero */
+    .articles-hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: #fff;
+      padding: 56px 24px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .articles-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 80% 50%, rgba(220,38,38,0.25), transparent 60%);
+    }
+    .articles-hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+    .articles-hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .articles-hero p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .service-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    /* Articles grid */
+    .articles-grid {
+      display: grid;
+      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    }
+    .article-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.14);
+    }
+    .article-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .article-card-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+    .article-card-body h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--dark);
+      line-height: 1.35;
+    }
+    .article-card-body p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      flex: 1;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .article-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+      gap: 8px;
+    }
+    .article-card-meta .read-more {
+      color: var(--primary);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    [data-theme="dark"] .article-card-meta .read-more { color: var(--primary-light); }
+
+    /* Loading skeleton */
+    .skeleton-article {
+      height: 340px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 37%, #e5e7eb 63%);
+      background-size: 400% 100%;
+      animation: skeleton 1.4s ease infinite;
+    }
+    [data-theme="dark"] .skeleton-article {
+      background: linear-gradient(90deg, #2d333b 25%, #373e47 37%, #2d333b 63%);
+    }
+    @keyframes skeleton {
+      0% { background-position: 100% 0; }
+      100% { background-position: 0 0; }
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 64px 24px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .empty-state i {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+    .empty-state h3 {
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .empty-state .btn { margin-top: 20px; }
+
+    /* Modal */
+    .article-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px;
+      z-index: 500;
+      overflow-y: auto;
+    }
+    .article-modal.show { display: flex; }
+    .article-modal-box {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      max-width: 780px;
+      width: 100%;
+      margin: 40px 0;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+      animation: fadeIn 0.3s ease;
+      overflow: hidden;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .article-modal-image {
+      width: 100%;
+      max-height: 340px;
+      object-fit: cover;
+      display: block;
+    }
+    .article-modal-content { padding: 32px; }
+    .article-modal-content h2 {
+      font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.25;
+      color: var(--dark);
+    }
+    .article-modal-meta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-modal-body {
+      color: var(--dark);
+      font-size: 1.02rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .article-modal-body p { margin-bottom: 16px; }
+    .article-modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .article-modal-close:hover { background: var(--secondary); }
+
+    @media (max-width: 600px) {
+      .article-modal-content { padding: 24px; }
+      .article-modal-box { margin: 20px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+    <div class="brand"><span>Njogu</span>Surveyor</div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <i class="fas fa-moon"></i>
+    </button>
+  </header>
+
+  <section class="articles-hero">
+    <div class="articles-hero-content">
+      <h1 id="heroTitle">Articles & Insights</h1>
+      <p id="heroSubtitle">Practical guides written by registered surveyors, tailored to the service you selected.</p>
+      <div class="service-chip" id="serviceChip" style="display:none;">
+        <i class="fas fa-tag"></i>
+        <span id="serviceChipLabel"></span>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <div id="articlesGrid" class="articles-grid">
+      <div class="skeleton-article"></div>
+      <div class="skeleton-article"></div>
+      <div class="skeleton-article"></div>
+    </div>
+  </main>
+
+  <div class="article-modal" id="articleModal">
+    <div style="position:relative; width:100%; max-width:780px;">
+      <button class="article-modal-close" id="closeModal" aria-label="Close article">&times;</button>
+      <div class="article-modal-box">
+        <img id="modalImage" class="article-modal-image" alt="">
+        <div class="article-modal-content">
+          <h2 id="modalTitle"></h2>
+          <div class="article-modal-meta" id="modalMeta"></div>
+          <div class="article-modal-body" id="modalBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    const SUPABASE_URL = 'https://cfnqxskcrfrwqtgldovg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbnF4c2tjcmZyd3F0Z2xkb3ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODg1NDUsImV4cCI6MjA5MzQ2NDU0NX0.XeA-8nkaQmIn_o6hSXEredFA0VDCJNylt50kp7UK2ng';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const SERVICE_MAP = {
+      'due-diligence':    'Due Diligence on Buying Land',
+      'land-subdivision': 'Land Subdivision',
+      'sectional':        'Sectional Property',
+      'boundary':         'Boundary Alignment',
+      'title-processing': 'Title Processing',
+      'allotment':        'Allotment Letter & New Grant Survey',
+      'loss-of-title':    'Loss of Title',
+      'pre-purchase':     'Pre-Purchase Inspection',
+      'advertising':      'Sending Advertisements Inquiry',
+      'consultation':     'Consultation Matters on Land',
+      'court-report':     'Report by a Land Surveyor to Court',
+      'mediation':        'Mediation in Land Dispute',
+      'locate-land':      "Can't Find Your Land?"
+    };
+
+    // ============================================================
+    // THEME
+    // ============================================================
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.querySelector('i').className = 'fas fa-sun';
+    }
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      themeToggle.querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    });
+
+    // ============================================================
+    // URL PARAMS
+    // ============================================================
+    const params = new URLSearchParams(window.location.search);
+    const serviceSlug = params.get('service') || '';
+    const serviceName = SERVICE_MAP[serviceSlug] || '';
+
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSubtitle = document.getElementById('heroSubtitle');
+    const serviceChip = document.getElementById('serviceChip');
+    const serviceChipLabel = document.getElementById('serviceChipLabel');
+    const articlesGrid = document.getElementById('articlesGrid');
+
+    if (serviceName) {
+      heroTitle.textContent = serviceName;
+      heroSubtitle.textContent = 'Articles and guides about this service from our registered surveyors.';
+      serviceChip.style.display = 'inline-flex';
+      serviceChipLabel.textContent = serviceName;
+      document.title = `${serviceName} — Articles — Njogu Surveyor`;
+    } else {
+      heroSubtitle.textContent = 'All articles from Njogu Surveyor across every service.';
+    }
+
+    // ============================================================
+    // HELPERS
+    // ============================================================
+    function esc(s) {
+      if (s == null) return '';
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+
+    function excerpt(content, maxLen = 160) {
+      if (!content) return '';
+      const clean = content.replace(/\s+/g, ' ').trim();
+      return clean.length > maxLen ? clean.slice(0, maxLen) + '…' : clean;
+    }
+
+    function formatDate(iso) {
+      return new Date(iso).toLocaleDateString('en-KE', {
+        year: 'numeric', month: 'short', day: 'numeric'
+      });
+    }
+
+    function paragraphs(content) {
+      return esc(content)
+        .split(/\n\s*\n/)
+        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+        .join('');
+    }
+
+    // ============================================================
+    // LOAD ARTICLES
+    // ============================================================
+    async function loadArticles() {
+      let query = supabaseClient
+        .from('service_articles')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (serviceSlug) {
+        query = query.eq('service_slug', serviceSlug);
+      }
+
+      const { data, error } = await query;
+
+      if (error) {
+        console.error('Load articles error:', error);
+        articlesGrid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Could not load articles</h3>
+            <p>${esc(error.message)}</p>
+            <a href="index.html" class="btn" style="background:var(--secondary);color:#fff;padding:12px 24px;border-radius:50px;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:8px;">
+              <i class="fas fa-home"></i> Go Home
+            </a>
+          </div>`;
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        articlesGrid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <i class="fas fa-file-lines"></i>
+            <h3>No articles yet</h3>
+            <p>${serviceName ? `We're still writing articles about <strong>${esc(serviceName)}</strong>. Check back soon.` : 'No articles have been published yet.'}</p>
+            <a href="index.html#services" style="
+              display:inline-flex;align-items:center;gap:8px;
+              margin-top:20px;padding:12px 24px;
+              background:var(--secondary);color:#fff;
+              border-radius:50px;text-decoration:none;font-weight:700;
+            ">
+              <i class="fas fa-arrow-left"></i> Back to Services
+            </a>
+          </div>`;
+        return;
+      }
+
+      articlesGrid.innerHTML = data.map((a, i) => {
+        const img = a.image_url || 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&auto=format&fit=crop';
+        return `
+          <article class="article-card" onclick='openArticle(${JSON.stringify(a).replace(/'/g, "&#39;")})' style="animation-delay:${i * 0.05}s">
+            <img src="${esc(img)}" alt="${esc(a.title)}" loading="lazy">
+            <div class="article-card-body">
+              <h3>${esc(a.title)}</h3>
+              <p>${esc(excerpt(a.content))}</p>
+              <div class="article-card-meta">
+                <span><i class="far fa-calendar"></i> ${formatDate(a.created_at)}</span>
+                <span class="read-more">Read <i class="fas fa-arrow-right"></i></span>
+              </div>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    // ============================================================
+    // MODAL
+    // ============================================================
+    const modal = document.getElementById('articleModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalBody = document.getElementById('modalBody');
+
+    window.openArticle = function(article) {
+      modalTitle.textContent = article.title;
+      modalBody.innerHTML = paragraphs(article.content || '');
+      modalMeta.innerHTML = `
+        <span><i class="far fa-calendar"></i> ${formatDate(article.created_at)}</span>
+        <span><i class="far fa-user"></i> ${esc(article.author || 'Njogu Surveyor Team')}</span>
+        <span><i class="fas fa-tag"></i> ${esc(article.service_name || 'General')}</span>
+      `;
+      if (article.image_url) {
+        modalImage.src = article.image_url;
+        modalImage.style.display = 'block';
+      } else {
+        modalImage.style.display = 'none';
+      }
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    };
+
+    function closeModal() {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+    });
+
+    // ============================================================
+    // GO
+    // ============================================================
+    loadArticles();
+  </script>
+</body>
+</html>
