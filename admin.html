@@ -84,7 +84,7 @@
     [data-theme="dark"] #loginView {
       background: linear-gradient(135deg, var(--light) 0%, #0f172a 100%);
     }
-    
+
     .login-card {
       background: var(--bg-card);
       border-radius: var(--radius-lg);
@@ -94,7 +94,7 @@
       max-width: 420px;
       padding: 36px 32px;
     }
-    
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -145,7 +145,7 @@
 
     /* ==================== ADMIN DASHBOARD ==================== */
     #adminDashboard { display: none; }
-    
+
     .admin-header {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
       color: #fff;
@@ -183,7 +183,6 @@
       gap: 8px;
       color: white;
     }
-    /* ===== CLIENT PORTAL QUICK ACCESS ===== */
     .portal-quick-btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 8px 16px; background: rgba(255,255,255,0.2);
@@ -315,7 +314,7 @@
     .alert { padding: 12px; border-radius: 6px; margin-bottom: 16px; display: none; font-size: 0.9rem; }
     .alert-error { background: #fee2e2; color: #b91c1c; }
     .alert-success { background: #dcfce7; color: #15803d; }
-    
+
     .loading { text-align: center; padding: 40px; color: var(--muted); }
     .empty-state { text-align: center; padding: 40px; color: var(--muted); }
 
@@ -376,6 +375,22 @@
     .info-row:last-child { border-bottom: none; }
     .info-row .label { color: var(--muted); font-weight: 600; flex-shrink: 0; }
     .info-row .value { text-align: right; font-weight: 500; }
+
+    /* ==================== ARTICLE IMAGE PREVIEW ==================== */
+    #currentImageWrap {
+      padding: 12px;
+      background: var(--bg-table-hover);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+    #currentImagePreview {
+      display: block;
+      max-width: 100%;
+      max-height: 180px;
+      border-radius: var(--radius-sm);
+      margin-top: 6px;
+      object-fit: cover;
+    }
 
     /* ==================== SCROLLBAR ==================== */
     ::-webkit-scrollbar { width: 8px; }
@@ -443,6 +458,7 @@
 
         <div class="admin-tabs">
           <button class="admin-tab-btn active" data-tab="blogPanel"><i class="fas fa-pen-nib"></i> Blog</button>
+          <button class="admin-tab-btn" data-tab="articlesPanel"><i class="fas fa-book-open"></i> Service Articles</button>
           <button class="admin-tab-btn" data-tab="reportsPanel"><i class="fas fa-file-pdf"></i> Client Reports</button>
           <button class="admin-tab-btn" data-tab="clientsPanel"><i class="fas fa-users"></i> Client Projects</button>
         </div>
@@ -513,6 +529,100 @@
               </table>
               <div id="emptyState" class="empty-state" style="display:none;">
                 <p>No posts found.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SERVICE ARTICLES PANEL ==================== -->
+        <div id="articlesPanel" class="admin-panel">
+          <div id="articlesStatusAlert" class="alert"></div>
+
+          <div class="admin-grid">
+            <!-- LEFT: Add / Edit form -->
+            <div class="card">
+              <h2><i class="fas fa-plus-circle"></i> <span id="articleFormHeading">Add New Article</span></h2>
+              <p class="card-note">
+                Each article is linked to exactly one service. It will appear on that service's "Learn More" page.
+              </p>
+              <form id="articleForm">
+                <input type="hidden" id="articleId">
+
+                <div class="form-group">
+                  <label for="articleService">Linked Service *</label>
+                  <select id="articleService" class="form-control" required>
+                    <option value="">— Select a service —</option>
+                    <option value="due-diligence">Due Diligence on Buying Land</option>
+                    <option value="land-subdivision">Land Subdivision</option>
+                    <option value="sectional">Sectional Property</option>
+                    <option value="boundary">Boundary Alignment</option>
+                    <option value="title-processing">Title Processing</option>
+                    <option value="allotment">Allotment Letter & New Grant Survey</option>
+                    <option value="loss-of-title">Loss of Title</option>
+                    <option value="pre-purchase">Pre-Purchase Inspection</option>
+                    <option value="advertising">Sending Advertisements Inquiry</option>
+                    <option value="consultation">Consultation Matters on Land</option>
+                    <option value="court-report">Report by a Land Surveyor to Court</option>
+                    <option value="mediation">Mediation in Land Dispute</option>
+                    <option value="locate-land">Can't Find Your Land?</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="articleTitle">Article Title *</label>
+                  <input type="text" id="articleTitle" class="form-control"
+                         required maxlength="180"
+                         placeholder="e.g. 7 Questions to Ask Before Buying Land in Kenya">
+                </div>
+
+                <div class="form-group">
+                  <label for="articleContent">Article Content (plain text) *</label>
+                  <textarea id="articleContent" class="form-control" rows="12" required
+                            placeholder="Write your article here. Press Enter twice to start a new paragraph."></textarea>
+                  <small style="color:var(--muted);font-size:0.78rem;">
+                    Plain text only. Leave a blank line between paragraphs.
+                  </small>
+                </div>
+
+                <div class="form-group">
+                  <label for="articleImage">Featured Image *</label>
+                  <input type="file" id="articleImage" class="form-control"
+                         accept="image/jpeg,image/png,image/webp">
+                  <small style="color:var(--muted);font-size:0.78rem;">
+                    JPG, PNG, or WebP — max 5 MB. Leave empty when editing to keep the current image.
+                  </small>
+                </div>
+
+                <div id="currentImageWrap" style="display:none;margin-bottom:16px;">
+                  <label style="font-size:0.82rem;font-weight:600;">Current image:</label><br>
+                  <img id="currentImagePreview" alt="Current image">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="articleSubmitBtn">
+                  <i class="fas fa-paper-plane"></i> Publish Article
+                </button>
+
+                <button type="button" class="btn btn-outline btn-block" id="articleCancelBtn"
+                        style="margin-top:10px;display:none;">
+                  Cancel Edit
+                </button>
+              </form>
+            </div>
+
+            <!-- RIGHT: List -->
+            <div class="card">
+              <h2><i class="fas fa-list"></i> All Articles</h2>
+              <div id="articlesLoader" class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Loading articles...
+              </div>
+              <table class="post-list" id="articlesTable" style="display:none;">
+                <thead>
+                  <tr><th>Title</th><th>Service</th><th>Date</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="articlesBody"></tbody>
+              </table>
+              <div id="articlesEmpty" class="empty-state" style="display:none;">
+                <p>No articles yet. Add your first one on the left.</p>
               </div>
             </div>
           </div>
@@ -647,7 +757,24 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const REPORTS_BUCKET = 'client-reports';
     const PROJECT_DOCS_BUCKET = 'project-documents';
+    const ARTICLE_IMAGES_BUCKET = 'article-images';
     const REPORT_PAGE_URL = 'https://njogusurveyor.co.ke/report.html';
+
+    const SERVICE_MAP = {
+      'due-diligence':    'Due Diligence on Buying Land',
+      'land-subdivision': 'Land Subdivision',
+      'sectional':        'Sectional Property',
+      'boundary':         'Boundary Alignment',
+      'title-processing': 'Title Processing',
+      'allotment':        'Allotment Letter & New Grant Survey',
+      'loss-of-title':    'Loss of Title',
+      'pre-purchase':     'Pre-Purchase Inspection',
+      'advertising':      'Sending Advertisements Inquiry',
+      'consultation':     'Consultation Matters on Land',
+      'court-report':     'Report by a Land Surveyor to Court',
+      'mediation':        'Mediation in Land Dispute',
+      'locate-land':      "Can't Find Your Land?"
+    };
 
     // ===== 2. DOM ELEMENTS =====
     const loginView = document.getElementById('loginView');
@@ -657,7 +784,7 @@
     const loginBtn = document.getElementById('loginBtn');
     const userEmailDisplay = document.getElementById('userEmail');
     const logoutBtn = document.getElementById('logoutBtn');
-    
+
     const postForm = document.getElementById('postForm');
     const statusAlert = document.getElementById('statusAlert');
     const postsTable = document.getElementById('postsTable');
@@ -694,6 +821,7 @@
         loginView.style.display = 'none';
         adminDashboard.style.display = 'block';
         loadPosts();
+        loadArticles();
         loadReports();
         loadAdminProjects();
       } else {
@@ -710,6 +838,7 @@
         btn.classList.add('active');
         document.getElementById(btn.dataset.tab).classList.add('active');
         if (btn.dataset.tab === 'clientsPanel') loadAdminProjects();
+        if (btn.dataset.tab === 'articlesPanel') loadArticles();
       });
     });
 
@@ -733,7 +862,7 @@
 
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
 
@@ -842,7 +971,7 @@
           if (error) throw error;
           showAlert(statusAlert, 'New post published!', 'success');
         }
-        
+
         postForm.reset();
         document.getElementById('postId').value = '';
         document.getElementById('publishedDate').valueAsDate = new Date();
@@ -872,7 +1001,7 @@
         document.getElementById('excerpt').value = data.excerpt;
         document.getElementById('imageUrl').value = data.image_url;
         document.getElementById('content').value = data.content;
-        
+
         document.getElementById('submitBtn').innerHTML = '<i class="fas fa-save"></i> Update Post';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (error) {
@@ -1039,9 +1168,269 @@
     }
 
     // ============================================================
-    // ===== 7. CLIENT PROJECTS (ADMIN VIEW — OPTION 2) =====
-    // Two-query merge: fetch projects, then fetch profiles separately,
-    // then merge in JavaScript. No FK constraint required.
+    // ===== 7. SERVICE ARTICLES CRUD (NEW) =====
+    // ============================================================
+    const articleForm = document.getElementById('articleForm');
+    const articlesStatusAlert = document.getElementById('articlesStatusAlert');
+    const articlesLoader = document.getElementById('articlesLoader');
+    const articlesTable = document.getElementById('articlesTable');
+    const articlesBody = document.getElementById('articlesBody');
+    const articlesEmpty = document.getElementById('articlesEmpty');
+    const articleSubmitBtn = document.getElementById('articleSubmitBtn');
+    const articleCancelBtn = document.getElementById('articleCancelBtn');
+    const articleFormHeading = document.getElementById('articleFormHeading');
+    const currentImageWrap = document.getElementById('currentImageWrap');
+    const currentImagePreview = document.getElementById('currentImagePreview');
+
+    let editingArticleImagePath = null; // remember storage path when editing
+
+    async function loadArticles() {
+      articlesLoader.style.display = 'block';
+      articlesTable.style.display = 'none';
+      articlesEmpty.style.display = 'none';
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('service_articles')
+          .select('id, service_slug, service_name, title, image_url, image_path, created_at')
+          .order('created_at', { ascending: false });
+
+        articlesLoader.style.display = 'none';
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          articlesEmpty.style.display = 'block';
+          return;
+        }
+
+        articlesBody.innerHTML = '';
+        data.forEach(a => {
+          const date = new Date(a.created_at).toLocaleDateString('en-KE', { year: 'numeric', month: 'short', day: 'numeric' });
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>
+              <strong>${escapeHtmlAdmin(a.title)}</strong>
+              <small>${escapeHtmlAdmin(a.service_name || a.service_slug)}</small>
+            </td>
+            <td><span class="badge">${escapeHtmlAdmin(a.service_name || a.service_slug)}</span></td>
+            <td>${date}</td>
+            <td class="post-actions">
+              <button class="btn btn-sm btn-primary article-edit-btn" data-id="${a.id}">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-sm btn-danger article-delete-btn" data-id="${a.id}" data-path="${a.image_path || ''}">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          `;
+          articlesBody.appendChild(row);
+        });
+        articlesTable.style.display = 'table';
+
+        document.querySelectorAll('.article-edit-btn').forEach(btn =>
+          btn.addEventListener('click', () => editArticle(btn.dataset.id))
+        );
+        document.querySelectorAll('.article-delete-btn').forEach(btn =>
+          btn.addEventListener('click', () => deleteArticle(btn.dataset.id, btn.dataset.path))
+        );
+
+      } catch (error) {
+        console.error('Load articles error:', error);
+        articlesLoader.style.display = 'none';
+        showAlert(articlesStatusAlert, 'Failed to load articles: ' + error.message, 'error');
+      }
+    }
+
+    articleForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      articleSubmitBtn.disabled = true;
+      articleSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+      const articleId = document.getElementById('articleId').value;
+      const serviceSlug = document.getElementById('articleService').value;
+      const serviceName = SERVICE_MAP[serviceSlug] || serviceSlug;
+      const title = document.getElementById('articleTitle').value.trim();
+      const content = document.getElementById('articleContent').value.trim();
+      const fileInput = document.getElementById('articleImage');
+      const file = fileInput.files[0];
+
+      if (!serviceSlug || !title || !content) {
+        showAlert(articlesStatusAlert, 'Please fill in service, title, and content.', 'error');
+        articleSubmitBtn.disabled = false;
+        articleSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Article';
+        return;
+      }
+
+      if (!articleId && !file) {
+        showAlert(articlesStatusAlert, 'Please choose a featured image.', 'error');
+        articleSubmitBtn.disabled = false;
+        articleSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Article';
+        return;
+      }
+
+      try {
+        let imageUrl = null;
+        let imagePath = editingArticleImagePath;
+
+        // If a new file was selected, upload it
+        if (file) {
+          if (!file.type.startsWith('image/')) {
+            throw new Error('Please select a valid image file.');
+          }
+          if (file.size > 5 * 1024 * 1024) {
+            throw new Error('Image is larger than 5 MB.');
+          }
+
+          const ext = file.name.split('.').pop().toLowerCase();
+          const safeSlug = serviceSlug.replace(/[^a-z0-9-]/g, '-');
+          const newPath = `${safeSlug}/${Date.now()}_${crypto.randomUUID().slice(0,8)}.${ext}`;
+
+          const { error: uploadErr } = await supabaseClient
+            .storage
+            .from(ARTICLE_IMAGES_BUCKET)
+            .upload(newPath, file, {
+              contentType: file.type,
+              upsert: false
+            });
+          if (uploadErr) throw uploadErr;
+
+          const { data: urlData } = supabaseClient
+            .storage
+            .from(ARTICLE_IMAGES_BUCKET)
+            .getPublicUrl(newPath);
+
+          imageUrl = urlData.publicUrl;
+          imagePath = newPath;
+
+          // If editing and there was an old image at a different path, delete it
+          if (articleId && editingArticleImagePath && editingArticleImagePath !== newPath) {
+            await supabaseClient.storage.from(ARTICLE_IMAGES_BUCKET).remove([editingArticleImagePath]);
+          }
+        }
+
+        const payload = {
+          service_slug: serviceSlug,
+          service_name: serviceName,
+          title,
+          content,
+          image_url: imageUrl || null,
+          image_path: imagePath || null,
+          updated_at: new Date().toISOString()
+        };
+
+        if (articleId) {
+          const { error } = await supabaseClient
+            .from('service_articles')
+            .update(payload)
+            .eq('id', articleId);
+          if (error) throw error;
+          showAlert(articlesStatusAlert, 'Article updated successfully!', 'success');
+        } else {
+          const { error } = await supabaseClient
+            .from('service_articles')
+            .insert([payload]);
+          if (error) throw error;
+          showAlert(articlesStatusAlert, 'Article published successfully!', 'success');
+        }
+
+        resetArticleForm();
+        loadArticles();
+
+      } catch (error) {
+        console.error('Save article error:', error);
+        showAlert(articlesStatusAlert, 'Failed to save article: ' + error.message, 'error');
+      } finally {
+        articleSubmitBtn.disabled = false;
+        articleSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Article';
+      }
+    });
+
+    async function editArticle(id) {
+      try {
+        const { data, error } = await supabaseClient
+          .from('service_articles')
+          .select('*')
+          .eq('id', id)
+          .single();
+        if (error) throw error;
+
+        document.getElementById('articleId').value = data.id;
+        document.getElementById('articleService').value = data.service_slug;
+        document.getElementById('articleTitle').value = data.title;
+        document.getElementById('articleContent').value = data.content;
+        document.getElementById('articleImage').value = '';
+
+        if (data.image_url) {
+          currentImageWrap.style.display = 'block';
+          currentImagePreview.src = data.image_url;
+        } else {
+          currentImageWrap.style.display = 'none';
+        }
+
+        editingArticleImagePath = data.image_path || null;
+
+        articleFormHeading.textContent = 'Edit Article';
+        articleSubmitBtn.innerHTML = '<i class="fas fa-save"></i> Update Article';
+        articleCancelBtn.style.display = 'inline-flex';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (error) {
+        console.error('Edit article error:', error);
+        showAlert(articlesStatusAlert, 'Failed to load article: ' + error.message, 'error');
+      }
+    }
+
+    function resetArticleForm() {
+      articleForm.reset();
+      document.getElementById('articleId').value = '';
+      editingArticleImagePath = null;
+      currentImageWrap.style.display = 'none';
+      currentImagePreview.src = '';
+      articleFormHeading.textContent = 'Add New Article';
+      articleSubmitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Publish Article';
+      articleCancelBtn.style.display = 'none';
+    }
+
+    articleCancelBtn?.addEventListener('click', () => {
+      resetArticleForm();
+      showAlert(articlesStatusAlert, 'Edit cancelled.', 'success');
+    });
+
+    async function deleteArticle(id, imagePath) {
+      if (!confirm('Delete this article? This cannot be undone.')) return;
+
+      try {
+        if (imagePath) {
+          const { error: storageErr } = await supabaseClient
+            .storage
+            .from(ARTICLE_IMAGES_BUCKET)
+            .remove([imagePath]);
+          if (storageErr) console.warn('Storage delete warning:', storageErr.message);
+        }
+
+        const { error } = await supabaseClient
+          .from('service_articles')
+          .delete()
+          .eq('id', id);
+        if (error) throw error;
+
+        showAlert(articlesStatusAlert, 'Article deleted.', 'success');
+
+        // If we were editing this same article, reset the form
+        if (document.getElementById('articleId').value === id) {
+          resetArticleForm();
+        }
+
+        loadArticles();
+      } catch (error) {
+        console.error('Delete article error:', error);
+        showAlert(articlesStatusAlert, 'Failed to delete article: ' + error.message, 'error');
+      }
+    }
+
+    // ============================================================
+    // ===== 8. CLIENT PROJECTS (ADMIN VIEW) =====
     // ============================================================
     let adminProjects = [];
 
@@ -1056,7 +1445,6 @@
       empty.style.display  = 'none';
 
       try {
-        // ---- QUERY 1: Fetch all projects ----
         const { data: projects, error: projErr } = await supabaseClient
           .from('projects')
           .select('id, title, service_type, location, description, budget, timeline, status, admin_notes, created_at, client_id')
@@ -1071,7 +1459,6 @@
           return;
         }
 
-        // ---- QUERY 2: Fetch profiles for those client IDs ----
         const clientIds = [...new Set(projects.map(p => p.client_id).filter(Boolean))];
 
         let profiles = [];
@@ -1082,14 +1469,12 @@
             .in('id', clientIds);
 
           if (profErr) {
-            // Non-fatal: log and continue with no profiles
             console.warn('Could not load client profiles:', profErr.message);
           } else {
             profiles = profData || [];
           }
         }
 
-        // ---- MERGE: Attach profile to each project ----
         const profileMap = {};
         profiles.forEach(pr => { profileMap[pr.id] = pr; });
 
@@ -1179,7 +1564,6 @@
       body.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
       modal.classList.add('show');
 
-      // Get docs for this project
       const { data: docs, error: docsErr } = await supabaseClient
         .from('project_documents')
         .select('*')
@@ -1275,15 +1659,12 @@
       }
       showAlert(document.getElementById('clientsStatusAlert'), 'Project updated!', 'success');
 
-      // Update local cache so the modal stays consistent without a full reload
       const p = adminProjects.find(x => x.id === id);
       if (p) {
         p.status = status;
         p.admin_notes = notes;
       }
-      // Re-render table
       renderAdminProjects();
-      // Close modal
       document.getElementById('adminProjectModal').classList.remove('show');
     }
 
@@ -1340,27 +1721,22 @@
       const { error: delErr } = await supabaseClient.from('project_documents').delete().eq('id', id);
       if (delErr) return alert('Delete failed: ' + delErr.message);
 
-      // Re-open modal to refresh the doc list
       openAdminProject(projectId);
     }
 
-    // Attach to window so inline onclick works
     window.openAdminProject   = openAdminProject;
     window.saveAdminProject   = saveAdminProject;
     window.adminUploadDoc     = adminUploadDoc;
     window.adminDownloadDoc   = adminDownloadDoc;
     window.adminDeleteDoc     = adminDeleteDoc;
 
-    // Filters
     document.getElementById('filterStatus')?.addEventListener('change', renderAdminProjects);
     document.getElementById('filterSearch')?.addEventListener('input', renderAdminProjects);
 
-    // Refresh button
     document.getElementById('refreshProjectsBtn')?.addEventListener('click', () => {
       loadAdminProjects();
     });
 
-    // Close modal
     document.getElementById('closeAdminModal')?.addEventListener('click', () => {
       document.getElementById('adminProjectModal').classList.remove('show');
     });
@@ -1368,7 +1744,7 @@
       if (e.target.id === 'adminProjectModal') e.target.classList.remove('show');
     });
 
-    // ===== 8. START APP =====
+    // ===== 9. START APP =====
     document.addEventListener('DOMContentLoaded', checkSession);
   </script>
 </body>
